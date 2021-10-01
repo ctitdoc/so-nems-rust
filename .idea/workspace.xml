@@ -9,11 +9,12 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="wip sur la carte">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="wip sur la carte ajout de tarif dans la carte">
+      <change afterPath="$PROJECT_DIR$/www/mon-compte.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/La-carte.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/La-carte.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/La-carte.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/La-carte.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -116,7 +117,7 @@
       <workItem from="1632903026384" duration="10610000" />
       <workItem from="1632926771850" duration="4216000" />
       <workItem from="1632987042972" duration="7856000" />
-      <workItem from="1633074562788" duration="14079000" />
+      <workItem from="1633074562788" duration="14589000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -139,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633084106278</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="wip sur la carte ajout de tarif dans la carte">
+      <created>1633100111755</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1633100111755</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +168,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="intial commit" />
     <MESSAGE value="wip sur la carte" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip sur la carte" />
+    <MESSAGE value="wip sur la carte ajout de tarif dans la carte" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip sur la carte ajout de tarif dans la carte" />
   </component>
 </project>
