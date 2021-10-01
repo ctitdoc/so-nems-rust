@@ -9,14 +9,11 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="intial commit">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="wip sur la carte">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/La-carte.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/La-carte.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/La-carte.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/La-carte.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/contact.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/so-nems.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +116,7 @@
       <workItem from="1632903026384" duration="10610000" />
       <workItem from="1632926771850" duration="4216000" />
       <workItem from="1632987042972" duration="7856000" />
-      <workItem from="1633074562788" duration="5903000" />
+      <workItem from="1633074562788" duration="14079000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -135,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632909269074</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="wip sur la carte">
+      <created>1633084106278</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1633084106278</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +159,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="intial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="intial commit" />
+    <MESSAGE value="wip sur la carte" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip sur la carte" />
   </component>
 </project>
