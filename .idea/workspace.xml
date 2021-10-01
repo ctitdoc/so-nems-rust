@@ -9,40 +9,14 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.appveyor.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE_APACHE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE_MIT" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img-sonems" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/web.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/La-carte.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/La-carte.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/contact.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/contact.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/dark-scoot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/deadpool-scoot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/deadpool-sct.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/img-livraison.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/img-livraison2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/img-livraison3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/nems-logo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/img/nems.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/www/todolist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/www/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/www/package.json" afterDir="false" />
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="intial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/La-carte.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/La-carte.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/La-carte.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/La-carte.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/www/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/so-nems.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +76,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -116,11 +95,6 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -142,8 +116,26 @@
       <workItem from="1632726233390" duration="18730000" />
       <workItem from="1632812688357" duration="386000" />
       <workItem from="1632814202570" duration="1428000" />
-      <workItem from="1632903026384" duration="4629000" />
+      <workItem from="1632903026384" duration="10610000" />
+      <workItem from="1632926771850" duration="4216000" />
+      <workItem from="1632987042972" duration="7856000" />
+      <workItem from="1633074562788" duration="5903000" />
     </task>
+    <task id="LOCAL-00001" summary="intial commit">
+      <created>1632909139382</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1632909139382</updated>
+    </task>
+    <task id="LOCAL-00002" summary="intial commit">
+      <created>1632909269074</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1632909269074</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,5 +152,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="intial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="intial commit" />
   </component>
 </project>
