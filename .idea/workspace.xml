@@ -10,8 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="wip sur la carte changement police">
-      <change afterPath="$PROJECT_DIR$/deploy_prod.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +116,7 @@
       <workItem from="1632987042972" duration="7856000" />
       <workItem from="1633074562788" duration="22338000" />
       <workItem from="1633117384391" duration="46000" />
-      <workItem from="1633158632270" duration="97000" />
+      <workItem from="1633158632270" duration="572000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -169,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633104901096</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="wip sur la carte changement police">
+      <created>1633158822129</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1633158822129</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
