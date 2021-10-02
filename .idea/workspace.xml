@@ -116,7 +116,7 @@
       <workItem from="1632987042972" duration="7856000" />
       <workItem from="1633074562788" duration="22338000" />
       <workItem from="1633117384391" duration="46000" />
-      <workItem from="1633158632270" duration="572000" />
+      <workItem from="1633158632270" duration="1273000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -174,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633158822129</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="wip sur la carte changement police">
+      <created>1633159260509</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1633159260509</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
