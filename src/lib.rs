@@ -15,5 +15,5 @@ extern {
 
 #[wasm_bindgen]
 pub fn greet() {
-    alert("Are you a nem addict ?");
+    alert("Welcome name addict !");
 }
