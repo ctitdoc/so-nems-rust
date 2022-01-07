@@ -2,6 +2,12 @@ mod utils;
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
+/* Franck commented :
+
+use error_chain::error_chain;
+use std::io::Read;
+
+End Franck commented */
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -108,3 +114,28 @@ pub fn test_dom() -> Result<(), JsValue> {
 
     Ok(())
 }
+
+/* Franck commented :
+
+#[wasm_bindgen]
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpRequest(reqwest::Error);
+    }
+}
+
+pub fn test_commande() -> Result<()> {
+let mut res = reqwest::blocking::get("localhost:8000/member")?;
+let mut body = String::new();
+res.read_to_string(&mut body)?;
+
+println!("Status: {}", res.status());
+println!("Headers:\n{:#?}", res.headers());
+println!("Body:\n{}", body);
+
+Ok(())
+
+}
+
+End Franck commented */
