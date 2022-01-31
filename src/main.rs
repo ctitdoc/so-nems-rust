@@ -70,7 +70,9 @@ impl Component for App {
             </div>
 
 <p> {"TODO : ajouter les pages du site comme div ici avec les images background etc..."}</p>
-            <header>
+
+
+<header>
   <nav class="navbar-part">
     <div class="container">
       <div class="navbar-content">
@@ -125,7 +127,80 @@ impl Component for App {
     </div>
   </div>
 </header>
+
+
+<main>
+  <section id="Acceuil">
+    <div class="Colonne">
+      <div class="Concept">
+        <div class="desc-conc">
+          <h2>{"Sô Nems ?"}</h2>
+          <p>{"****************************************"}</p>
+          <p>{"******************************************"}</p>
+          <p>{"***************************************************"}</p>
+        </div>
+
+
+      </div>
+    <div class="Livraison">
+        <div class="desc-livr">
+          <h2> {"Livraison "}</h2>
+          <p>{"Perimètre de livraison : Crolles"}</p>
+          <p>{"Numéro livreur : 01.02.03.04.05"}</p>
+        </div>
+      <div class="img-livr"><img src="img/dark-scoot.png" alt=""/></div>
+
+
+      </div>
+    </div>
+    <section>
+      <div class="FAQ">
+        <div class="FAQ-content">
+          <h2> {"F.A.Q"}</h2>
+          <p>{"Les ingrédients achetés à l'épicerie chinoise à Grenoble."}</p>
+          <p>{"Les livraisons ne sont pas toujours proposées."}</p>
+          <p>{"La maison correspond à la dernière maison de l'allée en gravier."}</p>
+          <p>{"Les nems sont princialement fait de porc mais la chef peut en faire d'autre si il y eu
+            demande au préalable."}</p>
+        </div>
+      </div>
+    </section>
+  </section>
+<footer id= "contact" class= "footer">
+    <table class="footer-table">
+      <tbody>
+      <tr class ="tr1">
+        <td class = "icon">
+          <i class="fas fa-phone-alt"></i>
+        </td>
+        <td class="info">
+          <p>{"01.02.03.04.05"}</p>
+        </td>
+      </tr>
+      <tr class ="tr2">
+        <td class = "icon">
+          <i class="fas fa-map-marker-alt"></i>
+        </td>
+        <td class="info">
+          <p>{"18 rue Trump"}</p>
+        </td>
+      </tr>
+      <tr class ="tr3">
+      <td class = "icon">
+        <i class="fas fa-clock"></i>
+      </td>
+      <td class="info">
+        <p> {"Livraison et à Emporter"}</p>
+      </td>
+      </tr>
+      </tbody>
+    </table>
+  </footer>
+</main>
+
 </div>
+
+
     }
     }
 }
