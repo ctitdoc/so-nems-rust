@@ -1,7 +1,10 @@
-mod utils;
+/*mod utils;
 
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
+use web_sys::{console, HtmlElement, MouseEvent};
+
+
 /* Franck commented :
 
 use error_chain::error_chain;
@@ -23,7 +26,7 @@ extern {
 
 #[wasm_bindgen]
 pub fn greet() {
-    /*
+
        // Use `web_sys`'s global `window` function to get a handle on the global
     // window object.
     let window = web_sys::window().expect("no global `window` exists");
@@ -36,8 +39,8 @@ pub fn greet() {
 
     my_form.append_child(&msg)?;
 
-    Ok(())
-     */
+    Ok(());
+
 
     let window = web_sys::window().expect("no global `window` exists");
     let document = window.document().expect("should have a document on window");
@@ -115,7 +118,7 @@ pub fn test_dom() -> Result<(), JsValue> {
     Ok(())
 }
 
-/* Franck commented :
+
 
 #[wasm_bindgen]
 error_chain! {
@@ -138,4 +141,8 @@ Ok(())
 
 }
 
-End Franck commented */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//test-yew counter
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+*/
