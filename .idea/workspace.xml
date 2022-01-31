@@ -9,9 +9,72 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="modification Cargo.TOML, index.js, inscription.html, lib.rs et www">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="début de l'utilisation du framework yew">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/sonems.-QmNyg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/sonems.-QmNyg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/sonems.-QmNyg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978/storage_v2/_src_/database/sonems.-QmNyg/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/so-nems.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/dark-scoot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/deadpool-scoot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/deadpool-sct.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/img-livraison.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/img-livraison2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/img-livraison3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/nems-logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/nems.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/nems.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/index-387c9f9e834fdb46.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/index-387c9f9e834fdb46_bg.wasm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/mains-5005a021558fc01e.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/so-nems-e44c1cee505879ba.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/test-yew-51cbbfa2f93bc9fc.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/test-yew.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-yew.scss" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/www/content_compte.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/www/content_compte.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/test-yew.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/test-yew.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/www/testJs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/.rustc_info.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/CACHEDIR.TAG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/.cargo-lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/.fingerprint/yew-app-694c9407d62a7615/bin-yew-app" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/.fingerprint/yew-app-694c9407d62a7615/bin-yew-app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/.fingerprint/yew-app-694c9407d62a7615/dep-bin-yew-app" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/.fingerprint/yew-app-694c9407d62a7615/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/deps/yew_app-694c9407d62a7615" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/deps/yew_app-694c9407d62a7615.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/1o65jh12i31lqzn5.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/2g36jjczqhmhp045.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/2x0k4ja1t8ulq4z.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/3rnzcm06zuhchefu.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/4kvmk0ya7dhrvw6x.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/4nyjcwpekq3kjazi.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/54izneo412ywx274.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/57z8kko0sxnilwbf.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/k6tiiebgfwv9skf.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/sxgiztfri8x4ity.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8-1rpz7gsg68du0/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/incremental/yew_app-2y7oibqr5t5m5/s-g5sp5u0nbs-5334f8.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/yew-app" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yew-app/target/debug/yew-app.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
@@ -173,7 +236,7 @@
       <workItem from="1642668486518" duration="2404000" />
       <workItem from="1642684478742" duration="618000" />
       <workItem from="1642753446507" duration="16742000" />
-      <workItem from="1643617142122" duration="824000" />
+      <workItem from="1643617142122" duration="1201000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -294,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641550054872</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="début de l'utilisation du framework yew">
+      <created>1643618506630</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1643618506630</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,6 +403,7 @@
     <MESSAGE value="add &quot;adresse&quot; part" />
     <MESSAGE value="add &quot;modofication&quot;" />
     <MESSAGE value="modification Cargo.TOML, index.js, inscription.html, lib.rs et www" />
-    <option name="LAST_COMMIT_MESSAGE" value="modification Cargo.TOML, index.js, inscription.html, lib.rs et www" />
+    <MESSAGE value="début de l'utilisation du framework yew" />
+    <option name="LAST_COMMIT_MESSAGE" value="début de l'utilisation du framework yew" />
   </component>
 </project>
