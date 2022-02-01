@@ -1,4 +1,4 @@
-use gloo_console as console;
+/*use gloo_console as console;
 use js_sys::Date;
 use yew::{html, Component, Context, Html};
 
@@ -83,7 +83,7 @@ impl Component for App {
 
         <div class="navbar-links">
           <ul class="navbar-link">
-            <a href="index.html">
+            <a href="index.html.orig">
               <li class="navbar-item"> {"Acceuil"}</li>
             </a>
             <a href="La-carte.html">
@@ -202,6 +202,18 @@ impl Component for App {
 
 
     }
+    }
+}
+
+fn main() {
+    yew::start_app::<App>();
+}*/
+use yew::prelude::*;
+
+#[function_component(App)]
+fn app() -> Html {
+    html! {
+        <h1>{ "Hello World" }</h1>
     }
 }
 
