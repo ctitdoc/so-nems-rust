@@ -9,10 +9,29 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="suite de l'utilisation du framework yew">
-      <change afterPath="$PROJECT_DIR$/La-carte.html" afterDir="false" />
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="test yew tuto">
+      <change afterPath="$PROJECT_DIR$/index.html.orig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/dark-scoot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/deadpool-scoot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/deadpool-sct.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/img-livraison.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/img-livraison2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/img-livraison3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/nems-logo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/nems.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/img/nems.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-8bb8de0616ddc8b0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-8bb8de0616ddc8b0_bg.wasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/mains-aac8a68f13bdfb4a.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/so-nems-e44c1cee505879ba.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/test-yew-51cbbfa2f93bc9fc.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/test-yew.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +45,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="CSS File" />
         <option value="Rust File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -79,11 +98,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -169,7 +183,10 @@
       <workItem from="1642668486518" duration="2404000" />
       <workItem from="1642684478742" duration="618000" />
       <workItem from="1642753446507" duration="16742000" />
-      <workItem from="1643617142122" duration="10969000" />
+      <workItem from="1643617142122" duration="29814000" />
+      <workItem from="1643789861231" duration="5635000" />
+      <workItem from="1643876262612" duration="5248000" />
+      <workItem from="1643985523802" duration="526000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -318,7 +335,21 @@
       <option name="project" value="LOCAL" />
       <updated>1643628652759</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="suite de l'utilisation du framework yew">
+      <created>1643642991801</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1643642991801</updated>
+    </task>
+    <task id="LOCAL-00023" summary="test yew tuto">
+      <created>1643730470782</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1643730470782</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,6 +390,7 @@
     <MESSAGE value="modification Cargo.TOML, index.js, inscription.html, lib.rs et www" />
     <MESSAGE value="début de l'utilisation du framework yew" />
     <MESSAGE value="suite de l'utilisation du framework yew" />
-    <option name="LAST_COMMIT_MESSAGE" value="suite de l'utilisation du framework yew" />
+    <MESSAGE value="test yew tuto" />
+    <option name="LAST_COMMIT_MESSAGE" value="test yew tuto" />
   </component>
 </project>
