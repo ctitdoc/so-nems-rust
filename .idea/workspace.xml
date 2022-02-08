@@ -10,28 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="test yew tuto">
-      <change afterPath="$PROJECT_DIR$/index.html.orig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/dark-scoot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/deadpool-scoot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/deadpool-sct.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/img-livraison.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/img-livraison2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/img-livraison3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/nems-logo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/nems.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/nems.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index-8bb8de0616ddc8b0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index-8bb8de0616ddc8b0_bg.wasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-b2586f47d5fd923f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-b2586f47d5fd923f_bg.wasm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/mains-aac8a68f13bdfb4a.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/so-nems-e44c1cee505879ba.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/test-yew-51cbbfa2f93bc9fc.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/test-yew.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,11 +66,11 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="CSS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dist" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../so-nems-server" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -112,6 +96,11 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -187,6 +176,8 @@
       <workItem from="1643789861231" duration="5635000" />
       <workItem from="1643876262612" duration="5248000" />
       <workItem from="1643985523802" duration="526000" />
+      <workItem from="1644316437535" duration="1561000" />
+      <workItem from="1644330401291" duration="3992000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>

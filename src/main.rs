@@ -211,7 +211,7 @@ fn main() {
 use yew::prelude::*;
 
 use reqwasm::http::Request;
-
+use serde::{Deserialize};
 
 #[derive(Clone, PartialEq, Deserialize)]
 struct Video {
@@ -250,13 +250,13 @@ fn video_details(VideosDetailsProps { video }: &VideosDetailsProps) -> Html {
 fn videos_list(VideosListProps { videos, on_click }: &VideosListProps) -> Html {
     let on_click = on_click.clone();
     videos.iter().map(|video| {
-                let on_video_select = {
-                        let on_click = on_click.clone();
-                        let video = video.clone();
-                        Callback::from(move |_| {
-                                on_click.emit(video.clone())
-                    })
-                        };
+        let on_video_select = {
+            let on_click = on_click.clone();
+            let video = video.clone();
+            Callback::from(move |_| {
+                on_click.emit(video.clone())
+            })
+        };
 
         html! {
 
