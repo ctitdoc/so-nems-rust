@@ -9,13 +9,19 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="test yew tuto">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" afterDir="false" />
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Seul le fichier main.rs a reçu des modifications.&#10;Changement du chemin de recherche /member -&gt; /api/member&#10;Début d'ajout du contenu de la page principale">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index-b2586f47d5fd923f.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index-b2586f47d5fd923f_bg.wasm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html.orig" beforeDir="false" afterPath="$PROJECT_DIR$/index2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/so-nems.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +72,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="CSS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../so-nems-server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
@@ -75,6 +81,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/dist" />
       <recent name="$PROJECT_DIR$/www/img" />
       <recent name="$PROJECT_DIR$" />
@@ -177,7 +184,14 @@
       <workItem from="1643876262612" duration="5248000" />
       <workItem from="1643985523802" duration="526000" />
       <workItem from="1644316437535" duration="1561000" />
-      <workItem from="1644330401291" duration="3992000" />
+      <workItem from="1644330401291" duration="5640000" />
+      <workItem from="1644573325705" duration="4430000" />
+      <workItem from="1644830279201" duration="1756000" />
+      <workItem from="1644915261674" duration="12206000" />
+      <workItem from="1645003867085" duration="2950000" />
+      <workItem from="1645089854989" duration="5650000" />
+      <workItem from="1645177130780" duration="2043000" />
+      <workItem from="1645390230972" duration="17000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -340,7 +354,21 @@
       <option name="project" value="LOCAL" />
       <updated>1643730470782</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Ajout use deserialize">
+      <created>1644334769920</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1644334769920</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Seul le fichier main.rs a reçu des modifications.&#10;Changement du chemin de recherche /member -&gt; /api/member&#10;Début d'ajout du contenu de la page principale">
+      <created>1644598548221</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1644598548221</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,6 +410,8 @@
     <MESSAGE value="début de l'utilisation du framework yew" />
     <MESSAGE value="suite de l'utilisation du framework yew" />
     <MESSAGE value="test yew tuto" />
-    <option name="LAST_COMMIT_MESSAGE" value="test yew tuto" />
+    <MESSAGE value="Ajout use deserialize" />
+    <MESSAGE value="Seul le fichier main.rs a reçu des modifications.&#10;Changement du chemin de recherche /member -&gt; /api/member&#10;Début d'ajout du contenu de la page principale" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seul le fichier main.rs a reçu des modifications.&#10;Changement du chemin de recherche /member -&gt; /api/member&#10;Début d'ajout du contenu de la page principale" />
   </component>
 </project>

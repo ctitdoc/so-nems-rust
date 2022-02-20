@@ -1,7 +1,6 @@
 /*use gloo_console as console;
 use js_sys::Date;
 use yew::{html, Component, Context, Html};
-
 // Define the possible messages which can be sent to the component
 pub enum Msg {
     Increment,
@@ -77,13 +76,13 @@ impl Component for App {
     <div class="container">
       <div class="navbar-content">
         <a href="#">
-          <img src="img/nems-logo.jpg" alt=""/>
+          <img src="img/nems-logo.jpg" alt="Image nems"/>
         </a>
         <h1> {"Sô Nems.fr"}</h1>
 
         <div class="navbar-links">
           <ul class="navbar-link">
-            <a href="index.html.orig">
+            <a href="index.html">
               <li class="navbar-item"> {"Acceuil"}</li>
             </a>
             <a href="La-carte.html">
@@ -208,13 +207,14 @@ impl Component for App {
 fn main() {
     yew::start_app::<App>();
 }*/
+
 use yew::prelude::*;
 
 use reqwasm::http::Request;
 use serde::{Deserialize};
 
 #[derive(Clone, PartialEq, Deserialize)]
-struct Video {
+pub struct Video {
     nom: String,
     prenom: String,
     date_naissance: String,
@@ -226,18 +226,18 @@ struct Video {
 
 }
 #[derive(Properties, PartialEq)]
-struct VideosListProps {
+pub struct VideosListProps {
     videos: Vec<Video>,
     on_click: Callback<Video>
 }
 
 #[derive(Clone, Properties, PartialEq)]
-struct VideosDetailsProps {
+pub struct VideosDetailsProps {
     video: Video,
 }
 
 #[function_component(VideoDetails)]
-fn video_details(VideosDetailsProps { video }: &VideosDetailsProps) -> Html {
+pub fn video_details(VideosDetailsProps { video }: &VideosDetailsProps) -> Html {
     html! {
         <div>
             <h3>{ video.nom.clone() }</h3>
@@ -247,7 +247,7 @@ fn video_details(VideosDetailsProps { video }: &VideosDetailsProps) -> Html {
 }
 
 #[function_component(VideosList)]
-fn videos_list(VideosListProps { videos, on_click }: &VideosListProps) -> Html {
+pub fn videos_list(VideosListProps { videos, on_click }: &VideosListProps) -> Html {
     let on_click = on_click.clone();
     videos.iter().map(|video| {
         let on_video_select = {
@@ -265,7 +265,7 @@ fn videos_list(VideosListProps { videos, on_click }: &VideosListProps) -> Html {
     }).collect()
 }
 #[function_component(App)]
-fn app() -> Html {
+pub fn app() -> Html {
     let selected_video = use_state(|| None);
 
     let on_video_select = {
@@ -301,137 +301,119 @@ fn app() -> Html {
 
        html! {
     <>
-        <h1>{ "RustConf Explorer" }</h1>
+
            <header>
-  <nav class="navbar-part">
-    <div class="container">
+            <nav class="navbar-part">
+            <div class="container">
       <div class="navbar-content">
-        <a href="#">
-          <img src="img/nems-logo.jpg" alt=""/>
-        </a>
+          <img src="/img/nems-logo.jpg" alt="Image nems"/>
         <h1> {"Sô Nems.fr"}</h1>
 
         <div class="navbar-links">
           <ul class="navbar-link">
-            <a href="index.html.orig">
               <li class="navbar-item"> {"Acceuil"}</li>
-            </a>
-            <a href="La-carte.html">
               <li class="navbar-item">{"La Carte"}</li>
-            </a>
-            <a href="Annonce">
               <li class="navbar-item">{"Annonce"}</li>
-            </a>
-            <a href="#contact">
               <li class="navbar-item">{"Contact"}</li>
-            </a>
-            <a href="mon-compte.html">
               <li class="fifth-link">{"Mon Compte"}</li>
-            </a>
-            <a href="test-yew.html">
               <li class="fifth-link">{"test yew"}</li>
-            </a>
-            <a href="content_compte.html">
               <li class="fifth-link">{"contenu d'un compte"}</li>
-            </a>
-
-
-
           </ul>
-
         </div>
-
       </div>
     </div>
   </nav>
 
 </header>
-            <header>
-  <div class="nav-img">
-    <div class={"img-pres"}>
+<header>
+<div class="nav-img">
+  <div class="img-pres">
+  </div>
+  <div class="title">
+    <h1>{"Sô Nems"}</h1>
+    <h2>{"spécialité maison"}</h2>
+  </div>
+</div>
+</header>
+
+
+<main>
+<section id="Acceuil">
+  <div class="Colonne">
+    <div class="Concept">
+      <div class="desc-conc">
+        <h2>{"Sô Nems ?"}</h2>
+        <p>{"****************************************"} </p>
+        <p>{"******************************************."}</p>
+        <p>{"***************************************************"}</p>
+      </div>
+
+
     </div>
-    <div class="title">
-      <h1>{"Sô Nems"}</h1>
-      <hr color="black"/>
-      <h2>{"spécialité maison"}</h2>
+    <div class="Livraison">
+      <div class="desc-livr">
+        <h2> {"Livraison "}</h2>
+        <p>{"Perimètre de livraison : Crolles"}</p>
+        <p>{"Numéro livreur : 01.02.03.04.05"}</p>
+      </div>
+    <div class="img-livr"><img src="/img/dark-scoot.png"/></div>
+
+
     </div>
   </div>
-</header>
-           <main>
-  <section id="Acceuil">
-    <div class="Colonne">
-      <div class="Concept">
-        <div class="desc-conc">
-          <h2>{"Sô Nems ?"}</h2>
-          <p>{"****************************************"}</p>
-          <p>{"******************************************"}</p>
-          <p>{"***************************************************"}</p>
-        </div>
-
-
-      </div>
-    <div class="Livraison">
-        <div class="desc-livr">
-          <h2> {"Livraison "}</h2>
-          <p>{"Perimètre de livraison : Crolles"}</p>
-          <p>{"Numéro livreur : 01.02.03.04.05"}</p>
-        </div>
-      <div class="img-livr"><img src="img/dark-scoot.png" alt=""/></div>
-
-
+  <section>
+    <div class="FAQ">
+      <div class="FAQ-content">
+        <h2> {"F.A.Q"}</h2>
+        <p>{"Les ingrédients achetés à l'épicerie chinoise à Grenoble."}</p>
+        <p>{"Les livraisons ne sont pas toujours proposées."}</p>
+        <p>{"La maison correspond à la dernière maison de l'allée en gravier."}</p>
+        <p>{"Les nems sont princialement fait de porc mais la chef peut en faire d'autre si il y eu
+          demande au préalable."}</p>
       </div>
     </div>
-    <section>
-      <div class="FAQ">
-        <div class="FAQ-content">
-          <h2> {"F.A.Q"}</h2>
-          <p>{"Les ingrédients achetés à l'épicerie chinoise à Grenoble."}</p>
-          <p>{"Les livraisons ne sont pas toujours proposées."}</p>
-          <p>{"La maison correspond à la dernière maison de l'allée en gravier."}</p>
-          <p>{"Les nems sont princialement fait de porc mais la chef peut en faire d'autre si il y eu
-            demande au préalable."}</p>
-        </div>
-      </div>
-    </section>
   </section>
+</section>
 <footer id= "contact" class= "footer">
-    <table class="footer-table">
-      <tbody>
-      <tr class ="tr1">
-        <td class = "icon">
-          <i class="fas fa-phone-alt"></i>
-        </td>
-        <td class="info">
-          <p>{"01.02.03.04.05"}</p>
-        </td>
-      </tr>
-      <tr class ="tr2">
-        <td class = "icon">
-          <i class="fas fa-map-marker-alt"></i>
-        </td>
-        <td class="info">
-          <p>{"18 rue Trump"}</p>
-        </td>
-      </tr>
-      <tr class ="tr3">
+  <table class="footer-table">
+    <tbody>
+    <tr class ="tr1">
       <td class = "icon">
-        <i class="fas fa-clock"></i>
+        <i class="fas fa-phone-alt"></i>
       </td>
       <td class="info">
-        <p> {"Livraison et à Emporter"}</p>
+        <p>{"01.02.03.04.05"}</p>
       </td>
-      </tr>
-      </tbody>
-    </table>
-  </footer>
+    </tr>
+    <tr class ="tr2">
+      <td class = "icon">
+        <i class="fas fa-map-marker-alt"></i>
+      </td>
+      <td class="info">
+        <p>{"18 rue Trump"}</p>
+      </td>
+    </tr>
+    <tr class ="tr3">
+    <td class = "icon">
+      <i class="fas fa-clock"></i>
+    </td>
+    <td class="info">
+      <p> {"Livraison et à Emporter"}</p>
+    </td>
+    </tr>
+    </tbody>
+  </table>
+</footer>
 </main>
-        <div>
-            <h3>{"Videos to watch"}</h3>
-            <VideosList videos={(*videos).clone()} on_click={on_video_select.clone()} />
-            <h4>{"Fin affichage member"}</h4>
-        </div>
-
-            { for details }
+        //    <main>
+        // <div class="video">
+        //     <h3>{"Videos to watch"}</h3>
+        //     <VideosList videos={(*videos).clone()} on_click={on_video_select.clone()} />
+        //     <h4>{"Fin affichage member"}</h4>
+        // </div>
+        //
+        //     { for details }
+        //    </main>
            </>
 }
 }
