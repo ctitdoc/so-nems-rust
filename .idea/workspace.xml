@@ -9,19 +9,14 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Seul le fichier main.rs a reçu des modifications.&#10;Changement du chemin de recherche /member -&gt; /api/member&#10;Début d'ajout du contenu de la page principale">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="tuto yew pour so-nems; commentaire : ne voit comment la logique de passer de video à bd so-nems">
+      <change afterPath="$PROJECT_DIR$/tmp/main.src.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index-b2586f47d5fd923f.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index-b2586f47d5fd923f_bg.wasm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html.orig" beforeDir="false" afterPath="$PROJECT_DIR$/index2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/so-nems.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/www/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +31,8 @@
       <list>
         <option value="JavaScript File" />
         <option value="CSS File" />
-        <option value="Rust File" />
         <option value="HTML File" />
+        <option value="Rust File" />
       </list>
     </option>
   </component>
@@ -86,6 +81,9 @@
       <recent name="$PROJECT_DIR$/www/img" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/www" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tmp" />
     </key>
   </component>
   <component name="RunManager">
@@ -192,6 +190,10 @@
       <workItem from="1645089854989" duration="5650000" />
       <workItem from="1645177130780" duration="2043000" />
       <workItem from="1645390230972" duration="17000" />
+      <workItem from="1645517453782" duration="7936000" />
+      <workItem from="1645605468078" duration="15301000" />
+      <workItem from="1645691002977" duration="16168000" />
+      <workItem from="1645776954796" duration="6246000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
