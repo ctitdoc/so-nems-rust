@@ -2,8 +2,9 @@ use gloo_console as console;
 use js_sys::Date;
 use yew::prelude::*;
 use yew::{html, Component, Context, Html};
-use reqwasm::http::Request;
+use reqwasm::http::{Request, Response};
 use serde::{Deserialize};
+use wasm_bindgen_futures::{spawn_local};
 
 // Define the possible messages which can be sent to the component
 
@@ -36,6 +37,7 @@ pub enum Msg {
     GetMembers,
     GetProducts,
     GetCommande,
+    UpdateMemberList(Vec<Video>)
 }
 
 pub struct App {
@@ -44,6 +46,12 @@ pub struct App {
     products: Vec<Produit>,
     commande: Vec<Commande>,
 }
+
+async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
+        console::log!("execution START of wrap fn...");
+        the_callback.emit(f.await);
+        console::log!("execution END of wrap fn...");
+    }
 
 impl Component for App {
     type Message = Msg;
@@ -68,48 +76,38 @@ impl Component for App {
                 true
             }
 
+            Msg::UpdateMemberList(vids) => {
+                self.videos = vids;
+                true
+            }
+
             Msg::GetMembers => {
-                let videos = vec![
-                    Video {
-                        nom: "toto".to_string(),
-                        prenom: "titi".to_string(),
-                        date_naissance: "".to_string(),
-                        adresse: "".to_string(),
-                        adresse_mail: "".to_string(),
-                        numero_tel: "".to_string(),
-                        mot_de_passe: "".to_string(),
-                        confirmation_mp: "".to_string(),
-                    }
-                ];
-/*               let videos = use_state(|| vec![]);
-                //let videos = vec![];
-                {
-                    let videos = videos.clone();
-                    use_effect_with_deps(move |_| {
-                        let videos = videos.clone();
-                        wasm_bindgen_futures::spawn_local(async move {
-                            let fetched_videos: Vec<Video> = Request::get(" /api/member")
+                console::log!("execution START of update fn / Msg::GetMembers...");
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/member\")...");
+                            let fetched_videos = Request::get("/api/member")
                                 .send()
                                 .await
                                 .unwrap()
                                 .json()
                                 .await
                                 .unwrap();
-                            videos.set(fetched_videos);
-                        });
-                        || ()
-                    }, ());
-                }
-*/
-                self.videos = videos;
+                            console::log!("execution END of Request::get(\"/api/member\")...");
+                            fetched_videos
+                        },
+                        _ctx.link().callback(|fetched_videos| Msg::UpdateMemberList(fetched_videos)))
+                );
 
+                console::log!("execution END of update fn / Msg::GetMembers ");
                 true
             }
+
             Msg::GetProducts=>{
                 let products = vec![
                     Produit{
                         nom_produit : "paté impériale".to_string(),
-
                 }
                 ];
                 self.products = products;
@@ -306,10 +304,8 @@ impl Component for App {
 }
 
 
-
-
 fn main() {
-yew::start_app::<App>();
+    yew::start_app::<App>();
 }
 
 //TODO : demain faire pour produits.

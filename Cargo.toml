@@ -14,10 +14,9 @@ gloo-console = "0.2"
 js-sys = "0.3"
 wasm-bindgen = "0.2.78"
 yew = "0.19"
-reqwasm = "0.2"
+reqwasm = "0.4"
 serde = { version = "1.0", features = ["derive"] }
 wasm-bindgen-futures = "0.4"
-#yew = { git = "https://github.com/yewstack/yew/" }
 
 [dependencies.web-sys]
 #version = "0.3.55"
