@@ -25,7 +25,7 @@ pub struct Produit {
     nom_produit: String,
 }
 #[derive(Clone, PartialEq, Deserialize)]
-struct Commande {
+pub struct Commande {
     quantite_cmd: i32,
     member_id: i32,
 }
@@ -37,7 +37,10 @@ pub enum Msg {
     GetMembers,
     GetProducts,
     GetCommande,
-    UpdateMemberList(Vec<Video>)
+    UpdateMemberList(Vec<Video>),
+    UpdateCmdList(Vec<Commande>),
+    UpdateProdList(Vec<Produit>)
+
 }
 
 pub struct App {
@@ -104,34 +107,69 @@ impl Component for App {
                 true
             }
 
+            Msg::UpdateProdList(vids) => {
+                self.products = vids;
+                true
+            }
             Msg::GetProducts=>{
-                let products = vec![
-                    Produit{
-                        nom_produit : "paté impériale".to_string(),
-                }
-                ];
-                self.products = products;
+                console::log!("execution START of update fn / Msg::GetProducts...");
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/produit\")...");
+                            let fetched_videos = Request::get("/api/produit")
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/produit\")...");
+                            fetched_videos
+                        },
+                        _ctx.link().callback(|fetched_videos| Msg::UpdateProdList(fetched_videos)))
+                );
 
+                console::log!("execution END of update fn / Msg::GetPoducts ");
+                true
+            }
+
+
+            Msg::UpdateCmdList (vids) => {
+                self.commande = vids;
                 true
             }
             Msg::GetCommande=>{
-                let commande= vec![
-                    Commande{
-                        quantite_cmd : 13,
-                        member_id: 1,
+                console::log!("execution START of update fn / Msg::GetCommande...");
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/commande\")...");
+                            let fetched_videos = Request::get("/api/commande")
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/commande\")...");
+                            fetched_videos
+                        },
+                        _ctx.link().callback(|fetched_videos| Msg::UpdateCmdList(fetched_videos)))
+                );
 
-                    }
-                ];
-                self.commande = commande;
+                console::log!("execution END of update fn / Msg::GetCommande ");
                 true
             }
+
 
         }
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
         let videos = self.videos.iter().map(|video| html! {
-    <p>{format!("{}: {}", video.nom, video.prenom)}</p>
+    <p>{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
+                video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}</p>
 }).collect::<Html>();
         let products = self.products.iter().map(|produit| html! {
     <p>{format!("{}", produit.nom_produit)}</p>
@@ -174,6 +212,7 @@ impl Component for App {
             <a href="mon-compte.html">
               <li class="fifth-link">{"Mon Compte"}</li>
             </a>
+            <a href = "#FAQbis"> {"FAQ"} </a>
           /*  <a href="test-yew.html">
               <li class="fifth-link">{"test yew"}</li>
             </a>
@@ -231,7 +270,7 @@ impl Component for App {
 
       </div>
     </div>
-    <section>
+    <section id = "FAQbis">
       <div class="FAQ">
         <div class="FAQ-content">
           <h2> {"F.A.Q"}</h2>
@@ -242,13 +281,24 @@ impl Component for App {
             demande au préalable."}</p>
         </div>
       </div>
-            <div class="video">
+            <table>
+                <thead>
+                    <tr>
+                        <th> {"Affichage member"}</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr> {videos} </tr>
+                </tbody>
+            </table>
+            /*<div class="video">
              <h3>{"Affichage member"}</h3>
 
             {videos}
 
              <h3>{"Fin affichage member"}</h3>
-         </div>
+         </div>*/
 
             <div class="video">
              <h3>{"Affichage produits"}</h3>
