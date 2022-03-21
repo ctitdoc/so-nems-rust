@@ -56,6 +56,17 @@ async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Outpu
         console::log!("execution END of wrap fn...");
     }
 
+impl App {
+    fn get_html_member_list(&self, ctx: &Context<Self>) -> Html {
+        self.videos.iter().map(|video| html! {
+    <p>{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
+                video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}</p>
+}).collect::<Html>()
+    }
+}
+
+
+
 impl Component for App {
     type Message = Msg;
     type Properties = ();
@@ -111,7 +122,7 @@ impl Component for App {
                 self.products = vids;
                 true
             }
-            Msg::GetProducts=>{
+            Msg::GetProducts => {
                 console::log!("execution START of update fn / Msg::GetProducts...");
                 spawn_local(
                     wrap(
@@ -134,12 +145,11 @@ impl Component for App {
                 true
             }
 
-
-            Msg::UpdateCmdList (vids) => {
+            Msg::UpdateCmdList(vids) => {
                 self.commande = vids;
                 true
             }
-            Msg::GetCommande=>{
+            Msg::GetCommande => {
                 console::log!("execution START of update fn / Msg::GetCommande...");
                 spawn_local(
                     wrap(
@@ -161,16 +171,14 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetCommande ");
                 true
             }
-
-
         }
     }
 
+
+
+
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let videos = self.videos.iter().map(|video| html! {
-    <p>{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
-                video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}</p>
-}).collect::<Html>();
+        let videos = self.get_html_member_list(ctx);
         let products = self.products.iter().map(|produit| html! {
     <p>{format!("{}", produit.nom_produit)}</p>
 }).collect::<Html>();
@@ -352,6 +360,7 @@ impl Component for App {
     }
     }
 }
+
 
 
 fn main() {
