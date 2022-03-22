@@ -9,10 +9,13 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="factorisation du code qui génère la liste de membre">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="factorisation du code qui génère la liste des produits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/mains-1e77e4aa86d7c204.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +100,11 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -190,7 +198,7 @@
       <workItem from="1646907237687" duration="1198000" />
       <workItem from="1646908805219" duration="4075000" />
       <workItem from="1646987467886" duration="6682000" />
-      <workItem from="1647937206476" duration="9000" />
+      <workItem from="1647937206476" duration="7355000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -388,7 +396,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647881179821</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="factorisation du code qui génère la liste des produits">
+      <created>1647937361656</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1647937361656</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,6 +450,7 @@
     <MESSAGE value="apparition de liste membre, produit et commande sur la homapage grace a des oneclick et callbacks" />
     <MESSAGE value="ajout lien FAQ et début du tableau liste membres" />
     <MESSAGE value="factorisation du code qui génère la liste de membre" />
-    <option name="LAST_COMMIT_MESSAGE" value="factorisation du code qui génère la liste de membre" />
+    <MESSAGE value="factorisation du code qui génère la liste des produits" />
+    <option name="LAST_COMMIT_MESSAGE" value="factorisation du code qui génère la liste des produits" />
   </component>
 </project>

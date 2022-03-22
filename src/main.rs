@@ -58,16 +58,93 @@ async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Outpu
 
 impl App {
     fn get_html_member_list(&self, ctx: &Context<Self>) -> Html {
-        self.videos.iter().map(|video| html! {
-    <p>{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
-                video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}</p>
-}).collect::<Html>()
+        let rows = self.videos.iter().map(|video| html! {
+    <tr>
+            <td>{&video.nom}</td>
+            <td>{&video.prenom}</td>
+            <td>{&video.date_naissance}</td>
+            <td>{&video.numero_tel}</td>
+            <td>{&video.adresse_mail}</td>
+            <td>{&video.mot_de_passe}</td>
+            <td>{&video.confirmation_mp}</td>
+            <td>{&video.adresse}</td>
+    </tr>
+        }
+        ).collect::<Html>();
+        /*{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
+                 video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}*/
+html! {
+        <table>
+            <thead>
+            <tr>
+            <th> {"Affichage member"}</th>
+            </tr>
+            </thead>
+            <tbody>
+    {rows}
+    </tbody>
+    </table>
+    }
     }
 
     fn get_html_product_list(&self, ctx: &Context<Self>) -> Html {
-        self.products.iter().map(|produit| html! {
-    <p>{format!("{}", produit.nom_produit)}</p>
-}).collect::<Html>()
+       let rows = self.products.iter().map(|produit| html! {
+           <tr>
+           <td>{&produit.nom_produit}</td>
+           </tr>
+    //<p>{format!("{}", produit.nom_produit)}</p>
+}).collect::<Html>();
+
+    html! {
+        <table>
+            <thead>
+            <tr>
+            <th> {"Affichage products"}</th>
+            </tr>
+            </thead>
+            <tbody>
+    {rows}
+    </tbody>
+    </table>
+    }
+}
+fn get_html_cmd_list (&self, ctx: &Context<Self>) -> Html {
+    let rows = self.commande.iter().map(|commande| html! {
+           <tr>
+           <td>{&commande.quantite_cmd}</td>
+            <td>{&commande.member_id}</td>
+           </tr>
+    //commande.quantite_cmd, commande.member_id
+}).collect::<Html>();
+
+    html! {
+        <table>
+            <thead>
+            <tr>
+            <th> {"Affichage commande"}</th>
+            </tr>
+            </thead>
+            <tbody>
+    {rows}
+    </tbody>
+    </table>
+    }
+
+}
+    fn get_html_acceuil(&self, ctx: &Context<Self>) -> Html{
+    html ! {
+    < header >
+    < div class = "nav-img" >
+    <div class = "img-pres" >
+    < / div >
+    <div class = "title" >
+    < h1 >{"Sô Nems"}< / h1 >
+    < hr color = "black" />
+    < h2 >{"spécialité maison"}< / h2 >
+    < / div >
+    < /div >
+    < / header >
+    }
     }
 }
 
@@ -186,9 +263,8 @@ impl Component for App {
     fn view(&self, ctx: &Context<Self>) -> Html {
         let videos = self.get_html_member_list(ctx);
         let products = self.get_html_product_list(ctx);
-        let commande = self.commande.iter().map(|commande| html! {
-    <p>{format!("quantité : {}, id membre: {}", commande.quantite_cmd, commande.member_id)}</p>
-}).collect::<Html>();
+        let commande = self.get_html_cmd_list(ctx);
+        let acceuil = self.get_html_acceuil(ctx);
 
         html! {
             <>
@@ -245,17 +321,7 @@ impl Component for App {
   </nav>
 
 </header>
-<header>
-  <div class="nav-img">
-    <div class="img-pres">
-    </div>
-    <div class="title">
-      <h1>{"Sô Nems"}</h1>
-      <hr color="black"/>
-      <h2>{"spécialité maison"}</h2>
-    </div>
-  </div>
-</header>
+{acceuil}
 
 
 <main>
@@ -293,17 +359,9 @@ impl Component for App {
             demande au préalable."}</p>
         </div>
       </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th> {"Affichage member"}</th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    <tr> {videos} </tr>
-                </tbody>
-            </table>
+           {videos}
+            {products}
+            {commande}
             /*<div class="video">
              <h3>{"Affichage member"}</h3>
 
@@ -312,20 +370,6 @@ impl Component for App {
              <h3>{"Fin affichage member"}</h3>
          </div>*/
 
-            <div class="video">
-             <h3>{"Affichage produits"}</h3>
-
-            {products}
-
-             <h3>{"Fin affichage produits"}</h3>
-         </div>
-               <div class="video">
-             <h3>{"Affichage commande"}</h3>
-
-            {commande}
-
-             <h3>{"Fin affichage commande"}</h3>
-         </div>
     </section>
   </section>
   <footer id= "contact" class= "footer">
