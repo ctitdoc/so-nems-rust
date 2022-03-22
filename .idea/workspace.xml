@@ -9,13 +9,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="ajout lien FAQ et début du tableau liste membres">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="factorisation du code qui génère la liste de membre">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index-f47665e5da5ec7d1.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index-f47665e5da5ec7d1_bg.wasm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,6 +190,7 @@
       <workItem from="1646907237687" duration="1198000" />
       <workItem from="1646908805219" duration="4075000" />
       <workItem from="1646987467886" duration="6682000" />
+      <workItem from="1647937206476" duration="9000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -383,7 +381,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647017028934</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="factorisation du code qui génère la liste de membre">
+      <created>1647881179821</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1647881179821</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -429,6 +434,7 @@
     <MESSAGE value="Seul le fichier main.rs a reçu des modifications.&#10;Changement du chemin de recherche /member -&gt; /api/member&#10;Début d'ajout du contenu de la page principale" />
     <MESSAGE value="apparition de liste membre, produit et commande sur la homapage grace a des oneclick et callbacks" />
     <MESSAGE value="ajout lien FAQ et début du tableau liste membres" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout lien FAQ et début du tableau liste membres" />
+    <MESSAGE value="factorisation du code qui génère la liste de membre" />
+    <option name="LAST_COMMIT_MESSAGE" value="factorisation du code qui génère la liste de membre" />
   </component>
 </project>

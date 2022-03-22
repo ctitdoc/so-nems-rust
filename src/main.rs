@@ -63,6 +63,12 @@ impl App {
                 video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}</p>
 }).collect::<Html>()
     }
+
+    fn get_html_product_list(&self, ctx: &Context<Self>) -> Html {
+        self.products.iter().map(|produit| html! {
+    <p>{format!("{}", produit.nom_produit)}</p>
+}).collect::<Html>()
+    }
 }
 
 
@@ -179,9 +185,7 @@ impl Component for App {
 
     fn view(&self, ctx: &Context<Self>) -> Html {
         let videos = self.get_html_member_list(ctx);
-        let products = self.products.iter().map(|produit| html! {
-    <p>{format!("{}", produit.nom_produit)}</p>
-}).collect::<Html>();
+        let products = self.get_html_product_list(ctx);
         let commande = self.commande.iter().map(|commande| html! {
     <p>{format!("quantité : {}, id membre: {}", commande.quantite_cmd, commande.member_id)}</p>
 }).collect::<Html>();
