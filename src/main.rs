@@ -76,7 +76,7 @@ impl App {
         /*{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
                  video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}*/
         html! {
-        <table>
+        <table id="admin_member">
             <thead>
             <tr>
             <th> {"Affichage member"}</th>
@@ -98,7 +98,7 @@ impl App {
 }).collect::<Html>();
 
         html! {
-        <table>
+        <table id = "admin_prod" class = "table">
             <thead>
             <tr>
             <th> {"Affichage products"}</th>
@@ -113,14 +113,14 @@ impl App {
     fn get_html_cmd_list(&self, ctx: &Context<Self>) -> Html {
         let rows = self.commande.iter().map(|commande| html! {
            <tr>
-           <td>{&commande.quantite_cmd}</td>
-            <td>{&commande.member_id}</td>
+           <td><p>{"quantité commandé :"}</p>{&commande.quantite_cmd}</td>
+            <td><p>{"id:"}</p>{&commande.member_id}</td>
            </tr>
     //commande.quantite_cmd, commande.member_id
 }).collect::<Html>();
 
         html! {
-        <table>
+        <table id = "admin_cmd" class = "table">
             <thead>
                 <tr>
                     <th> {"Affichage commande"}</th>
@@ -184,9 +184,9 @@ impl App {
             <a href="content_compte.html">
               <li class="fifth-link">{"contenu d'un compte"}</li>
             </a>*/
-            <a href = "#" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
-             <a href = "#" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
-             <a href = "#" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
+            <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
+             <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
+             <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
 
 
 
@@ -406,12 +406,14 @@ impl Component for App {
 
 
 <main>
-  <section id="Acceuil">
+  <section class= "Accueil" id="Acceuil">
             {concept}
             {faq}
+    <div class = "admin-aff">
             {videos}
             {products}
             {commande}
+    </div>
             {footer}
     </section>
 
