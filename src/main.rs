@@ -42,6 +42,7 @@ pub enum Msg {
     UpdateMemberList(Vec<Video>),
     UpdateCmdList(Vec<Commande>),
     UpdateProdList(Vec<Produit>),
+    Home,
 }
 
 pub struct App {
@@ -50,6 +51,7 @@ pub struct App {
     videos: Vec<Video>,
     products: Vec<Produit>,
     commande: Vec<Commande>,
+    current_request: Msg,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -283,7 +285,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new() }
+        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -305,6 +307,7 @@ impl Component for App {
             }
 
             Msg::GetMembers => {
+                self.current_request= Msg::GetMembers;
                 console::log!("execution START of update fn / Msg::GetMembers...");
                 spawn_local(
                     wrap(
@@ -380,6 +383,7 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetCommande ");
                 true
             }
+            _ => {true}
         }
     }
 
