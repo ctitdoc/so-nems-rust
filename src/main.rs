@@ -397,6 +397,12 @@ impl Component for App {
         let concept = self.get_html_concept(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
+        let main_view_content = match self.current_request {
+            Msg::GetMembers =>{
+                videos
+            }
+            _ => {accueil}
+        };
 
         html! {
             <>
@@ -406,23 +412,21 @@ impl Component for App {
 
 
 {navbar}
-{accueil}
-
-
 <main>
+{main_view_content}
+</main>
+{footer}
+</>
+/*<main>
   <section class= "Accueil" id="Acceuil">
-            {concept}
-            {faq}
     <div class = "admin-aff">
-            {videos}
-            {products}
-            {commande}
+            {main_view_content}
     </div>
             {footer}
     </section>
 
 </main>
-</>
+</>*/
 
     }
     }
