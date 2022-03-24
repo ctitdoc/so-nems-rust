@@ -5,6 +5,7 @@ use yew::{html, Component, Context, Html};
 use reqwasm::http::{Request, Response};
 use serde::{Deserialize};
 use wasm_bindgen_futures::{spawn_local};
+use crate::Msg::GetProducts;
 
 // Define the possible messages which can be sent to the component
 
@@ -307,7 +308,7 @@ impl Component for App {
             }
 
             Msg::GetMembers => {
-                self.current_request= Msg::GetMembers;
+                self.current_request = Msg::GetMembers;
                 console::log!("execution START of update fn / Msg::GetMembers...");
                 spawn_local(
                     wrap(
@@ -335,6 +336,7 @@ impl Component for App {
                 true
             }
             Msg::GetProducts => {
+                self.current_request = Msg::GetProducts;
                 console::log!("execution START of update fn / Msg::GetProducts...");
                 spawn_local(
                     wrap(
@@ -398,8 +400,14 @@ impl Component for App {
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
         let main_view_content = match self.current_request {
+
+
             Msg::GetMembers =>{
                 videos
+            }
+            Msg::GetProducts => {
+                products
+
             }
             _ => {accueil}
         };
