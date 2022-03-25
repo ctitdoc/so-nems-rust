@@ -79,16 +79,17 @@ impl App {
         /*{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
                  video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}*/
         html! {
+            <section>
+            <div class="member">
         <table id="admin_member">
-            <thead>
-            <tr>
-            <th> {"Affichage member"}</th>
-            </tr>
-            </thead>
-            <tbody>
+
+            <tbody class="member_list">
+            <h1> {"affichage member"}</h1>
     {rows}
     </tbody>
     </table>
+            </div>
+            </section>
     }
     }
 
@@ -101,7 +102,9 @@ impl App {
 }).collect::<Html>();
 
         html! {
-        <table id = "admin_prod" class = "table">
+            <section>
+            <div class="member">
+        <table id = "admin_prod">
             <thead>
             <tr>
             <th> {"Affichage products"}</th>
@@ -111,6 +114,8 @@ impl App {
     {rows}
     </tbody>
     </table>
+            </div>
+            </section>
     }
     }
     fn get_html_cmd_list(&self, ctx: &Context<Self>) -> Html {
@@ -123,7 +128,9 @@ impl App {
 }).collect::<Html>();
 
         html! {
-        <table id = "admin_cmd" class = "table">
+            <section>
+            <div class="member">
+        <table id = "admin_cmd">
             <thead>
                 <tr>
                     <th> {"Affichage commande"}</th>
@@ -133,6 +140,8 @@ impl App {
                 {rows}
             </tbody>
         </table>
+            </div>
+            </section>
         }
     }
     fn get_html_accueil(&self, ctx: &Context<Self>) -> Html {
@@ -364,6 +373,7 @@ impl Component for App {
                 true
             }
             Msg::GetCommande => {
+                self.current_request = Msg::GetCommande;
                 console::log!("execution START of update fn / Msg::GetCommande...");
                 spawn_local(
                     wrap(
@@ -408,6 +418,9 @@ impl Component for App {
             Msg::GetProducts => {
                 products
 
+            }
+            Msg::GetCommande =>{
+                commande
             }
             _ => {accueil}
         };
