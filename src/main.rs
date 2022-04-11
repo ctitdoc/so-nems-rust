@@ -83,9 +83,12 @@ impl App {
             <div class="member">
         <table id="admin_member">
 
-            <tbody class="member_list">
+            <tbody>
+                        <div  class="main">
             <h1> {"affichage member"}</h1>
-    {rows}
+            {rows}
+                                    </div>
+
     </tbody>
     </table>
             </div>
@@ -105,6 +108,7 @@ impl App {
             <section>
             <div class="member">
         <table id = "admin_prod">
+            <div class="main">
             <thead>
             <tr>
             <th> {"Affichage products"}</th>
@@ -113,7 +117,9 @@ impl App {
             <tbody>
     {rows}
     </tbody>
+    </div>
     </table>
+
             </div>
             </section>
     }
@@ -131,6 +137,7 @@ impl App {
             <section>
             <div class="member">
         <table id = "admin_cmd">
+            <div class="main">
             <thead>
                 <tr>
                     <th> {"Affichage commande"}</th>
@@ -139,6 +146,7 @@ impl App {
             <tbody>
                 {rows}
             </tbody>
+            </div>
         </table>
             </div>
             </section>
@@ -190,12 +198,6 @@ impl App {
               <li class="fifth-link">{"Mon Compte"}</li>
             </a>
             <a href = "#FAQbis"> {"FAQ"} </a>
-          /*  <a href="test-yew.html">
-              <li class="fifth-link">{"test yew"}</li>
-            </a>
-            <a href="content_compte.html">
-              <li class="fifth-link">{"contenu d'un compte"}</li>
-            </a>*/
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
