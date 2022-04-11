@@ -9,10 +9,13 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="factorisation du code qui génère la FAQ, la partie Concept (qui regroupe le concept et la partie livraison) et le footer donc chacune des parties de la homapage se retrouvent dans une différente fonction dans une impl App">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Non utile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-1c0594bcd56128fe.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-1c0594bcd56128fe_bg.wasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-e6803970911096f7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index-e6803970911096f7_bg.wasm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/so-nems-b639b701b3931027.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
