@@ -8,7 +8,7 @@ use wasm_bindgen_futures::{spawn_local};
 use crate::Msg::GetProducts;
 
 // Define the possible messages which can be sent to the component
-
+//Test Push
 #[derive(Clone, PartialEq, Deserialize)]
 pub struct Video {
     nom: String,
