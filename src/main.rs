@@ -163,6 +163,9 @@ impl App {
             <hr color = "black"/>
             <h2>{"spécialité maison"}</h2>
         </div>
+            <div class = "construction">
+            <h1>{"Site en construction"}</h1>
+        </div>
         </div>
     </header>
     }
