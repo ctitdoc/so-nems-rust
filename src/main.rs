@@ -171,8 +171,8 @@ impl App {
     }
     }
 
-    fn get_html_nav(&self, ctx: &Context<Self>)-> Html{
-        html!{
+    fn get_html_nav(&self, ctx: &Context<Self>) -> Html {
+        html! {
             <header>
   <nav class="navbar-part">
     <div class="container">
@@ -200,6 +200,9 @@ impl App {
             <a href="mon-compte.html">
               <li class="fifth-link">{"Mon Compte"}</li>
             </a>
+            <a href="S'inscrire">
+              <li class="navbar-item">{"S'inscrire"}</li>
+            </a>
             <a href = "#FAQbis"> {"FAQ"} </a>
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
@@ -217,8 +220,8 @@ impl App {
 </header>
         }
     }
-    fn get_html_concept (&self, ctx: &Context<Self>)-> Html{
-        html!{
+    fn get_html_concept(&self, ctx: &Context<Self>) -> Html {
+        html! {
         <div class="Colonne">
       <div class="Concept">
         <div class="desc-conc">
@@ -242,7 +245,7 @@ impl App {
     </div>
         }
     }
-    fn get_html_faq(&self, ctx: &Context<Self>) -> Html{
+    fn get_html_faq(&self, ctx: &Context<Self>) -> Html {
         html! {
     <section id = "FAQbis">
     <div class="FAQ">
@@ -257,8 +260,8 @@ impl App {
     </div>
     </section>
             }
-}
-    fn get_html_footer (&self, ctx: &Context<Self>) -> Html{
+    }
+    fn get_html_footer(&self, ctx: &Context<Self>) -> Html {
         html! {
         <footer id= "contact" class= "footer">
     <table class="footer-table">
@@ -292,8 +295,13 @@ impl App {
   </footer>
         }
     }
-}
 
+
+    fn get_html_inscrire(&self, ctx: &Context<Self>) -> Html {
+        html! {"Page d'inscription !"
+            }
+    }
+}
 
 impl Component for App {
     type Message = Msg;
@@ -414,6 +422,7 @@ impl Component for App {
         let concept = self.get_html_concept(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
+        let inscire = self.get_html_inscrire(ctx);
         let main_view_content = match self.current_request {
 
 
