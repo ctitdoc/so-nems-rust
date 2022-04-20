@@ -40,6 +40,7 @@ pub enum Msg {
     GetMembers,
     GetProducts,
     GetCommande,
+    GetSubscribe,
     UpdateMemberList(Vec<Video>),
     UpdateCmdList(Vec<Commande>),
     UpdateProdList(Vec<Produit>),
@@ -177,7 +178,7 @@ impl App {
   <nav class="navbar-part">
     <div class="container">
       <div class="navbar-content">
-        <a href="#">
+        <a href="index.html">
           <img src="./img/nems-logo.jpg" alt=""/>
         </a>
         <h1> {"Sô Nems.fr"}</h1>
@@ -200,13 +201,12 @@ impl App {
             <a href="mon-compte.html">
               <li class="fifth-link">{"Mon Compte"}</li>
             </a>
-            <a href="S'inscrire">
-              <li class="navbar-item">{"S'inscrire"}</li>
-            </a>
             <a href = "#FAQbis"> {"FAQ"} </a>
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
+            <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
+
 
 
 
@@ -298,7 +298,66 @@ impl App {
 
 
     fn get_html_inscrire(&self, ctx: &Context<Self>) -> Html {
-        html! {"Page d'inscription !"
+        html! {
+            <table id="inscription">
+                <section>
+        <div class="container">
+            <div class="formulaire">
+                <form id="member_subscription_form" name="member_subscription_form_name" method="post" action="#">
+                    <div>
+                    <p><label for="nom"> {"Nom"}</label><br/>
+                        <input type="text" name="nom" id="nom" placeholder="Ex: Antoine" size="25" maxlength="100"/>
+                    </p>
+                    <p><label for="prenom"> {"Prénom"}</label><br/>
+                        <input type="text" name="prenom" id="prenom" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
+                    </p>
+
+                    <p><label for="date-naissance"> {"Date de naissance"} </label><br/>
+                        <input type="date" name="date-naissance" id="date-naissance" placeholder="Ex: 18/12/2000"
+                               size="25" maxlength="100"/></p>
+
+                    <p><label for="tel"> {"Numero de telephone"}  </label><br/>
+                        <input type="tel" name="tel" id="tel" placeholder="01.02.03.04.05" size="25" maxlength="100"/></p>
+
+                        <p><label for="adresse"> {"Adresse"}  </label><br/>
+                            <input type="text" name="adresse" id="adresse" placeholder="9 rue des tuleries" size="25" maxlength="100"/></p>
+
+                        <p><label for="ville"> {"Ville"}  </label><br/>
+                            <input type="text" name="ville" id="ville" placeholder="Oulan-Bator" size="25" maxlength="100"/></p>
+
+                        <p><label for="code-postal"> {"Code postal"} </label><br/>
+                            <input type="text" name="code-postal" id="code-postal" placeholder="16066" size="25" maxlength="100"/></p>
+
+
+
+                        <p><label for="mail"> {"Adresse mail"}  </label> <br/>
+                        <input type="email" name="mail" id="mail" placeholder="Email@email.**" size="25" maxlength="100"/>
+                    </p>
+
+
+                    <p><label for="pass"> {"Mot de passe"} </label> <br/>
+                        <input type="password" name="pass" id="pass" placeholder="*" size="25" maxlength="100"/> </p>
+
+
+                    <p><label for="pass"> {"Confirmation"}  </label> <br/>
+                        <input type="password" name="conf" id="conf" placeholder="*" size="25" maxlength="100"/></p>
+                    </div>
+                    <div>
+
+                        <button id="TpTest" type="button">{"Valider"}   </button>
+                        <button id="test_cmd" type="button">{"Test Commande"}  </button>
+                    </div>
+
+
+
+                </form>
+
+
+            </div>
+        </div>
+    </section>
+
+            </table>
             }
     }
 }
@@ -408,6 +467,12 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetCommande ");
                 true
             }
+
+            Msg::GetSubscribe => {
+                self.current_request = Msg::GetSubscribe;
+                console::log!("execution of update fn / Msg::GetSubscribe...");
+                true
+            }
             _ => {true}
         }
     }
@@ -422,7 +487,7 @@ impl Component for App {
         let concept = self.get_html_concept(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
-        let inscire = self.get_html_inscrire(ctx);
+        let inscrire = self.get_html_inscrire(ctx);
         let main_view_content = match self.current_request {
 
 
@@ -435,6 +500,9 @@ impl Component for App {
             }
             Msg::GetCommande =>{
                 commande
+            }
+            Msg::GetSubscribe =>{
+                inscrire
             }
             _ => {accueil}
         };
