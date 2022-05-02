@@ -9,10 +9,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Modification de tous les boutons du menu. Chaque bouton amène sur sa propre page. Pour le moment les menus : &quot;La Carte&quot;/&quot;Annonce&quot;/&quot;Contact&quot;/&quot;Mon Compte&quot; permettent seulement de revenir à l'accueil.&#10;&#10;Mise à jour des boutons du formulaire. Le bouton valider amène sur une page qui affiche un message à l'utilisateur. Pour le moment le bouton de commande amène sur l'onglet des produits. Il suffira de changer ces petits détails pour amener sur la page voulu plus tard.">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,11 +205,7 @@
       <workItem from="1649747639427" duration="4380000" />
       <workItem from="1649926776715" duration="1958000" />
       <workItem from="1650351161984" duration="5447000" />
-      <workItem from="1650440098425" duration="8660000" />
-      <workItem from="1650524899528" duration="6202000" />
-      <workItem from="1650617474133" duration="1892000" />
-      <workItem from="1650983340964" duration="8000" />
-      <workItem from="1651479716784" duration="840000" />
+      <workItem from="1650440098425" duration="7875000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -442,21 +438,7 @@
       <option name="project" value="LOCAL" />
       <updated>1650357656405</updated>
     </task>
-    <task id="LOCAL-00034" summary="Ajout élément dans la page s'inscrire. Quand on clic sur s'inscrire on arrive sur une page contenant un formulaire d'inscription. C'est une première version au niveau de la mise en page. Les boutons ne marchent pas encore.">
-      <created>1650454155931</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1650454155931</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Modification de tous les boutons du menu. Chaque bouton amène sur sa propre page. Pour le moment les menus : &quot;La Carte&quot;/&quot;Annonce&quot;/&quot;Contact&quot;/&quot;Mon Compte&quot; permettent seulement de revenir à l'accueil.&#10;&#10;Mise à jour des boutons du formulaire. Le bouton valider amène sur une page qui affiche un message à l'utilisateur. Pour le moment le bouton de commande amène sur l'onglet des produits. Il suffira de changer ces petits détails pour amener sur la page voulu plus tard.">
-      <created>1651480547954</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1651480547954</updated>
-    </task>
-    <option name="localTasksCounter" value="36" />
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -523,8 +505,6 @@
     <MESSAGE value="factorisation du code qui génère la FAQ, la partie Concept (qui regroupe le concept et la partie livraison) et le footer donc chacune des parties de la homapage se retrouvent dans une différente fonction dans une impl App" />
     <MESSAGE value="Ajout &quot;Site en construction&quot; sur la page d'accueil. Et ajout de code dans le css pour le positionnement." />
     <MESSAGE value="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
-    <MESSAGE value="Ajout élément dans la page s'inscrire. Quand on clic sur s'inscrire on arrive sur une page contenant un formulaire d'inscription. C'est une première version au niveau de la mise en page. Les boutons ne marchent pas encore." />
-    <MESSAGE value="Modification de tous les boutons du menu. Chaque bouton amène sur sa propre page. Pour le moment les menus : &quot;La Carte&quot;/&quot;Annonce&quot;/&quot;Contact&quot;/&quot;Mon Compte&quot; permettent seulement de revenir à l'accueil.&#10;&#10;Mise à jour des boutons du formulaire. Le bouton valider amène sur une page qui affiche un message à l'utilisateur. Pour le moment le bouton de commande amène sur l'onglet des produits. Il suffira de changer ces petits détails pour amener sur la page voulu plus tard." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification de tous les boutons du menu. Chaque bouton amène sur sa propre page. Pour le moment les menus : &quot;La Carte&quot;/&quot;Annonce&quot;/&quot;Contact&quot;/&quot;Mon Compte&quot; permettent seulement de revenir à l'accueil.&#10;&#10;Mise à jour des boutons du formulaire. Le bouton valider amène sur une page qui affiche un message à l'utilisateur. Pour le moment le bouton de commande amène sur l'onglet des produits. Il suffira de changer ces petits détails pour amener sur la page voulu plus tard." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
   </component>
 </project>
