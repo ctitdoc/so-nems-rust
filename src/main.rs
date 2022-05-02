@@ -41,6 +41,13 @@ pub enum Msg {
     GetProducts,
     GetCommande,
     GetSubscribe,
+    GetSubscribeEnd,
+    GetHome,
+    GetAnnonce,
+    GetFAQ,
+    GetLaCarte,
+    GetContact,
+    GetCompte,
     UpdateMemberList(Vec<Video>),
     UpdateCmdList(Vec<Commande>),
     UpdateProdList(Vec<Produit>),
@@ -178,40 +185,21 @@ impl App {
   <nav class="navbar-part">
     <div class="container">
       <div class="navbar-content">
-        <a href="index.html">
-          <img src="./img/nems-logo.jpg" alt=""/>
-        </a>
-        <h1> {"Sô Nems.fr"}</h1>
-
-
+        <a href = "#home" onclick={ctx.link().callback(|_| Msg::GetHome)}> <img src="./img/nems-logo.jpg" alt=""/> </a>
+        <a href = "#home" onclick={ctx.link().callback(|_| Msg::GetHome)}> <h1> {"Sô Nems.fr"}</h1> </a>
         <div class="navbar-links">
           <ul class="navbar-link">
-            <a href="index.html">
-              <li class="navbar-item"> {"Acceuil"}</li>
-            </a>
-            <a href="La-carte.html">
-              <li class="navbar-item">{"La Carte"}</li>
-            </a>
-            <a href="Annonce">
-              <li class="navbar-item">{"Annonce"}</li>
-            </a>
-            <a href="#contact">
-              <li class="navbar-item">{"Contact"}</li>
-            </a>
-            <a href="mon-compte.html">
-              <li class="fifth-link">{"Mon Compte"}</li>
-            </a>
-            <a href = "#FAQbis"> {"FAQ"} </a>
+            <a href="#home" onclick={ctx.link().callback(|_| Msg::GetHome)}> <li class="navbar-item"> {"Acceuil"}</li></a>
+            <a href="#carte" onclick={ctx.link().callback(|_| Msg::GetLaCarte)}> <li class="navbar-item">{"La Carte"}</li></a>
+            <a href="#annonce" onclick={ctx.link().callback(|_| Msg::GetAnnonce)}> <li class="navbar-item">{"Annonce"}</li></a>
+            <a href="#contact" onclick={ctx.link().callback(|_| Msg::GetContact)}> <li class="navbar-item">{"Contact"}</li></a>
+            <a href="#compte" onclick={ctx.link().callback(|_| Msg::GetCompte)}> <li class="fifth-link">{"Mon Compte"}</li></a>
+            <a href="#FAQ" onclick={ctx.link().callback(|_| Msg::GetFAQ)}> {"FAQ"} </a>
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
             <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
-
-
-
-
           </ul>
-
         </div>
       </div>
     </div>
@@ -344,8 +332,8 @@ impl App {
                     </div>
                     <div>
 
-                        <button id="TpTest" type="button">{"Valider"}   </button>
-                        <button id="test_cmd" type="button">{"Test Commande"}  </button>
+                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetSubscribeEnd)}>{"Valider"}   </button>
+                        <button id="test_cmd" type="button" onclick={ctx.link().callback(|_| Msg::GetProducts)}>{"Test Commande"}  </button>
                     </div>
 
 
@@ -359,6 +347,24 @@ impl App {
 
             </table>
             }
+    }
+    fn get_html_inscrireFin(&self, ctx: &Context<Self>) -> Html {
+        html! {
+    <header>
+        <div class = "nav-img">
+            <div class = "img-pres" >
+        </div>
+        <div class = "title">
+            <h1>{"Sô Nems"}</h1>
+            <hr color = "black"/>
+            <h2>{"Vous êtes maintenant inscrit !"}</h2>
+        </div>
+            <div class = "construction">
+            <h1>{"Veuillez commander !"}</h1>
+        </div>
+        </div>
+    </header>
+    }
     }
 }
 
@@ -473,6 +479,42 @@ impl Component for App {
                 console::log!("execution of update fn / Msg::GetSubscribe...");
                 true
             }
+
+            Msg::GetSubscribeEnd => {
+                self.current_request = Msg::GetSubscribeEnd;
+                console::log!("execution of update fn / Msg::GetSubscribeEnd");
+                true
+            }
+            Msg::GetHome => {
+                self.current_request = Msg::GetHome;
+                console::log!("execution of update fn / Msg::GetHome");
+                true
+            }
+            Msg::GetLaCarte => {
+                self.current_request = Msg::GetLaCarte;
+                console::log!("execution of update fn / Msg::GetLaCarte");
+                true
+            }
+            Msg::GetAnnonce => {
+                self.current_request = Msg::GetAnnonce;
+                console::log!("execution of update fn / Msg::GetAnnonce");
+                true
+            }
+            Msg::GetContact => {
+                self.current_request = Msg::GetContact;
+                console::log!("execution of update fn / Msg::GetContact");
+                true
+            }
+            Msg::GetCompte => {
+                self.current_request = Msg::GetCompte;
+                console::log!("execution of update fn / Msg::GetCompte");
+                true
+            }
+            Msg::GetFAQ => {
+                self.current_request = Msg::GetFAQ;
+                console::log!("execution of update fn / Msg::GetFAQ");
+                true
+            }
             _ => {true}
         }
     }
@@ -488,6 +530,7 @@ impl Component for App {
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
         let inscrire = self.get_html_inscrire(ctx);
+        let inscrireFin = self.get_html_inscrireFin(ctx);
         let main_view_content = match self.current_request {
 
 
@@ -503,6 +546,15 @@ impl Component for App {
             }
             Msg::GetSubscribe =>{
                 inscrire
+            }
+            Msg::GetSubscribeEnd=>{
+                inscrireFin
+            }
+            Msg::GetHome=>{
+                accueil
+            }
+            Msg::GetFAQ=>{
+                faq
             }
             _ => {accueil}
         };

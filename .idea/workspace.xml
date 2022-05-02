@@ -9,12 +9,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Ajout élément dans la page s'inscrire. Quand on clic sur s'inscrire on arrive sur une page contenant un formulaire d'inscription. C'est une première version au niveau de la mise en page. Les boutons ne marchent pas encore.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/so-nems.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/www" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -99,11 +97,6 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -207,7 +200,11 @@
       <workItem from="1649747639427" duration="4380000" />
       <workItem from="1649926776715" duration="1958000" />
       <workItem from="1650351161984" duration="5447000" />
-      <workItem from="1650440098425" duration="7875000" />
+      <workItem from="1650440098425" duration="8660000" />
+      <workItem from="1650524899528" duration="6202000" />
+      <workItem from="1650617474133" duration="1892000" />
+      <workItem from="1650983340964" duration="8000" />
+      <workItem from="1651479716784" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -440,7 +437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650357656405</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Ajout élément dans la page s'inscrire. Quand on clic sur s'inscrire on arrive sur une page contenant un formulaire d'inscription. C'est une première version au niveau de la mise en page. Les boutons ne marchent pas encore.">
+      <created>1650454155931</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1650454155931</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -507,6 +511,7 @@
     <MESSAGE value="factorisation du code qui génère la FAQ, la partie Concept (qui regroupe le concept et la partie livraison) et le footer donc chacune des parties de la homapage se retrouvent dans une différente fonction dans une impl App" />
     <MESSAGE value="Ajout &quot;Site en construction&quot; sur la page d'accueil. Et ajout de code dans le css pour le positionnement." />
     <MESSAGE value="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
+    <MESSAGE value="Ajout élément dans la page s'inscrire. Quand on clic sur s'inscrire on arrive sur une page contenant un formulaire d'inscription. C'est une première version au niveau de la mise en page. Les boutons ne marchent pas encore." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout élément dans la page s'inscrire. Quand on clic sur s'inscrire on arrive sur une page contenant un formulaire d'inscription. C'est une première version au niveau de la mise en page. Les boutons ne marchent pas encore." />
   </component>
 </project>
