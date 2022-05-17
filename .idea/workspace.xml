@@ -9,7 +9,14 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/so-nems.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,6 +86,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -93,11 +105,6 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -202,6 +209,21 @@
       <workItem from="1649926776715" duration="1958000" />
       <workItem from="1650351161984" duration="5447000" />
       <workItem from="1650440098425" duration="7875000" />
+      <workItem from="1652080761057" duration="3512000" />
+      <workItem from="1652086534287" duration="34000" />
+      <workItem from="1652086677524" duration="5068000" />
+      <workItem from="1652108052336" duration="5000" />
+      <workItem from="1652169180408" duration="5223000" />
+      <workItem from="1652190842619" duration="1332000" />
+      <workItem from="1652254242728" duration="6991000" />
+      <workItem from="1652342770139" duration="389000" />
+      <workItem from="1652346985229" duration="625000" />
+      <workItem from="1652347835800" duration="6000" />
+      <workItem from="1652432837677" duration="408000" />
+      <workItem from="1652433483529" duration="276000" />
+      <workItem from="1652687574734" duration="8000" />
+      <workItem from="1652706955179" duration="2020000" />
+      <workItem from="1652778293372" duration="1060000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>

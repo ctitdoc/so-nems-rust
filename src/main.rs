@@ -235,6 +235,7 @@ impl App {
     }
     fn get_html_faq(&self, ctx: &Context<Self>) -> Html {
         html! {
+            //TODO : Modification Css
     <section id = "FAQbis">
     <div class="FAQ">
     <div class="FAQ-content">
@@ -366,6 +367,99 @@ impl App {
     </header>
     }
     }
+    fn get_html_laCarte(&self, ctx: &Context<Self>) -> Html {
+        html! {
+            <>
+    <header>
+    <div class="banner">
+        <div class="img-banner"></div>
+        <div class="titre"><h1><h1> {"Notre carte"}</h1>
+            <hr color="black"/>
+            <h2>{"Spécialité asiatique"}</h2></h1></div>
+    </div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+            <div class="intro">
+                <div class="paragraph">
+                    <h3>{"La Carte :"}</h3>
+                    <p><strong>{"Notre carte réalisée et faite maison, conviendra à toute personne aimant de près ou de loin la cuisine asiatique."} </strong></p>
+                </div>
+
+            </div>
+            <div class="menu-1">
+                <div class="plat-1">
+                    <img src="img/nems.jpg"/>
+                </div>
+                <div class="desc-plat1">
+                    <h3>{"Pâté impérial ..............................................0,80 €"}</h3>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <h3>{"Nem .........................................................0,80 €"}</h3>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+            </>
+    }
+    }
+    fn get_html_contact(&self, ctx: &Context<Self>) -> Html {
+        html! {<main>
+    <section id="contact.html">
+    </section>
+</main>
+    }
+    }
+    fn get_html_compte(&self, ctx: &Context<Self>) -> Html {
+        html! {
+            //TODO : Modification Css
+            <>
+            <div class="subscribe">
+<header>
+    <div class="banner">
+        <div class="img-banner"></div>
+        <div class="titre">
+            <h1>  {"Mon compte"} </h1>
+
+        </div></div>
+</header>
+<main>
+    <section>
+        <div class="container">
+            <div class="formulaire">
+                <form method="post" action="#">
+                    <div>
+                        <p><label for="identifiant"> {"Identifiant"} </label><br/>
+                            <input type="text" name="identifiant" id="identifiant" placeholder="Ex: Antoine" size="25" maxlength="100"/>
+                        </p>
+                        <p><label for="Mp"> {"Mot de passe"} </label><br/>
+                            <input type="text" name="Mp" id="Mp" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
+                        </p>
+                    </div>
+                    <div class = "link">
+                    <a href="#"> {"Mot de passe oublié"}</a>
+
+                    <a href="inscription.html"> {"S'inscrire"}</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+     </main>
+            </div>
+            </>
+    }
+    }
 }
 
 impl Component for App {
@@ -482,6 +576,7 @@ impl Component for App {
 
             Msg::GetSubscribeEnd => {
                 self.current_request = Msg::GetSubscribeEnd;
+                //TODO :
                 console::log!("execution of update fn / Msg::GetSubscribeEnd");
                 true
             }
@@ -515,6 +610,26 @@ impl Component for App {
                 console::log!("execution of update fn / Msg::GetFAQ");
                 true
             }
+            Msg::GetLaCarte => {
+                self.current_request = Msg::GetLaCarte;
+                console::log!("execution of update fn / Msg::GetLaCarte");
+                true
+            }
+            Msg::GetContact => {
+                self.current_request = Msg::GetContact;
+                console::log!("execution of update fn / Msg::GetContact");
+                true
+            }
+            Msg::GetCompte => {
+                self.current_request = Msg::GetCompte;
+                console::log!("execution of update fn / Msg::GetCompte");
+                true
+            }
+            Msg::GetAnnonce => {
+                self.current_request = Msg::GetAnnonce;
+                console::log!("execution of update fn / Msg::GetAnnonce");
+                true
+            }
             _ => {true}
         }
     }
@@ -524,6 +639,9 @@ impl Component for App {
         let videos = self.get_html_member_list(ctx);
         let products = self.get_html_product_list(ctx);
         let commande = self.get_html_cmd_list(ctx);
+        let compte = self.get_html_compte(ctx);
+        let laCarte = self.get_html_laCarte(ctx);
+        let contact = self.get_html_contact(ctx);
         let accueil = self.get_html_accueil(ctx);
         let navbar = self.get_html_nav(ctx);
         let concept = self.get_html_concept(ctx);
@@ -555,6 +673,18 @@ impl Component for App {
             }
             Msg::GetFAQ=>{
                 faq
+            }
+            Msg::GetAnnonce=>{
+                accueil
+            }
+            Msg::GetCompte=>{
+                compte
+            }
+            Msg::GetLaCarte=>{
+                laCarte
+            }
+            Msg::GetContact=>{
+                accueil
             }
             _ => {accueil}
         };
@@ -591,5 +721,3 @@ impl Component for App {
 fn main() {
     yew::start_app::<App>();
 }
-
-//TODO : demain faire pour produits.
