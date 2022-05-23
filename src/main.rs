@@ -8,7 +8,7 @@ use wasm_bindgen_futures::{spawn_local};
 use crate::Msg::GetProducts;
 
 // Define the possible messages which can be sent to the component
-
+//Test Push
 #[derive(Clone, PartialEq, Deserialize)]
 pub struct Video {
     nom: String,
@@ -40,6 +40,14 @@ pub enum Msg {
     GetMembers,
     GetProducts,
     GetCommande,
+    GetSubscribe,
+    GetSubscribeEnd,
+    GetHome,
+    GetAnnonce,
+    GetFAQ,
+    GetLaCarte,
+    GetContact,
+    GetCompte,
     UpdateMemberList(Vec<Video>),
     UpdateCmdList(Vec<Commande>),
     UpdateProdList(Vec<Produit>),
@@ -83,9 +91,12 @@ impl App {
             <div class="member">
         <table id="admin_member">
 
-            <tbody class="member_list">
+            <tbody>
+                        <div  class="main">
             <h1> {"affichage member"}</h1>
-    {rows}
+            {rows}
+                                    </div>
+
     </tbody>
     </table>
             </div>
@@ -105,6 +116,7 @@ impl App {
             <section>
             <div class="member">
         <table id = "admin_prod">
+            <div class="main">
             <thead>
             <tr>
             <th> {"Affichage products"}</th>
@@ -113,7 +125,9 @@ impl App {
             <tbody>
     {rows}
     </tbody>
+    </div>
     </table>
+
             </div>
             </section>
     }
@@ -131,6 +145,7 @@ impl App {
             <section>
             <div class="member">
         <table id = "admin_cmd">
+            <div class="main">
             <thead>
                 <tr>
                     <th> {"Affichage commande"}</th>
@@ -139,6 +154,7 @@ impl App {
             <tbody>
                 {rows}
             </tbody>
+            </div>
         </table>
             </div>
             </section>
@@ -155,55 +171,35 @@ impl App {
             <hr color = "black"/>
             <h2>{"spécialité maison"}</h2>
         </div>
+            <div class = "construction">
+            <h1>{"Site en construction"}</h1>
+        </div>
         </div>
     </header>
     }
     }
 
-    fn get_html_nav(&self, ctx: &Context<Self>)-> Html{
-        html!{
+    fn get_html_nav(&self, ctx: &Context<Self>) -> Html {
+        html! {
             <header>
   <nav class="navbar-part">
     <div class="container">
       <div class="navbar-content">
-        <a href="#">
-          <img src="./img/nems-logo.jpg" alt=""/>
-        </a>
-        <h1> {"Sô Nems.fr"}</h1>
-
-
+        <a href = "#home" onclick={ctx.link().callback(|_| Msg::GetHome)}> <img src="./img/nems-logo.jpg" alt=""/> </a>
+        <a href = "#home" onclick={ctx.link().callback(|_| Msg::GetHome)}> <h1> {"Sô Nems.fr"}</h1> </a>
         <div class="navbar-links">
           <ul class="navbar-link">
-            <a href="index.html">
-              <li class="navbar-item"> {"Acceuil"}</li>
-            </a>
-            <a href="La-carte.html">
-              <li class="navbar-item">{"La Carte"}</li>
-            </a>
-            <a href="Annonce">
-              <li class="navbar-item">{"Annonce"}</li>
-            </a>
-            <a href="#contact">
-              <li class="navbar-item">{"Contact"}</li>
-            </a>
-            <a href="mon-compte.html">
-              <li class="fifth-link">{"Mon Compte"}</li>
-            </a>
-            <a href = "#FAQbis"> {"FAQ"} </a>
-          /*  <a href="test-yew.html">
-              <li class="fifth-link">{"test yew"}</li>
-            </a>
-            <a href="content_compte.html">
-              <li class="fifth-link">{"contenu d'un compte"}</li>
-            </a>*/
+            <a href="#home" onclick={ctx.link().callback(|_| Msg::GetHome)}> <li class="navbar-item"> {"Acceuil"}</li></a>
+            <a href="#carte" onclick={ctx.link().callback(|_| Msg::GetLaCarte)}> <li class="navbar-item">{"La Carte"}</li></a>
+            <a href="#annonce" onclick={ctx.link().callback(|_| Msg::GetAnnonce)}> <li class="navbar-item">{"Annonce"}</li></a>
+            <a href="#contact" onclick={ctx.link().callback(|_| Msg::GetContact)}> <li class="navbar-item">{"Contact"}</li></a>
+            <a href="#compte" onclick={ctx.link().callback(|_| Msg::GetCompte)}> <li class="fifth-link">{"Mon Compte"}</li></a>
+            <a href="#FAQ" onclick={ctx.link().callback(|_| Msg::GetFAQ)}> {"FAQ"} </a>
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
-
-
-
+            <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
           </ul>
-
         </div>
       </div>
     </div>
@@ -212,8 +208,8 @@ impl App {
 </header>
         }
     }
-    fn get_html_concept (&self, ctx: &Context<Self>)-> Html{
-        html!{
+    fn get_html_concept(&self, ctx: &Context<Self>) -> Html {
+        html! {
         <div class="Colonne">
       <div class="Concept">
         <div class="desc-conc">
@@ -237,8 +233,9 @@ impl App {
     </div>
         }
     }
-    fn get_html_faq(&self, ctx: &Context<Self>) -> Html{
+    fn get_html_faq(&self, ctx: &Context<Self>) -> Html {
         html! {
+            //TODO : Modification Css
     <section id = "FAQbis">
     <div class="FAQ">
     <div class="FAQ-content">
@@ -252,8 +249,8 @@ impl App {
     </div>
     </section>
             }
-}
-    fn get_html_footer (&self, ctx: &Context<Self>) -> Html{
+    }
+    fn get_html_footer(&self, ctx: &Context<Self>) -> Html {
         html! {
         <footer id= "contact" class= "footer">
     <table class="footer-table">
@@ -287,8 +284,183 @@ impl App {
   </footer>
         }
     }
-}
 
+
+    fn get_html_inscrire(&self, ctx: &Context<Self>) -> Html {
+        html! {
+            <table id="inscription">
+                <section>
+        <div class="container">
+            <div class="formulaire">
+                <form id="member_subscription_form" name="member_subscription_form_name" method="post" action="#">
+                    <div>
+                    <p><label for="nom"> {"Nom"}</label><br/>
+                        <input type="text" name="nom" id="nom" placeholder="Ex: Antoine" size="25" maxlength="100"/>
+                    </p>
+                    <p><label for="prenom"> {"Prénom"}</label><br/>
+                        <input type="text" name="prenom" id="prenom" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
+                    </p>
+
+                    <p><label for="date-naissance"> {"Date de naissance"} </label><br/>
+                        <input type="date" name="date-naissance" id="date-naissance" placeholder="Ex: 18/12/2000"
+                               size="25" maxlength="100"/></p>
+
+                    <p><label for="tel"> {"Numero de telephone"}  </label><br/>
+                        <input type="tel" name="tel" id="tel" placeholder="01.02.03.04.05" size="25" maxlength="100"/></p>
+
+                        <p><label for="adresse"> {"Adresse"}  </label><br/>
+                            <input type="text" name="adresse" id="adresse" placeholder="9 rue des tuleries" size="25" maxlength="100"/></p>
+
+                        <p><label for="ville"> {"Ville"}  </label><br/>
+                            <input type="text" name="ville" id="ville" placeholder="Oulan-Bator" size="25" maxlength="100"/></p>
+
+                        <p><label for="code-postal"> {"Code postal"} </label><br/>
+                            <input type="text" name="code-postal" id="code-postal" placeholder="16066" size="25" maxlength="100"/></p>
+
+
+
+                        <p><label for="mail"> {"Adresse mail"}  </label> <br/>
+                        <input type="email" name="mail" id="mail" placeholder="Email@email.**" size="25" maxlength="100"/>
+                    </p>
+
+
+                    <p><label for="pass"> {"Mot de passe"} </label> <br/>
+                        <input type="password" name="pass" id="pass" placeholder="*" size="25" maxlength="100"/> </p>
+
+
+                    <p><label for="pass"> {"Confirmation"}  </label> <br/>
+                        <input type="password" name="conf" id="conf" placeholder="*" size="25" maxlength="100"/></p>
+                    </div>
+                    <div>
+
+                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetSubscribeEnd)}>{"Valider"}   </button>
+                        <button id="test_cmd" type="button" onclick={ctx.link().callback(|_| Msg::GetProducts)}>{"Test Commande"}  </button>
+                    </div>
+
+
+
+                </form>
+
+
+            </div>
+        </div>
+    </section>
+
+            </table>
+            }
+    }
+    fn get_html_inscrireFin(&self, ctx: &Context<Self>) -> Html {
+        html! {
+    <header>
+        <div class = "nav-img">
+            <div class = "img-pres" >
+        </div>
+        <div class = "title">
+            <h1>{"Sô Nems"}</h1>
+            <hr color = "black"/>
+            <h2>{"Vous êtes maintenant inscrit !"}</h2>
+        </div>
+            <div class = "construction">
+            <h1>{"Veuillez commander !"}</h1>
+        </div>
+        </div>
+    </header>
+    }
+    }
+    fn get_html_laCarte(&self, ctx: &Context<Self>) -> Html {
+        html! {
+            <>
+    <header>
+    <div class="banner">
+        <div class="img-banner"></div>
+        <div class="titre"><h1><h1> {"Notre carte"}</h1>
+            <hr color="black"/>
+            <h2>{"Spécialité asiatique"}</h2></h1></div>
+    </div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+            <div class="intro">
+                <div class="paragraph">
+                    <h3>{"La Carte :"}</h3>
+                    <p><strong>{"Notre carte réalisée et faite maison, conviendra à toute personne aimant de près ou de loin la cuisine asiatique."} </strong></p>
+                </div>
+
+            </div>
+            <div class="menu-1">
+                <div class="plat-1">
+                    <img src="img/nems.jpg"/>
+                </div>
+                <div class="desc-plat1">
+                    <h3>{"Pâté impérial ..............................................0,80 €"}</h3>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <h3>{"Nem .........................................................0,80 €"}</h3>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+            </>
+    }
+    }
+    fn get_html_contact(&self, ctx: &Context<Self>) -> Html {
+        html! {<main>
+    <section id="contact.html">
+    </section>
+</main>
+    }
+    }
+    fn get_html_compte(&self, ctx: &Context<Self>) -> Html {
+        html! {
+            //TODO : Modification Css
+            <>
+            <div class="subscribe">
+<header>
+    <div class="banner">
+        <div class="img-banner"></div>
+        <div class="titre">
+            <h1>  {"Mon compte"} </h1>
+
+        </div></div>
+</header>
+<main>
+    <section>
+        <div class="container">
+            <div class="formulaire">
+                <form method="post" action="#">
+                    <div>
+                        <p><label for="identifiant"> {"Identifiant"} </label><br/>
+                            <input type="text" name="identifiant" id="identifiant" placeholder="Ex: Antoine" size="25" maxlength="100"/>
+                        </p>
+                        <p><label for="Mp"> {"Mot de passe"} </label><br/>
+                            <input type="text" name="Mp" id="Mp" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
+                        </p>
+                    </div>
+                    <div class = "link">
+                    <a href="#"> {"Mot de passe oublié"}</a>
+
+                    <a href="inscription.html"> {"S'inscrire"}</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+     </main>
+            </div>
+            </>
+    }
+    }
+}
 
 impl Component for App {
     type Message = Msg;
@@ -395,6 +567,69 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetCommande ");
                 true
             }
+
+            Msg::GetSubscribe => {
+                self.current_request = Msg::GetSubscribe;
+                console::log!("execution of update fn / Msg::GetSubscribe...");
+                true
+            }
+
+            Msg::GetSubscribeEnd => {
+                self.current_request = Msg::GetSubscribeEnd;
+                //TODO :
+                console::log!("execution of update fn / Msg::GetSubscribeEnd");
+                true
+            }
+            Msg::GetHome => {
+                self.current_request = Msg::GetHome;
+                console::log!("execution of update fn / Msg::GetHome");
+                true
+            }
+            Msg::GetLaCarte => {
+                self.current_request = Msg::GetLaCarte;
+                console::log!("execution of update fn / Msg::GetLaCarte");
+                true
+            }
+            Msg::GetAnnonce => {
+                self.current_request = Msg::GetAnnonce;
+                console::log!("execution of update fn / Msg::GetAnnonce");
+                true
+            }
+            Msg::GetContact => {
+                self.current_request = Msg::GetContact;
+                console::log!("execution of update fn / Msg::GetContact");
+                true
+            }
+            Msg::GetCompte => {
+                self.current_request = Msg::GetCompte;
+                console::log!("execution of update fn / Msg::GetCompte");
+                true
+            }
+            Msg::GetFAQ => {
+                self.current_request = Msg::GetFAQ;
+                console::log!("execution of update fn / Msg::GetFAQ");
+                true
+            }
+            Msg::GetLaCarte => {
+                self.current_request = Msg::GetLaCarte;
+                console::log!("execution of update fn / Msg::GetLaCarte");
+                true
+            }
+            Msg::GetContact => {
+                self.current_request = Msg::GetContact;
+                console::log!("execution of update fn / Msg::GetContact");
+                true
+            }
+            Msg::GetCompte => {
+                self.current_request = Msg::GetCompte;
+                console::log!("execution of update fn / Msg::GetCompte");
+                true
+            }
+            Msg::GetAnnonce => {
+                self.current_request = Msg::GetAnnonce;
+                console::log!("execution of update fn / Msg::GetAnnonce");
+                true
+            }
             _ => {true}
         }
     }
@@ -404,11 +639,16 @@ impl Component for App {
         let videos = self.get_html_member_list(ctx);
         let products = self.get_html_product_list(ctx);
         let commande = self.get_html_cmd_list(ctx);
+        let compte = self.get_html_compte(ctx);
+        let laCarte = self.get_html_laCarte(ctx);
+        let contact = self.get_html_contact(ctx);
         let accueil = self.get_html_accueil(ctx);
         let navbar = self.get_html_nav(ctx);
         let concept = self.get_html_concept(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
+        let inscrire = self.get_html_inscrire(ctx);
+        let inscrireFin = self.get_html_inscrireFin(ctx);
         let main_view_content = match self.current_request {
 
 
@@ -421,6 +661,30 @@ impl Component for App {
             }
             Msg::GetCommande =>{
                 commande
+            }
+            Msg::GetSubscribe =>{
+                inscrire
+            }
+            Msg::GetSubscribeEnd=>{
+                inscrireFin
+            }
+            Msg::GetHome=>{
+                accueil
+            }
+            Msg::GetFAQ=>{
+                faq
+            }
+            Msg::GetAnnonce=>{
+                accueil
+            }
+            Msg::GetCompte=>{
+                compte
+            }
+            Msg::GetLaCarte=>{
+                laCarte
+            }
+            Msg::GetContact=>{
+                accueil
             }
             _ => {accueil}
         };
@@ -457,5 +721,3 @@ impl Component for App {
 fn main() {
     yew::start_app::<App>();
 }
-
-//TODO : demain faire pour produits.

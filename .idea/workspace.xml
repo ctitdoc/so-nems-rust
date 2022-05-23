@@ -9,10 +9,9 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="factorisation du code qui génère la FAQ, la partie Concept (qui regroupe le concept et la partie livraison) et le footer donc chacune des parties de la homapage se retrouvent dans une différente fonction dans une impl App">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/so-nems-b639b701b3931027.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
@@ -30,9 +29,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="CSS File" />
         <option value="HTML File" />
         <option value="Rust File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -67,7 +66,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="CSS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
@@ -87,6 +86,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -101,11 +105,6 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -202,6 +201,29 @@
       <workItem from="1647937206476" duration="12028000" />
       <workItem from="1647964712284" duration="2804000" />
       <workItem from="1648023799890" duration="5122000" />
+      <workItem from="1649674559906" duration="875000" />
+      <workItem from="1649683264093" duration="461000" />
+      <workItem from="1649683937700" duration="2052000" />
+      <workItem from="1649688272992" duration="1433000" />
+      <workItem from="1649747639427" duration="4380000" />
+      <workItem from="1649926776715" duration="1958000" />
+      <workItem from="1650351161984" duration="5447000" />
+      <workItem from="1650440098425" duration="7875000" />
+      <workItem from="1652080761057" duration="3512000" />
+      <workItem from="1652086534287" duration="34000" />
+      <workItem from="1652086677524" duration="5068000" />
+      <workItem from="1652108052336" duration="5000" />
+      <workItem from="1652169180408" duration="5223000" />
+      <workItem from="1652190842619" duration="1332000" />
+      <workItem from="1652254242728" duration="6991000" />
+      <workItem from="1652342770139" duration="389000" />
+      <workItem from="1652346985229" duration="625000" />
+      <workItem from="1652347835800" duration="6000" />
+      <workItem from="1652432837677" duration="408000" />
+      <workItem from="1652433483529" duration="276000" />
+      <workItem from="1652687574734" duration="8000" />
+      <workItem from="1652706955179" duration="2020000" />
+      <workItem from="1652778293372" duration="1060000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -420,7 +442,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647968942996</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Ajout &quot;Site en construction&quot; sur la page d'accueil. Et ajout de code dans le css pour le positionnement.">
+      <created>1649750503824</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1649750503824</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base">
+      <created>1650357656405</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1650357656405</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,6 +478,21 @@
         <entry key="MAIN">
           <value>
             <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
@@ -470,6 +521,8 @@
     <MESSAGE value="factorisation du code qui génère la liste des produits" />
     <MESSAGE value="factorisation du code qui génère la liste des commande et l'accueil" />
     <MESSAGE value="factorisation du code qui génère la FAQ, la partie Concept (qui regroupe le concept et la partie livraison) et le footer donc chacune des parties de la homapage se retrouvent dans une différente fonction dans une impl App" />
-    <option name="LAST_COMMIT_MESSAGE" value="factorisation du code qui génère la FAQ, la partie Concept (qui regroupe le concept et la partie livraison) et le footer donc chacune des parties de la homapage se retrouvent dans une différente fonction dans une impl App" />
+    <MESSAGE value="Ajout &quot;Site en construction&quot; sur la page d'accueil. Et ajout de code dans le css pour le positionnement." />
+    <MESSAGE value="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
   </component>
 </project>
