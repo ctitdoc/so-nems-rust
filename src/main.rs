@@ -45,6 +45,7 @@ pub enum Msg {
     GetHome,
     GetAnnonce,
     GetFAQ,
+    GetConcept,
     GetLaCarte,
     GetContact,
     GetCompte,
@@ -208,9 +209,12 @@ impl App {
 </header>
         }
     }
-    fn get_html_concept(&self, ctx: &Context<Self>) -> Html {
+
+    fn get_html_faq(&self, ctx: &Context<Self>) -> Html {
         html! {
-        <div class="Colonne">
+            //TODO : Modification Css
+            <section id = "FAQbis">
+             <div class="Colonne">
       <div class="Concept">
         <div class="desc-conc">
           <h2>{"Sô Nems ?"}</h2>
@@ -219,8 +223,7 @@ impl App {
           <p>{"***************************************************"}</p>
         </div>
             </div>
-
-      <div class="Livraison">
+            <div class="Livraison">
         <div class="desc-livr">
           <h2> {"Livraison"} </h2>
           <p>{"Perimètre de livraison : Crolles"}</p>
@@ -230,13 +233,8 @@ impl App {
 
 
       </div>
-    </div>
-        }
-    }
-    fn get_html_faq(&self, ctx: &Context<Self>) -> Html {
-        html! {
-            //TODO : Modification Css
-    <section id = "FAQbis">
+            </div>
+
     <div class="FAQ">
     <div class="FAQ-content">
     <h2> {"F.A.Q"}</h2>
@@ -610,6 +608,7 @@ impl Component for App {
                 console::log!("execution of update fn / Msg::GetFAQ");
                 true
             }
+
             Msg::GetLaCarte => {
                 self.current_request = Msg::GetLaCarte;
                 console::log!("execution of update fn / Msg::GetLaCarte");
@@ -644,7 +643,6 @@ impl Component for App {
         let contact = self.get_html_contact(ctx);
         let accueil = self.get_html_accueil(ctx);
         let navbar = self.get_html_nav(ctx);
-        let concept = self.get_html_concept(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
         let inscrire = self.get_html_inscrire(ctx);
@@ -671,7 +669,7 @@ impl Component for App {
             Msg::GetHome=>{
                 accueil
             }
-            Msg::GetFAQ=>{
+            Msg::GetFAQ => {
                 faq
             }
             Msg::GetAnnonce=>{
