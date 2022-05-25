@@ -45,7 +45,7 @@ pub enum Msg {
     GetHome,
     GetAnnonce,
     GetFAQ,
-    GetConcept,
+    GetProductFrom,
     GetLaCarte,
     GetContact,
     GetCompte,
@@ -200,6 +200,7 @@ impl App {
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
             <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
+            <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"nouveaux produits"}</a>
           </ul>
         </div>
       </div>
@@ -248,6 +249,7 @@ impl App {
     </section>
             }
     }
+
     fn get_html_footer(&self, ctx: &Context<Self>) -> Html {
         html! {
         <footer id= "contact" class= "footer">
@@ -283,7 +285,37 @@ impl App {
         }
     }
 
+    fn get_html_product_form(&self, ctx: &Context<Self>) -> Html{
+        html! {
+        <table id="product">
+            <section>
+            <div class="container">
+            <div class="formulaire">
+            <form id="product_form" name="product_form" method="post" action="#">
+            <div>
+            <p><label for="product"> {"produit : "}  </label><br/>
+            <input type="text" name="product" id="product" placeholder="nems" size="25" maxlength="100"/></p>
 
+
+            </div>
+            <div>
+
+
+            <button id="#" type="button" onclick={ctx.link().callback(|_| Msg::GetProducts)}>{"create"}  </button>
+            </div>
+
+
+
+            </form>
+
+
+            </div>
+            </div>
+            </section>
+
+            </table>
+            }
+    }
     fn get_html_inscrire(&self, ctx: &Context<Self>) -> Html {
         html! {
             <table id="inscription">
@@ -427,7 +459,8 @@ impl App {
         <div class="titre">
             <h1>  {"Mon compte"} </h1>
 
-        </div></div>
+        </div>
+        </div>
 </header>
 <main>
     <section>
@@ -578,6 +611,11 @@ impl Component for App {
                 console::log!("execution of update fn / Msg::GetSubscribeEnd");
                 true
             }
+            Msg::GetProductFrom => {
+                self.current_request = Msg::GetProductFrom;
+                console::log!("execution of update fn / Msg::GetProductFrom");
+                true
+            }
             Msg::GetHome => {
                 self.current_request = Msg::GetHome;
                 console::log!("execution of update fn / Msg::GetHome");
@@ -647,6 +685,7 @@ impl Component for App {
         let footer = self.get_html_footer(ctx);
         let inscrire = self.get_html_inscrire(ctx);
         let inscrireFin = self.get_html_inscrireFin(ctx);
+        let product_form = self.get_html_product_form(ctx);
         let main_view_content = match self.current_request {
 
 
@@ -665,6 +704,9 @@ impl Component for App {
             }
             Msg::GetSubscribeEnd=>{
                 inscrireFin
+            }
+            Msg::GetProductFrom => {
+                product_form
             }
             Msg::GetHome=>{
                 accueil
