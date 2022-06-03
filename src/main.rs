@@ -1,11 +1,12 @@
 use gloo_console as console;
 use js_sys::Date;
 use yew::prelude::*;
-use yew::{html, Component, Context, Html};
+use yew::{html, Component, Context, Html, TargetCast};
 use reqwasm::http::{Request, Response};
 use serde::{Deserialize};
 use wasm_bindgen_futures::{spawn_local};
 use crate::Msg::GetProducts;
+use web_sys::HtmlInputElement;
 
 // Define the possible messages which can be sent to the component
 //Test Push
@@ -53,6 +54,9 @@ pub enum Msg {
     UpdateCmdList(Vec<Commande>),
     UpdateProdList(Vec<Produit>),
     Home,
+    ProductName(String),
+    GetRecordProduct,
+    GetRecordProductStatus(String),
 }
 
 pub struct App {
@@ -62,6 +66,7 @@ pub struct App {
     products: Vec<Produit>,
     commande: Vec<Commande>,
     current_request: Msg,
+    product: Option<Produit>,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -285,7 +290,12 @@ impl App {
         }
     }
 
-    fn get_html_product_form(&self, ctx: &Context<Self>) -> Html{
+    fn get_html_product_form(&self, ctx: &Context<Self>) -> Html {
+        let on_input_change = ctx.link().callback(|e: Event| {
+            Msg::ProductName(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+
+
         html! {
         <table id="product">
             <section>
@@ -294,14 +304,14 @@ impl App {
             <form id="product_form" name="product_form" method="post" action="#">
             <div>
             <p><label for="product"> {"produit : "}  </label><br/>
-            <input type="text" name="product" id="product" placeholder="nems" size="25" maxlength="100"/></p>
+            <input onchange ={on_input_change} type="text" name="product" id="product" placeholder="nems" size="25" maxlength="100"/></p>
 
 
             </div>
             <div>
 
 
-            <button id="#" type="button" onclick={ctx.link().callback(|_| Msg::GetProducts)}>{"create"}  </button>
+            <button id="#" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
             </div>
 
 
@@ -498,7 +508,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home }
+        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -611,9 +621,41 @@ impl Component for App {
                 console::log!("execution of update fn / Msg::GetSubscribeEnd");
                 true
             }
+
             Msg::GetProductFrom => {
                 self.current_request = Msg::GetProductFrom;
                 console::log!("execution of update fn / Msg::GetProductFrom");
+                true
+            }
+            Msg::GetRecordProduct => {
+                self.current_request = Msg::GetRecordProduct;
+                console::log!("execution START of update fn / Msg::GetRecordProduct...");
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/new_produit\")...");
+
+                            let status = Request::get( "api/new_produit/<name>")
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/new_produit\")...");
+                            status
+
+                        },
+                        _ctx.link().callback(|status| Msg::GetRecordProductStatus(status)))
+
+                );
+                console::log!("execution END of update fn / Msg::GetRecordProduct ");
+
+                true
+
+            }
+            Msg::GetRecordProductStatus(status) => {
+                self.current_request = Msg::GetRecordProductStatus(status);
                 true
             }
             Msg::GetHome => {
@@ -667,7 +709,23 @@ impl Component for App {
                 console::log!("execution of update fn / Msg::GetAnnonce");
                 true
             }
-            _ => {true}
+            Msg::ProductName(product_name) => {
+                let optional_pdt = self.product.as_mut();
+                match optional_pdt {
+                    Some(pdt ) => {
+                        pdt.nom_produit = product_name;
+                        console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                    }
+                    _ => {
+                        self.product =  Some(Produit { nom_produit : product_name});
+
+                        console::log!(format!("created product with nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                    }
+
+                };
+                true
+            }
+            _ => { true }
         }
     }
 
@@ -687,46 +745,43 @@ impl Component for App {
         let inscrireFin = self.get_html_inscrireFin(ctx);
         let product_form = self.get_html_product_form(ctx);
         let main_view_content = match self.current_request {
-
-
-            Msg::GetMembers =>{
+            Msg::GetMembers => {
                 videos
             }
             Msg::GetProducts => {
                 products
-
             }
-            Msg::GetCommande =>{
+            Msg::GetCommande => {
                 commande
             }
-            Msg::GetSubscribe =>{
+            Msg::GetSubscribe => {
                 inscrire
             }
-            Msg::GetSubscribeEnd=>{
+            Msg::GetSubscribeEnd => {
                 inscrireFin
             }
             Msg::GetProductFrom => {
                 product_form
             }
-            Msg::GetHome=>{
+            Msg::GetHome => {
                 accueil
             }
             Msg::GetFAQ => {
                 faq
             }
-            Msg::GetAnnonce=>{
+            Msg::GetAnnonce => {
                 accueil
             }
-            Msg::GetCompte=>{
+            Msg::GetCompte => {
                 compte
             }
-            Msg::GetLaCarte=>{
+            Msg::GetLaCarte => {
                 laCarte
             }
-            Msg::GetContact=>{
+            Msg::GetContact => {
                 accueil
             }
-            _ => {accueil}
+            _ => { accueil }
         };
 
         html! {

@@ -9,12 +9,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="ajout de la partie concepet dans le lien &quot;FAQ&quot;">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="création du nouveau lien &quot;nouveaux produits&quot; apparition du formulaire de création de nouveau produit qui ne renvoie pas en base les données">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/so-nems.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/so-nems.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +83,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -99,11 +102,6 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -225,7 +223,12 @@
       <workItem from="1652778293372" duration="1060000" />
       <workItem from="1653378209107" duration="12215000" />
       <workItem from="1653464578103" duration="5814000" />
-      <workItem from="1653485391446" duration="6000" />
+      <workItem from="1653485391446" duration="1073000" />
+      <workItem from="1653894952670" duration="13891000" />
+      <workItem from="1654000280631" duration="9025000" />
+      <workItem from="1654069111623" duration="14438000" />
+      <workItem from="1654154806431" duration="10670000" />
+      <workItem from="1654241312870" duration="5314000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -465,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653400517476</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="création du nouveau lien &quot;nouveaux produits&quot; apparition du formulaire de création de nouveau produit qui ne renvoie pas en base les données">
+      <created>1653493225553</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1653493225553</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,6 +543,7 @@
     <MESSAGE value="Ajout &quot;Site en construction&quot; sur la page d'accueil. Et ajout de code dans le css pour le positionnement." />
     <MESSAGE value="Ajout dans le bandeau du haut le lien vers la page &quot;S'inscrire&quot;. Pour le moment elle ouvre l'accueil de base" />
     <MESSAGE value="ajout de la partie concepet dans le lien &quot;FAQ&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout de la partie concepet dans le lien &quot;FAQ&quot;" />
+    <MESSAGE value="création du nouveau lien &quot;nouveaux produits&quot; apparition du formulaire de création de nouveau produit qui ne renvoie pas en base les données" />
+    <option name="LAST_COMMIT_MESSAGE" value="création du nouveau lien &quot;nouveaux produits&quot; apparition du formulaire de création de nouveau produit qui ne renvoie pas en base les données" />
   </component>
 </project>
