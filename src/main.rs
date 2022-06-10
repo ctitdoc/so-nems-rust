@@ -7,6 +7,10 @@ use serde::{Deserialize};
 use wasm_bindgen_futures::{spawn_local};
 use crate::Msg::GetProducts;
 use web_sys::HtmlInputElement;
+use web_sys::Storage;
+use web_sys::Window;
+use std::fmt;
+
 
 // Define the possible messages which can be sent to the component
 //Test Push
@@ -73,6 +77,24 @@ async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Outpu
     console::log!("execution START of wrap fn...");
     the_callback.emit(f.await);
     console::log!("execution END of wrap fn...");
+}
+
+pub fn get_storage() -> Option<web_sys::Storage> {
+    let window = web_sys::window().unwrap();
+
+    match window.session_storage() {
+        Ok(Some(session_storage)) => {
+            Some(session_storage)
+        },
+        Err(_) => None,
+        Ok(None) => None
+    }
+}
+pub fn get_item(name : &str) -> String {
+    get_storage().unwrap().get_item(name).unwrap().unwrap()
+}
+pub fn set_item(name : &str, value: &str){
+    get_storage().unwrap().set_item(name,value);
 }
 
 impl App {
@@ -205,7 +227,7 @@ impl App {
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
             <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
-            <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"nouveaux produits"}</a>
+            <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"nouveau produit"}</a>
           </ul>
         </div>
       </div>
@@ -311,7 +333,7 @@ impl App {
             <div>
 
 
-            <button id="#" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
+            <button id="#" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
             </div>
 
 
@@ -511,7 +533,7 @@ impl Component for App {
         Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None }
     }
 
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Increment => {
                 self.value += 1;
@@ -634,8 +656,8 @@ impl Component for App {
                     wrap(
                         async {
                             console::log!("execution START of Request::get(\"/api/new_produit\")...");
-
-                            let status = Request::get( "api/new_produit/<name>")
+                            let route = format!("/api/new_produit/{:?}", get_item("nom_produit"));
+                            let status = Request::get( route.as_str())
                                 .send()
                                 .await
                                 .unwrap()
@@ -713,13 +735,16 @@ impl Component for App {
                 let optional_pdt = self.product.as_mut();
                 match optional_pdt {
                     Some(pdt ) => {
-                        pdt.nom_produit = product_name;
-                        console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                        //pdt.nom_produit = product_name;
+                        set_item("nom_produit",product_name.as_str());
+                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                        console::log!(format!("updated nom_produit_value in storage :{:?}", get_item("nom_produit")));
+
                     }
                     _ => {
-                        self.product =  Some(Produit { nom_produit : product_name});
-
-                        console::log!(format!("created product with nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                        //self.product =  Some(Produit { nom_produit : product_name});
+                        set_item("nom_produit",product_name.as_str());
+                        console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
                     }
 
                 };
