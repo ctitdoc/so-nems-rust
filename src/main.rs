@@ -656,7 +656,7 @@ impl Component for App {
                     wrap(
                         async {
                             console::log!("execution START of Request::get(\"/api/new_produit\")...");
-                            let route = format!("/api/new_produit/{:?}", get_item("nom_produit"));
+                            let route = format!("/api/new_produit/{}", get_item("nom_produit"));
                             let status = Request::get( route.as_str())
                                 .send()
                                 .await
@@ -738,11 +738,11 @@ impl Component for App {
                         //pdt.nom_produit = product_name;
                         set_item("nom_produit",product_name.as_str());
                         //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        console::log!(format!("updated nom_produit_value in storage :{:?}", get_item("nom_produit")));
+                        console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
 
                     }
                     _ => {
-                        //self.product =  Some(Produit { nom_produit : product_name});
+                        //self.product =  Some(Produit { nom_produit : product_ name});
                         set_item("nom_produit",product_name.as_str());
                         console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
                     }
