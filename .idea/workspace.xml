@@ -9,10 +9,12 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="enlevage de async passage a la methode avec storage création de get_item et set_item pour pouvoir créer des produits dans le formulaire et les envoyés dans la BD (doc storage: https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Storage.html#method.set_item)">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -42,6 +45,15 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/macros.rs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main.rs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/La-carte.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cargo.toml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/www/so-nems.css" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="1ls46uf5" />
@@ -67,6 +79,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
@@ -83,6 +96,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -97,11 +115,6 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -238,7 +251,16 @@
       <workItem from="1654847739142" duration="7889000" />
       <workItem from="1654865224766" duration="6497000" />
       <workItem from="1654874252196" duration="2665000" />
-      <workItem from="1655105515080" duration="11589000" />
+      <workItem from="1655105515080" duration="13313000" />
+      <workItem from="1655191946106" duration="8484000" />
+      <workItem from="1655278989480" duration="2059000" />
+      <workItem from="1655297154934" duration="3290000" />
+      <workItem from="1655365413119" duration="4527000" />
+      <workItem from="1655382679783" duration="5534000" />
+      <workItem from="1655451582125" duration="3209000" />
+      <workItem from="1655471057692" duration="2898000" />
+      <workItem from="1655710909542" duration="5956000" />
+      <workItem from="1655732073413" duration="5672000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -499,7 +521,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654876881519</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;">
+      <created>1655130004183</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1655130004183</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +572,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="wip sur la carte ajout de tarif dans la carte" />
     <MESSAGE value="wip sur la carte changement police" />
     <MESSAGE value="removes .idea/workspace.xml as it is buggy for the github push/pull process" />
     <MESSAGE value="test html change after a rust change" />
@@ -568,6 +596,7 @@
     <MESSAGE value="création du nouveau lien &quot;nouveaux produits&quot; apparition du formulaire de création de nouveau produit qui ne renvoie pas en base les données" />
     <MESSAGE value="ajout de nouveaux produit par l'url &quot;localhost8000/api/new_produit/&lt;name&gt;&quot; qui sera envoyé en base de données" />
     <MESSAGE value="enlevage de async passage a la methode avec storage création de get_item et set_item pour pouvoir créer des produits dans le formulaire et les envoyés dans la BD (doc storage: https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Storage.html#method.set_item)" />
-    <option name="LAST_COMMIT_MESSAGE" value="enlevage de async passage a la methode avec storage création de get_item et set_item pour pouvoir créer des produits dans le formulaire et les envoyés dans la BD (doc storage: https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Storage.html#method.set_item)" />
+    <MESSAGE value="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;" />
   </component>
 </project>

@@ -30,6 +30,8 @@ pub struct Video {
 #[derive(Clone, PartialEq, Deserialize)]
 pub struct Produit {
     nom_produit: String,
+    ingredients: String,
+    prix: f64,
 }
 
 #[derive(Clone, PartialEq, Deserialize)]
@@ -59,8 +61,12 @@ pub enum Msg {
     UpdateProdList(Vec<Produit>),
     Home,
     ProductName(String),
+    IngredientName(String),
+    PriceNumber(f64),
     GetRecordProduct,
     GetRecordProductStatus(String),
+
+
 }
 
 pub struct App {
@@ -135,7 +141,9 @@ impl App {
     fn get_html_product_list(&self, ctx: &Context<Self>) -> Html {
         let rows = self.products.iter().map(|produit| html! {
            <tr>
-           <td>{&produit.nom_produit}</td>
+                <td>{&produit.nom_produit}</td>
+                <td>{&produit.ingredients}</td>
+                <td>{&produit.prix}</td>
            </tr>
     //<p>{format!("{}", produit.nom_produit)}</p>
 }).collect::<Html>();
@@ -316,6 +324,15 @@ impl App {
         let on_input_change = ctx.link().callback(|e: Event| {
             Msg::ProductName(e.target_unchecked_into::<HtmlInputElement>().value())
         });
+        let on_input_change_ingredient = ctx.link().callback(|e: Event| {
+            Msg::IngredientName(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_price = ctx.link().callback(|e: Event| {
+            let str = e.target_unchecked_into::<HtmlInputElement>().value();
+            let prix : f64 = str.parse::<f64>().unwrap();
+            Msg::PriceNumber(prix)
+        });
+
 
 
         html! {
@@ -327,6 +344,11 @@ impl App {
             <div>
             <p><label for="product"> {"produit : "}  </label><br/>
             <input onchange ={on_input_change} type="text" name="product" id="product" placeholder="nems" size="25" maxlength="100"/></p>
+            <p><label for="ingredients"> {"ingredient : "}  </label><br/>
+            <input onchange ={on_input_change_ingredient} type="text" name="ingredients" id="ingredients" placeholder="sucre" size="25" maxlength="100"/></p>
+            <p><label for="price"> {"prix : "}  </label><br/>
+            <input onchange ={on_input_change_price} type="number" name="price" id="price" placeholder="sucre" size="25" maxlength="100"/></p>
+
 
 
             </div>
@@ -656,7 +678,8 @@ impl Component for App {
                     wrap(
                         async {
                             console::log!("execution START of Request::get(\"/api/new_produit\")...");
-                            let route = format!("/api/new_produit/{}", get_item("nom_produit"));
+                            let route = format!("/api/new_produit/{}/{}/{}", get_item("nom_produit"),get_item("ingredients"), get_item("prix"));
+                            console::log!("route : {}", route.as_str());
                             let status = Request::get( route.as_str())
                                 .send()
                                 .await
@@ -680,6 +703,7 @@ impl Component for App {
                 self.current_request = Msg::GetRecordProductStatus(status);
                 true
             }
+
             Msg::GetHome => {
                 self.current_request = Msg::GetHome;
                 console::log!("execution of update fn / Msg::GetHome");
@@ -732,22 +756,20 @@ impl Component for App {
                 true
             }
             Msg::ProductName(product_name) => {
-                let optional_pdt = self.product.as_mut();
-                match optional_pdt {
-                    Some(pdt ) => {
-                        //pdt.nom_produit = product_name;
                         set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
+                        console::log!(format!("keep in mind nom_produit value:{}", get_item("nom_produit")));
+                true
+            }
 
-                    }
-                    _ => {
-                        //self.product =  Some(Produit { nom_produit : product_ name});
-                        set_item("nom_produit",product_name.as_str());
-                        console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
-                    }
+            Msg::IngredientName(ingredient_name) => {
+                        set_item("ingredients" ,ingredient_name.as_str());
+                        console::log!(format!("keep in mind ingredients value:{}", get_item("ingredients")));
+                true
+            }
 
-                };
+            Msg::PriceNumber(price_number) => {
+                        set_item("prix" ,price_number.to_string().as_str());
+                        console::log!(format!("keep in mind price value :{}", get_item("prix")));
                 true
             }
             _ => { true }
