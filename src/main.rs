@@ -3,7 +3,7 @@ use js_sys::Date;
 use yew::prelude::*;
 use yew::{html, Component, Context, Html, TargetCast};
 use reqwasm::http::{Request, Response};
-use serde::{Deserialize};
+use serde::{Serialize,Deserialize};
 use wasm_bindgen_futures::{spawn_local};
 use crate::Msg::GetProducts;
 use web_sys::HtmlInputElement;
@@ -27,7 +27,7 @@ pub struct Video {
 
 }
 
-#[derive(Clone, PartialEq, Deserialize)]
+#[derive(Clone, PartialEq, Serialize,Deserialize)]
 pub struct Produit {
     nom_produit: String,
     ingredients: String,
@@ -673,14 +673,25 @@ impl Component for App {
             }
             Msg::GetRecordProduct => {
                 self.current_request = Msg::GetRecordProduct;
+                ;
+                set_item("product",serde_json::to_string(self.product.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordProduct...");
+
                 spawn_local(
                     wrap(
                         async {
                             console::log!("execution START of Request::get(\"/api/new_produit\")...");
-                            let route = format!("/api/new_produit/{}/{}/{}", get_item("nom_produit"),get_item("ingredients"), get_item("prix"));
+                            let route = format!("/api/new_produit");
                             console::log!("route : {}", route.as_str());
-                            let status = Request::get( route.as_str())
+                            let status = Request::post( route.as_str())
+                                .header("Content-Type","application/json")
+                                .body(
+                                    /*format!(
+                                        "{{\"nom_produit\":\"{}\", \"ingredients\":\"{}\", \"prix\":{}}}",
+                                        get_item("nom_produit"),get_item("ingredients"), get_item("prix")
+                                    )*/
+                                    get_item("product")
+                                )
                                 .send()
                                 .await
                                 .unwrap()
@@ -756,20 +767,63 @@ impl Component for App {
                 true
             }
             Msg::ProductName(product_name) => {
-                        set_item("nom_produit",product_name.as_str());
-                        console::log!(format!("keep in mind nom_produit value:{}", get_item("nom_produit")));
-                true
+                let optional_pdt = self.product.as_mut();
+                match optional_pdt {
+                    Some(pdt) => {
+                        pdt.nom_produit = product_name;
+                        //set_item("nom_produit",product_name.as_str());
+                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
+                        console::log!(format!("updated self.product.nom_produit value:{}", self.product.as_ref().unwrap().nom_produit));
+                    }
+                    _ => {
+                        self.product = Some(Produit { nom_produit: product_name, ingredients: "".to_string(), prix: -1.00 });
+                        console::log!(format!("created self.product.nom_produit value:{}", self.product.as_ref().unwrap().nom_produit));
+                        //set_item("nom_produit",product_name.as_str());
+                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
+                    }
+                }
+                    true
+
             }
 
             Msg::IngredientName(ingredient_name) => {
-                        set_item("ingredients" ,ingredient_name.as_str());
-                        console::log!(format!("keep in mind ingredients value:{}", get_item("ingredients")));
+                let optional_pdt = self.product.as_mut();
+                match optional_pdt {
+                    Some(pdt) => {
+                        pdt.ingredients = ingredient_name;
+                        //set_item("nom_produit",product_name.as_str());
+                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
+                        console::log!(format!("updated self.product.ingredients value:{}", self.product.as_ref().unwrap().ingredients));
+                    }
+                    _ => {
+                        self.product = Some(Produit { nom_produit: "".to_string(), ingredients: ingredient_name, prix: -1.00 });
+                        console::log!(format!("created self.product.ingredients value:{}", self.product.as_ref().unwrap().ingredients));
+                        //set_item("nom_produit",product_name.as_str());
+                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
+                    }
+                }
                 true
             }
 
             Msg::PriceNumber(price_number) => {
-                        set_item("prix" ,price_number.to_string().as_str());
-                        console::log!(format!("keep in mind price value :{}", get_item("prix")));
+                let optional_pdt = self.product.as_mut();
+                match optional_pdt {
+                    Some(pdt) => {
+                        pdt.prix = price_number;
+                        //set_item("nom_produit",product_name.as_str());
+                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
+                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
+                        console::log!(format!("updated self.product.prix value:{}", self.product.as_ref().unwrap().prix));
+                    }
+                    _ => {
+                        self.product = Some(Produit { nom_produit: "".to_string(), ingredients: "".to_string(), prix: price_number });
+                        console::log!(format!("created self.product.prix value:{}", self.product.as_ref().unwrap().prix));
+                        //set_item("nom_produit",product_name.as_str());
+                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
+                    }
+                }
                 true
             }
             _ => { true }
