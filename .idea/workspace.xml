@@ -9,12 +9,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www/mains.css" beforeDir="false" afterPath="$PROJECT_DIR$/www/mains.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,11 +94,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -115,6 +108,11 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -260,7 +258,10 @@
       <workItem from="1655451582125" duration="3209000" />
       <workItem from="1655471057692" duration="2898000" />
       <workItem from="1655710909542" duration="5956000" />
-      <workItem from="1655732073413" duration="5672000" />
+      <workItem from="1655732073413" duration="6101000" />
+      <workItem from="1655798201604" duration="1196000" />
+      <workItem from="1655901812641" duration="12156000" />
+      <workItem from="1655987545339" duration="5277000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -528,7 +529,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655130004183</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="ajout des champs ingédients et prix dans le formulaire de création de produits,  on peut donc créer des ingrédients et ajouter des prix de plus mise à jour de la nav bar plus espacé">
+      <created>1655739267928</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1655739267929</updated>
+    </task>
+    <task id="LOCAL-00040" summary="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit">
+      <created>1655995490947</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1655995490947</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,8 +587,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="wip sur la carte changement police" />
-    <MESSAGE value="removes .idea/workspace.xml as it is buggy for the github push/pull process" />
     <MESSAGE value="test html change after a rust change" />
     <MESSAGE value="test html change after a rust change : insertion de &quot;inscription&quot; wip" />
     <MESSAGE value="add &quot;adresse&quot; part" />
@@ -597,6 +610,8 @@
     <MESSAGE value="ajout de nouveaux produit par l'url &quot;localhost8000/api/new_produit/&lt;name&gt;&quot; qui sera envoyé en base de données" />
     <MESSAGE value="enlevage de async passage a la methode avec storage création de get_item et set_item pour pouvoir créer des produits dans le formulaire et les envoyés dans la BD (doc storage: https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Storage.html#method.set_item)" />
     <MESSAGE value="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;" />
+    <MESSAGE value="ajout des champs ingédients et prix dans le formulaire de création de produits,  on peut donc créer des ingrédients et ajouter des prix de plus mise à jour de la nav bar plus espacé" />
+    <MESSAGE value="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit" />
   </component>
 </project>
