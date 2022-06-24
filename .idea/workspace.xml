@@ -9,8 +9,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Commit pour régler des problemes de VM">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,12 +45,13 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Cargo.toml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main.rs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/macros.rs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/index.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/macros.rs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main.rs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/La-carte.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Cargo.toml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/www/so-nems.css" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="1ls46uf5" />
@@ -91,11 +94,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -110,6 +108,11 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -255,13 +258,10 @@
       <workItem from="1655451582125" duration="3209000" />
       <workItem from="1655471057692" duration="2898000" />
       <workItem from="1655710909542" duration="5956000" />
-      <workItem from="1655732073413" duration="5672000" />
-      <workItem from="1655890412976" duration="1000" />
-      <workItem from="1655890661320" duration="582000" />
-      <workItem from="1655891404782" duration="1325000" />
-      <workItem from="1655900438357" duration="3921000" />
-      <workItem from="1655975436765" duration="1000" />
-      <workItem from="1656057426900" duration="1025000" />
+      <workItem from="1655732073413" duration="6101000" />
+      <workItem from="1655798201604" duration="1196000" />
+      <workItem from="1655901812641" duration="12156000" />
+      <workItem from="1655987545339" duration="5277000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -529,42 +529,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655130004183</updated>
     </task>
-    <task id="LOCAL-00039" summary="Commit pour régler des problemes de VM">
-      <created>1655891098438</created>
+    <task id="LOCAL-00039" summary="ajout des champs ingédients et prix dans le formulaire de création de produits,  on peut donc créer des ingrédients et ajouter des prix de plus mise à jour de la nav bar plus espacé">
+      <created>1655739267928</created>
       <option name="number" value="00039" />
       <option name="presentableId" value="LOCAL-00039" />
       <option name="project" value="LOCAL" />
-      <updated>1655891098438</updated>
+      <updated>1655739267929</updated>
     </task>
-    <task id="LOCAL-00040" summary="Commit pour régler des problemes de VM">
-      <created>1655891171320</created>
+    <task id="LOCAL-00040" summary="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit">
+      <created>1655995490947</created>
       <option name="number" value="00040" />
       <option name="presentableId" value="LOCAL-00040" />
       <option name="project" value="LOCAL" />
-      <updated>1655891171320</updated>
+      <updated>1655995490947</updated>
     </task>
-    <task id="LOCAL-00041" summary="Commit pour régler des problemes de VM">
-      <created>1655891787136</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1655891787136</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Commit pour régler des problemes de VM">
-      <created>1655901487732</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1655901487732</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Commit pour régler des problemes de VM">
-      <created>1655903465549</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1655903465549</updated>
-    </task>
-    <option name="localTasksCounter" value="44" />
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,19 +564,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -607,11 +574,6 @@
         <entry key="User">
           <value>
             <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="anton" />
-                </option>
-              </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="*" />
@@ -625,7 +587,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removes .idea/workspace.xml as it is buggy for the github push/pull process" />
     <MESSAGE value="test html change after a rust change" />
     <MESSAGE value="test html change after a rust change : insertion de &quot;inscription&quot; wip" />
     <MESSAGE value="add &quot;adresse&quot; part" />
@@ -649,7 +610,8 @@
     <MESSAGE value="ajout de nouveaux produit par l'url &quot;localhost8000/api/new_produit/&lt;name&gt;&quot; qui sera envoyé en base de données" />
     <MESSAGE value="enlevage de async passage a la methode avec storage création de get_item et set_item pour pouvoir créer des produits dans le formulaire et les envoyés dans la BD (doc storage: https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Storage.html#method.set_item)" />
     <MESSAGE value="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;" />
-    <MESSAGE value="Commit pour régler des problemes de VM" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit pour régler des problemes de VM" />
+    <MESSAGE value="ajout des champs ingédients et prix dans le formulaire de création de produits,  on peut donc créer des ingrédients et ajouter des prix de plus mise à jour de la nav bar plus espacé" />
+    <MESSAGE value="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout de serialize, passage des donnée en json, changement de la request get en post, ajout du content-type dans un header plus ajout d'un body qui appelle product, modif de ProductName, IngredientName et PriceNumber permet de créer une produit, un ingrédient et un prix grâce au formulaire de création de produit" />
   </component>
 </project>
