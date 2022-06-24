@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Commit pour régler des problemes de VM">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,7 +259,9 @@
       <workItem from="1655890412976" duration="1000" />
       <workItem from="1655890661320" duration="582000" />
       <workItem from="1655891404782" duration="1325000" />
-      <workItem from="1655900438357" duration="2540000" />
+      <workItem from="1655900438357" duration="3921000" />
+      <workItem from="1655975436765" duration="1000" />
+      <workItem from="1656057426900" duration="1025000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -556,7 +557,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655901487732</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Commit pour régler des problemes de VM">
+      <created>1655903465549</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1655903465549</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +585,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -587,6 +607,11 @@
         <entry key="User">
           <value>
             <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="anton" />
+                </option>
+              </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="*" />
