@@ -13,9 +13,21 @@ use std::fmt;
 
 
 // Define the possible messages which can be sent to the component
-//Test Push
-#[derive(Clone, PartialEq, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
 pub struct Video {
+    nom: String,
+    prenom: String,
+    date_naissance: String,
+    numero_tel: String,
+    adresse_mail: String,
+    mot_de_passe: String,
+    confirmation_mp: String,
+    adresse: String,
+
+}
+
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
+pub struct Subscribe {
     nom: String,
     prenom: String,
     date_naissance: String,
@@ -65,8 +77,16 @@ pub enum Msg {
     PriceNumber(f64),
     GetRecordProduct,
     GetRecordProductStatus(String),
-
-
+    MemberName(String),
+    MemberSurname(String),
+    MemberPassword(String),
+    MemberVerifyPassword(String),
+    MemberAdress(String),
+    MemberMailAdress(String),
+    MemberPhoneNumber(String),
+    MemberBirthday(String),
+    GetRecordMember,
+    GetRecordMemberStatus(String),
 }
 
 pub struct App {
@@ -77,6 +97,7 @@ pub struct App {
     commande: Vec<Commande>,
     current_request: Msg,
     product: Option<Produit>,
+    subscribe: Option<Subscribe>,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -333,8 +354,6 @@ impl App {
             Msg::PriceNumber(prix)
         });
 
-
-
         html! {
         <table id="product">
             <section>
@@ -348,18 +367,10 @@ impl App {
             <input onchange ={on_input_change_ingredient} type="text" name="ingredients" id="ingredients" placeholder="sucre" size="25" maxlength="100"/></p>
             <p><label for="price"> {"prix : "}  </label><br/>
             <input onchange ={on_input_change_price} type="number" name="price" id="price" placeholder="sucre" size="25" maxlength="100"/></p>
-
-
-
             </div>
             <div>
-
-
             <button id="#" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
             </div>
-
-
-
             </form>
 
 
@@ -370,7 +381,32 @@ impl App {
             </table>
             }
     }
+
     fn get_html_inscrire(&self, ctx: &Context<Self>) -> Html {
+        let on_input_change_member_name = ctx.link().callback(|e: Event| {
+            Msg::MemberName(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_surname = ctx.link().callback(|e: Event| {
+            Msg::MemberSurname(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_password = ctx.link().callback(|e: Event| {
+            Msg::MemberPassword(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_verifypassword = ctx.link().callback(|e: Event| {
+            Msg::MemberVerifyPassword(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_mailadress = ctx.link().callback(|e: Event| {
+            Msg::MemberMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_adress = ctx.link().callback(|e: Event| {
+            Msg::MemberAdress(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_birthday = ctx.link().callback(|e: Event| {
+            Msg::MemberBirthday(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_phonenumber = ctx.link().callback(|e: Event| {
+            Msg::MemberPhoneNumber(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
         html! {
             <table id="inscription">
                 <section>
@@ -378,47 +414,42 @@ impl App {
             <div class="formulaire">
                 <form id="member_subscription_form" name="member_subscription_form_name" method="post" action="#">
                     <div>
-                    <p><label for="nom"> {"Nom"}</label><br/>
-                        <input type="text" name="nom" id="nom" placeholder="Ex: Antoine" size="25" maxlength="100"/>
+                    <p>
+                        <label for="nom"> {"Nom"}</label><br/>
+                        <input onchange ={on_input_change_member_name} type="text" name="nom" id="nom" placeholder="Ex: Antoine" size="25" maxlength="100"/>
                     </p>
-                    <p><label for="prenom"> {"Prénom"}</label><br/>
-                        <input type="text" name="prenom" id="prenom" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
+                    <p>
+                        <label for="prenom"> {"Prénom"}</label><br/>
+                        <input onchange ={on_input_change_member_surname} type="text" name="prenom" id="prenom" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
                     </p>
-
-                    <p><label for="date-naissance"> {"Date de naissance"} </label><br/>
-                        <input type="date" name="date-naissance" id="date-naissance" placeholder="Ex: 18/12/2000"
-                               size="25" maxlength="100"/></p>
-
-                    <p><label for="tel"> {"Numero de telephone"}  </label><br/>
-                        <input type="tel" name="tel" id="tel" placeholder="01.02.03.04.05" size="25" maxlength="100"/></p>
-
-                        <p><label for="adresse"> {"Adresse"}  </label><br/>
-                            <input type="text" name="adresse" id="adresse" placeholder="9 rue des tuleries" size="25" maxlength="100"/></p>
-
-                        <p><label for="ville"> {"Ville"}  </label><br/>
-                            <input type="text" name="ville" id="ville" placeholder="Oulan-Bator" size="25" maxlength="100"/></p>
-
-                        <p><label for="code-postal"> {"Code postal"} </label><br/>
-                            <input type="text" name="code-postal" id="code-postal" placeholder="16066" size="25" maxlength="100"/></p>
-
-
-
-                        <p><label for="mail"> {"Adresse mail"}  </label> <br/>
-                        <input type="email" name="mail" id="mail" placeholder="Email@email.**" size="25" maxlength="100"/>
+                    <p>
+                        <label for="date_naissance"> {"Date de naissance"} </label><br/>
+                        <input onchange ={on_input_change_member_birthday} type="date" name="date-naissance" id="date-naissance" placeholder="Ex: 18/12/2000" size="25" maxlength="100"/></p>
+                    <p>
+                        <label for="numero_tel"> {"Numero de telephone"}  </label><br/>
+                        <input onchange ={on_input_change_member_phonenumber} type="tel" name="tel" id="tel" placeholder="01.02.03.04.05" size="25" maxlength="100"/>
                     </p>
-
-
-                    <p><label for="pass"> {"Mot de passe"} </label> <br/>
-                        <input type="password" name="pass" id="pass" placeholder="*" size="25" maxlength="100"/> </p>
-
-
-                    <p><label for="pass"> {"Confirmation"}  </label> <br/>
-                        <input type="password" name="conf" id="conf" placeholder="*" size="25" maxlength="100"/></p>
+                    <p>
+                        <label for="adresse"> {"Adresse"}  </label><br/>
+                        <input onchange ={on_input_change_member_adress} type="text" name="adresse" id="adresse" placeholder="9 rue des tuleries" size="25" maxlength="100"/>
+                    </p>
+                    <p>
+                        <label for="adresse_mail"> {"Adresse mail"}  </label> <br/>
+                        <input onchange ={on_input_change_member_mailadress} type="email" name="mail" id="mail" placeholder="Email@email.**" size="25" maxlength="100"/>
+                    </p>
+                    <p>
+                        <label for="mot_de_passe"> {"Mot de passe"} </label> <br/>
+                        <input onchange ={on_input_change_member_password} type="password" name="pass" id="pass" placeholder="*" size="25" maxlength="100"/>
+                    </p>
+                    <p>
+                        <label for="confirmation_mp"> {"Confirmation"}  </label> <br/>
+                        <input onchange ={on_input_change_member_verifypassword} type="password" name="conf" id="conf" placeholder="*" size="25" maxlength="100"/>
+                    </p>
                     </div>
                     <div>
 
                         <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetSubscribeEnd)}>{"Valider"}   </button>
-                        <button id="test_cmd" type="button" onclick={ctx.link().callback(|_| Msg::GetProducts)}>{"Test Commande"}  </button>
+                        <button id="test_cmd" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordMember)}>{"Test Commande"}  </button>
                     </div>
 
 
@@ -433,7 +464,7 @@ impl App {
             </table>
             }
     }
-    fn get_html_inscrireFin(&self, ctx: &Context<Self>) -> Html {
+    fn get_html_inscrire_fin(&self, ctx: &Context<Self>) -> Html {
         html! {
     <header>
         <div class = "nav-img">
@@ -451,7 +482,7 @@ impl App {
     </header>
     }
     }
-    fn get_html_laCarte(&self, ctx: &Context<Self>) -> Html {
+    fn get_html_la_carte(&self, ctx: &Context<Self>) -> Html {
         html! {
             <>
     <header>
@@ -552,7 +583,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None }
+        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , subscribe:None}
     }
 
     fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -661,7 +692,6 @@ impl Component for App {
 
             Msg::GetSubscribeEnd => {
                 self.current_request = Msg::GetSubscribeEnd;
-                //TODO :
                 console::log!("execution of update fn / Msg::GetSubscribeEnd");
                 true
             }
@@ -673,7 +703,7 @@ impl Component for App {
             }
             Msg::GetRecordProduct => {
                 self.current_request = Msg::GetRecordProduct;
-                ;
+
                 set_item("product",serde_json::to_string(self.product.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordProduct...");
 
@@ -708,10 +738,9 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetRecordProduct ");
 
                 true
-
             }
-            Msg::GetRecordProductStatus(status) => {
-                self.current_request = Msg::GetRecordProductStatus(status);
+            Msg::GetRecordMemberStatus(status) => {
+                self.current_request = Msg::GetRecordMemberStatus(status);
                 true
             }
 
@@ -826,6 +855,166 @@ impl Component for App {
                 }
                 true
             }
+            Msg::GetRecordMember => {
+                self.current_request = Msg::GetRecordMember;
+                set_item("subscribe",serde_json::to_string(self.subscribe.as_ref().unwrap()).unwrap().as_str());
+                console::log!("execution START of update fn / Msg::GetRecordMember...");
+
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/new_subscribe\")...");
+                            let route = format!("/api/new_subscribe");
+                            console::log!("route : {}", route.as_str());
+                            let status = Request::post( route.as_str())
+                                .header("Content-Type","application/json")
+                                .body(
+                                    get_item("subscribe")
+                                )
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/new_subscribe\")...");
+                            status
+
+                        },
+                        _ctx.link().callback(|status| Msg::GetRecordMemberStatus(status)))
+
+                );
+                console::log!("execution END of update fn / Msg::GetRecordMember ");
+                true
+
+            }
+            Msg::GetRecordProductStatus(status) => {
+                self.current_request = Msg::GetRecordProductStatus(status);
+                true
+            }
+            Msg::MemberName(member_name) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.nom = member_name;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().nom));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: member_name, prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().nom));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberSurname(member_att) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.prenom = member_att;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().prenom));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: member_att,date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().prenom));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberBirthday(member_att) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.date_naissance = member_att;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().date_naissance));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: member_att,numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().date_naissance));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberPhoneNumber(member_att) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.numero_tel = member_att;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().numero_tel));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: member_att,adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().numero_tel));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberMailAdress(member_att) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.adresse_mail = member_att;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse_mail));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: member_att,mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse_mail));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberPassword(member_att) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.mot_de_passe = member_att;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().mot_de_passe));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: member_att,confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().mot_de_passe));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberVerifyPassword(member_att) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.confirmation_mp = member_att;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().confirmation_mp));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: member_att,adresse: "".to_string()});
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().confirmation_mp));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberAdress(member_att) => {
+                let optional_mem = self.subscribe.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.adresse = member_att;
+                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse));
+                    }
+                    _ => {
+                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: member_att});
+                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse));
+                    }
+                }
+                true
+            }
             _ => { true }
         }
     }
@@ -836,14 +1025,14 @@ impl Component for App {
         let products = self.get_html_product_list(ctx);
         let commande = self.get_html_cmd_list(ctx);
         let compte = self.get_html_compte(ctx);
-        let laCarte = self.get_html_laCarte(ctx);
+        let la_carte = self.get_html_la_carte(ctx);
         let contact = self.get_html_contact(ctx);
         let accueil = self.get_html_accueil(ctx);
         let navbar = self.get_html_nav(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
         let inscrire = self.get_html_inscrire(ctx);
-        let inscrireFin = self.get_html_inscrireFin(ctx);
+        let inscrire_fin = self.get_html_inscrire_fin(ctx);
         let product_form = self.get_html_product_form(ctx);
         let main_view_content = match self.current_request {
             Msg::GetMembers => {
@@ -859,7 +1048,7 @@ impl Component for App {
                 inscrire
             }
             Msg::GetSubscribeEnd => {
-                inscrireFin
+                inscrire_fin
             }
             Msg::GetProductFrom => {
                 product_form
@@ -877,7 +1066,7 @@ impl Component for App {
                 compte
             }
             Msg::GetLaCarte => {
-                laCarte
+                la_carte
             }
             Msg::GetContact => {
                 accueil
@@ -887,30 +1076,14 @@ impl Component for App {
 
         html! {
             <>
-
-
-
-
-
-{navbar}
-<main>
-{main_view_content}
-</main>
-{footer}
-</>
-/*<main>
-  <section class= "Accueil" id="Acceuil">
-    <div class = "admin-aff">
-            {main_view_content}
-    </div>
-            {footer}
-    </section>
-
-</main>
-</>*/
-
-    }
-    }
+                {navbar}
+                <main>
+                    {main_view_content}
+                </main>
+                {footer}
+            </>
+            }
+        }
 }
 
 
