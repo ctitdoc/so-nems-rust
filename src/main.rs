@@ -14,20 +14,7 @@ use std::fmt;
 
 // Define the possible messages which can be sent to the component
 #[derive(Clone, PartialEq, Serialize, Deserialize)]
-pub struct Video {
-    nom: String,
-    prenom: String,
-    date_naissance: String,
-    numero_tel: String,
-    adresse_mail: String,
-    mot_de_passe: String,
-    confirmation_mp: String,
-    adresse: String,
-
-}
-
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
-pub struct Subscribe {
+pub struct Member {
     nom: String,
     prenom: String,
     date_naissance: String,
@@ -59,8 +46,8 @@ pub enum Msg {
     GetMembers,
     GetProducts,
     GetCommande,
-    GetSubscribe,
-    GetSubscribeEnd,
+    GetMember,
+    GetMemberEnd,
     GetHome,
     GetAnnonce,
     GetFAQ,
@@ -68,7 +55,7 @@ pub enum Msg {
     GetLaCarte,
     GetContact,
     GetCompte,
-    UpdateMemberList(Vec<Video>),
+    UpdateMemberList(Vec<Member>),
     UpdateCmdList(Vec<Commande>),
     UpdateProdList(Vec<Produit>),
     Home,
@@ -92,12 +79,12 @@ pub enum Msg {
 pub struct App {
     value: i64,
     // This will store the counter value
-    videos: Vec<Video>,
+    members: Vec<Member>,
     products: Vec<Produit>,
     commande: Vec<Commande>,
     current_request: Msg,
     product: Option<Produit>,
-    subscribe: Option<Subscribe>,
+    member: Option<Member>,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -126,37 +113,34 @@ pub fn set_item(name : &str, value: &str){
 
 impl App {
     fn get_html_member_list(&self, ctx: &Context<Self>) -> Html {
-        let rows = self.videos.iter().map(|video| html! {
-    <tr>
-            <td>{&video.nom}</td>
-            <td>{&video.prenom}</td>
-            <td>{&video.date_naissance}</td>
-            <td>{&video.numero_tel}</td>
-            <td>{&video.adresse_mail}</td>
-            <td>{&video.mot_de_passe}</td>
-            <td>{&video.confirmation_mp}</td>
-            <td>{&video.adresse}</td>
-    </tr>
+        let rows = self.members.iter().map(|members| html! {
+        <tr>
+            <td>{&members.nom}</td>
+            <td>{&members.prenom}</td>
+            <td>{&members.date_naissance}</td>
+            <td>{&members.numero_tel}</td>
+            <td>{&members.adresse_mail}</td>
+            <td>{&members.mot_de_passe}</td>
+            <td>{&members.confirmation_mp}</td>
+            <td>{&members.adresse}</td>
+        </tr>
         }
         ).collect::<Html>();
-        /*{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
-                 video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}*/
         html! {
             <section>
-            <div class="member">
-        <table id="admin_member">
+                <div class="member">
+                    <table id="admin_member">
 
-            <tbody>
-                        <div  class="main">
-            <h1> {"affichage member"}</h1>
-            {rows}
-                                    </div>
-
-    </tbody>
-    </table>
-            </div>
+                        <tbody>
+                            <div  class="main">
+                                <h1> {"affichage member"}</h1>
+                                {rows}
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
             </section>
-    }
+        }
     }
 
     fn get_html_product_list(&self, ctx: &Context<Self>) -> Html {
@@ -255,7 +239,7 @@ impl App {
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
-            <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
+            <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetMember)}> {"S'inscrire"}</a>
             <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"nouveau produit"}</a>
           </ul>
         </div>
@@ -448,7 +432,7 @@ impl App {
                     </div>
                     <div>
 
-                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetSubscribeEnd)}>{"Valider"}   </button>
+                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetMemberEnd)}>{"Valider"}   </button>
                         <button id="test_cmd" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordMember)}>{"Test Commande"}  </button>
                     </div>
 
@@ -583,7 +567,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , subscribe:None}
+        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None}
     }
 
     fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -599,8 +583,8 @@ impl Component for App {
                 true
             }
 
-            Msg::UpdateMemberList(vids) => {
-                self.videos = vids;
+            Msg::UpdateMemberList(mem) => {
+                self.members = mem;
                 true
             }
 
@@ -611,7 +595,7 @@ impl Component for App {
                     wrap(
                         async {
                             console::log!("execution START of Request::get(\"/api/member\")...");
-                            let fetched_videos = Request::get("/api/member")
+                            let fetched_member = Request::get("/api/member")
                                 .send()
                                 .await
                                 .unwrap()
@@ -619,9 +603,9 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/member\")...");
-                            fetched_videos
+                            fetched_member
                         },
-                        _ctx.link().callback(|fetched_videos| Msg::UpdateMemberList(fetched_videos)))
+                        _ctx.link().callback(|fetched_member| Msg::UpdateMemberList(fetched_member)))
                 );
 
                 console::log!("execution END of update fn / Msg::GetMembers ");
@@ -684,15 +668,15 @@ impl Component for App {
                 true
             }
 
-            Msg::GetSubscribe => {
-                self.current_request = Msg::GetSubscribe;
-                console::log!("execution of update fn / Msg::GetSubscribe...");
+            Msg::GetMember => {
+                self.current_request = Msg::GetMember;
+                console::log!("execution of update fn / Msg::GetMember...");
                 true
             }
 
-            Msg::GetSubscribeEnd => {
-                self.current_request = Msg::GetSubscribeEnd;
-                console::log!("execution of update fn / Msg::GetSubscribeEnd");
+            Msg::GetMemberEnd => {
+                self.current_request = Msg::GetMemberEnd;
+                console::log!("execution of update fn / Msg::GetMemberEnd");
                 true
             }
 
@@ -857,19 +841,19 @@ impl Component for App {
             }
             Msg::GetRecordMember => {
                 self.current_request = Msg::GetRecordMember;
-                set_item("subscribe",serde_json::to_string(self.subscribe.as_ref().unwrap()).unwrap().as_str());
+                set_item("member",serde_json::to_string(self.member.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordMember...");
 
                 spawn_local(
                     wrap(
                         async {
-                            console::log!("execution START of Request::get(\"/api/new_subscribe\")...");
-                            let route = format!("/api/new_subscribe");
+                            console::log!("execution START of Request::get(\"/api/new_member\")...");
+                            let route = format!("/api/new_member");
                             console::log!("route : {}", route.as_str());
                             let status = Request::post( route.as_str())
                                 .header("Content-Type","application/json")
                                 .body(
-                                    get_item("subscribe")
+                                    get_item("member")
                                 )
                                 .send()
                                 .await
@@ -877,7 +861,7 @@ impl Component for App {
                                 .json()
                                 .await
                                 .unwrap();
-                            console::log!("execution END of Request::get(\"/api/new_subscribe\")...");
+                            console::log!("execution END of Request::get(\"/api/new_member\")...");
                             status
 
                         },
@@ -893,124 +877,124 @@ impl Component for App {
                 true
             }
             Msg::MemberName(member_name) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.nom = member_name;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().nom));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().nom));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: member_name, prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        self.member = Some(Member { nom: member_name, prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
 
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().nom));
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().nom));
                     }
                 }
                 true
 
             }
             Msg::MemberSurname(member_att) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.prenom = member_att;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().prenom));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().prenom));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: member_att,date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        self.member = Some(Member { nom: "".to_string(), prenom: member_att,date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
 
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().prenom));
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().prenom));
                     }
                 }
                 true
 
             }
             Msg::MemberBirthday(member_att) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.date_naissance = member_att;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().date_naissance));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().date_naissance));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: member_att,numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: member_att,numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
 
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().date_naissance));
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().date_naissance));
                     }
                 }
                 true
 
             }
             Msg::MemberPhoneNumber(member_att) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.numero_tel = member_att;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().numero_tel));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().numero_tel));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: member_att,adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: member_att,adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
 
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().numero_tel));
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().numero_tel));
                     }
                 }
                 true
 
             }
             Msg::MemberMailAdress(member_att) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.adresse_mail = member_att;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse_mail));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().adresse_mail));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: member_att,mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse_mail));
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: member_att,mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().adresse_mail));
                     }
                 }
                 true
 
             }
             Msg::MemberPassword(member_att) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.mot_de_passe = member_att;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().mot_de_passe));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().mot_de_passe));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: member_att,confirmation_mp: "".to_string(),adresse: "".to_string()});
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().mot_de_passe));
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: member_att,confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().mot_de_passe));
                     }
                 }
                 true
 
             }
             Msg::MemberVerifyPassword(member_att) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.confirmation_mp = member_att;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().confirmation_mp));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().confirmation_mp));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: member_att,adresse: "".to_string()});
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().confirmation_mp));
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: member_att,adresse: "".to_string()});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().confirmation_mp));
                     }
                 }
                 true
 
             }
             Msg::MemberAdress(member_att) => {
-                let optional_mem = self.subscribe.as_mut();
+                let optional_mem = self.member.as_mut();
                 match optional_mem {
                     Some(pdt) => {
                         pdt.adresse = member_att;
-                        console::log!(format!("updated self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse));
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().adresse));
                     }
                     _ => {
-                        self.subscribe = Some(Subscribe { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: member_att});
-                        console::log!(format!("created self.subscribe.nom value:{}", self.subscribe.as_ref().unwrap().adresse));
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: member_att});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().adresse));
                     }
                 }
                 true
@@ -1044,10 +1028,10 @@ impl Component for App {
             Msg::GetCommande => {
                 commande
             }
-            Msg::GetSubscribe => {
+            Msg::GetMember => {
                 inscrire
             }
-            Msg::GetSubscribeEnd => {
+            Msg::GetMemberEnd => {
                 inscrire_fin
             }
             Msg::GetProductFrom => {
