@@ -431,16 +431,9 @@ impl App {
                     </p>
                     </div>
                     <div>
-
-                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetMemberEnd)}>{"Valider"}   </button>
-                        <button id="test_cmd" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordMember)}>{"Test Commande"}  </button>
+                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordMember)}>{"Valider"}   </button>
                     </div>
-
-
-
                 </form>
-
-
             </div>
         </div>
     </section>
