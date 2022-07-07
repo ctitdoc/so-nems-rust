@@ -6,10 +6,11 @@ use reqwasm::http::{Request, Response};
 use serde::{Serialize,Deserialize};
 use wasm_bindgen_futures::{spawn_local};
 use crate::Msg::GetProducts;
-use web_sys::HtmlInputElement;
+use web_sys::{HtmlInputElement};
 use web_sys::Storage;
 use web_sys::Window;
 use std::fmt;
+use std::collections::HashMap;
 
 
 // Define the possible messages which can be sent to the component
@@ -29,15 +30,18 @@ pub struct Video {
 
 #[derive(Clone, PartialEq, Serialize,Deserialize)]
 pub struct Produit {
+    produit_id: i32,
     nom_produit: String,
     ingredients: String,
     prix: f64,
+
 }
 
-#[derive(Clone, PartialEq, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
 pub struct Commande {
     quantite_cmd: i32,
     member_id: i32,
+    items:  HashMap<i32, i32>
 }
 
 
@@ -63,8 +67,12 @@ pub enum Msg {
     ProductName(String),
     IngredientName(String),
     PriceNumber(f64),
+    ProductQuantity(i32,i32),
     GetRecordProduct,
     GetRecordProductStatus(String),
+    GetRecordOrder,
+    GetRecordOrderStatus(String),
+
 
 
 }
@@ -77,6 +85,7 @@ pub struct App {
     commande: Vec<Commande>,
     current_request: Msg,
     product: Option<Produit>,
+    order:Option<Commande>,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -139,28 +148,63 @@ impl App {
     }
 
     fn get_html_product_list(&self, ctx: &Context<Self>) -> Html {
-        let rows = self.products.iter().map(|produit| html! {
+
+        let rows = self.products.iter().map(
+            |produit| {
+                let on_input_change_order_quantity = ctx.link().callback(|e: Event| {
+                let str = e.target_unchecked_into::<HtmlInputElement>().value();
+                let quantite_cmd: i32 = str.parse::<i32>().unwrap();
+                    let str_pdt_id = e.target_unchecked_into::<HtmlInputElement>().id();
+                    let produit_id: i32 = str_pdt_id.parse::<i32>().unwrap();
+                Msg::ProductQuantity(quantite_cmd,produit_id)
+            });
+                //TODO : add logic to get qty value self.order.....items.get(&produit.produit_id) or
+                // 0 if self.order is None ou get returns None
+                let quantity=0;
+
+                html! {
+
+
            <tr>
                 <td>{&produit.nom_produit}</td>
                 <td>{&produit.ingredients}</td>
                 <td>{&produit.prix}</td>
+                <td> <input onchange ={on_input_change_order_quantity} type="number" name="quantity" id={produit.produit_id.to_string()}
+                     placeholder="22" size="25" maxlength="100"  value={quantity.to_string()} /></td>
+
            </tr>
-    //<p>{format!("{}", produit.nom_produit)}</p>
-}).collect::<Html>();
+
+
+            }
+    }
+        ).collect::<Html>();
+
+
 
         html! {
             <section>
             <div class="member">
         <table id = "admin_prod">
             <div class="main">
+            <h1>{"Affichage products"}</h1>
             <thead>
             <tr>
-            <th> {"Affichage products"}</th>
+
+            <th>{"Nom"}</th>
+
+            <th>{"Ingrédient"}</th>
+
+            <th>{"Prix"}</th>
+
+            <th>{"Quantité"}</th>
             </tr>
             </thead>
+
             <tbody>
     {rows}
+
     </tbody>
+            <button id="#admin_prod" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordOrder)}>{"create order"}  </button>
     </div>
     </table>
 
@@ -192,6 +236,7 @@ impl App {
             </tbody>
             </div>
         </table>
+
             </div>
             </section>
         }
@@ -231,11 +276,11 @@ impl App {
             <a href="#contact" onclick={ctx.link().callback(|_| Msg::GetContact)}> <li class="navbar-item">{"Contact"}</li></a>
             <a href="#compte" onclick={ctx.link().callback(|_| Msg::GetCompte)}> <li class="fifth-link">{"Mon Compte"}</li></a>
             <a href="#FAQ" onclick={ctx.link().callback(|_| Msg::GetFAQ)}> {"FAQ"} </a>
-            <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
-             <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
-             <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
+            <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"Liste des membres"}</a>
+             <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Liste des commandes"}</a>
+             <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"Liste des produit"}</a>
             <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
-            <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"nouveau produit"}</a>
+            <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"Nouveau produit"}</a>
           </ul>
         </div>
       </div>
@@ -351,11 +396,14 @@ impl App {
 
 
 
+
+
             </div>
             <div>
 
 
-            <button id="#" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
+            <button id="#admin_prod" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
+
             </div>
 
 
@@ -552,7 +600,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None }
+        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None, order:None, }
     }
 
     fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -621,7 +669,7 @@ impl Component for App {
                         _ctx.link().callback(|fetched_videos| Msg::UpdateProdList(fetched_videos)))
                 );
 
-                console::log!("execution END of update fn / Msg::GetPoducts ");
+                console::log!("execution END of update fn / Msg::GetProducts ");
                 true
             }
 
@@ -714,6 +762,48 @@ impl Component for App {
                 self.current_request = Msg::GetRecordProductStatus(status);
                 true
             }
+            Msg::GetRecordOrder => {
+                self.current_request = Msg::GetRecordOrder;
+                ;
+                set_item("order",serde_json::to_string(self.order.as_ref().unwrap()).unwrap().as_str());
+                console::log!("execution START of update fn / Msg::GetRecordOrder...");
+
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/new_order\")...");
+                            let route = format!("/api/new_order");
+                            console::log!("route : {}", route.as_str());
+                            let status = Request::post( route.as_str())
+                                .header("Content-Type","application/json")
+                                .body(
+
+                                    get_item("order")
+                                )
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/new_order\")...");
+                            status
+
+                        },
+                        _ctx.link().callback(|status| Msg::GetRecordOrderStatus(status)))
+
+                );
+                console::log!("execution END of update fn / Msg::GetRecordOrder ");
+
+                true
+
+            }
+            Msg::GetRecordOrderStatus(status) => {
+                self.current_request = Msg::GetRecordOrderStatus(status);
+                self.order = None;
+                true
+            }
+
 
             Msg::GetHome => {
                 self.current_request = Msg::GetHome;
@@ -771,16 +861,13 @@ impl Component for App {
                 match optional_pdt {
                     Some(pdt) => {
                         pdt.nom_produit = product_name;
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
                         console::log!(format!("updated self.product.nom_produit value:{}", self.product.as_ref().unwrap().nom_produit));
                     }
                     _ => {
-                        self.product = Some(Produit { nom_produit: product_name, ingredients: "".to_string(), prix: -1.00 });
+                        self.product = Some(Produit { produit_id : 0, nom_produit: product_name, ingredients: "".to_string(), prix: -1.00 });
                         console::log!(format!("created self.product.nom_produit value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
+
+
                     }
                 }
                     true
@@ -792,16 +879,11 @@ impl Component for App {
                 match optional_pdt {
                     Some(pdt) => {
                         pdt.ingredients = ingredient_name;
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
                         console::log!(format!("updated self.product.ingredients value:{}", self.product.as_ref().unwrap().ingredients));
                     }
                     _ => {
-                        self.product = Some(Produit { nom_produit: "".to_string(), ingredients: ingredient_name, prix: -1.00 });
+                        self.product = Some(Produit { produit_id: 0, nom_produit: "".to_string(), ingredients: ingredient_name, prix: -1.00 });
                         console::log!(format!("created self.product.ingredients value:{}", self.product.as_ref().unwrap().ingredients));
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
                     }
                 }
                 true
@@ -812,18 +894,32 @@ impl Component for App {
                 match optional_pdt {
                     Some(pdt) => {
                         pdt.prix = price_number;
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
                         console::log!(format!("updated self.product.prix value:{}", self.product.as_ref().unwrap().prix));
                     }
                     _ => {
-                        self.product = Some(Produit { nom_produit: "".to_string(), ingredients: "".to_string(), prix: price_number });
+                        self.product = Some(Produit { produit_id: 0, nom_produit: "".to_string(), ingredients: "".to_string(), prix: price_number  });
                         console::log!(format!("created self.product.prix value:{}", self.product.as_ref().unwrap().prix));
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
                     }
                 }
+                true
+            }
+            Msg::ProductQuantity(qte, product_id) => {
+                console::log!(format!("msg parameters : {}, {}", qte, product_id));
+                    let optional_cmd = self.order.as_mut();
+                match optional_cmd{
+                    Some(cmd) => {
+                        cmd.items.insert(product_id,qte);
+                    }
+                    _ => {
+                        self.order = Some(Commande {member_id : 1, quantite_cmd : 0, items: HashMap::new() });
+                        let cmd = self.order.as_mut().unwrap();
+                        cmd.items.insert(product_id,qte);
+                      }
+                };
+                let cmd = self.order.as_ref().unwrap();
+                for (key, value) in cmd.items.iter() {
+                    console::log!(format!("memorized order item : {}, {}", key, value));
+                };
                 true
             }
             _ => { true }
