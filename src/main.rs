@@ -943,10 +943,6 @@ impl Component for App {
                 true
 
             }
-            Msg::GetRecordProductStatus(status) => {
-                self.current_request = Msg::GetRecordProductStatus(status);
-                true
-            }
             Msg::MemberName(member_name) => {
                 let optional_mem = self.member.as_mut();
                 match optional_mem {
