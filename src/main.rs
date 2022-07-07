@@ -51,7 +51,6 @@ pub enum Msg {
     GetProducts,
     GetCommande,
     GetMember,
-    GetMemberEnd,
     GetHome,
     GetAnnonce,
     GetFAQ,
@@ -623,8 +622,8 @@ impl Component for App {
                 true
             }
 
-            Msg::UpdateMemberList(vids) => {
-                self.videos = vids;
+            Msg::UpdateMemberList(members) => {
+                self.members = members;
                 true
             }
 
@@ -708,18 +707,6 @@ impl Component for App {
                 true
             }
 
-            Msg::GetSubscribe => {
-                self.current_request = Msg::GetSubscribe;
-                console::log!("execution of update fn / Msg::GetSubscribe...");
-                true
-            }
-
-            Msg::GetSubscribeEnd => {
-                self.current_request = Msg::GetSubscribeEnd;
-                //TODO :
-                console::log!("execution of update fn / Msg::GetSubscribeEnd");
-                true
-            }
 
             Msg::GetProductFrom => {
                 self.current_request = Msg::GetProductFrom;
@@ -910,6 +897,13 @@ impl Component for App {
                 }
                 true
             }
+
+            Msg::GetMember => {
+                self.current_request = Msg::GetMember;
+                console::log!("execution of update fn / Msg::GetMember...");
+                true
+            }
+
             Msg::GetRecordMember => {
                 self.current_request = Msg::GetRecordMember;
                 set_item("member",serde_json::to_string(self.member.as_ref().unwrap()).unwrap().as_str());
@@ -1091,34 +1085,30 @@ impl Component for App {
 
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let videos = self.get_html_member_list(ctx);
+        let members = self.get_html_member_list(ctx);
         let products = self.get_html_product_list(ctx);
         let commande = self.get_html_cmd_list(ctx);
         let compte = self.get_html_compte(ctx);
-        let laCarte = self.get_html_laCarte(ctx);
+        let laCarte = self.get_html_la_carte(ctx);
         let contact = self.get_html_contact(ctx);
         let accueil = self.get_html_accueil(ctx);
         let navbar = self.get_html_nav(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
         let inscrire = self.get_html_inscrire(ctx);
-        let inscrireFin = self.get_html_inscrireFin(ctx);
         let product_form = self.get_html_product_form(ctx);
         let main_view_content = match self.current_request {
             Msg::GetMembers => {
-                videos
+                members
+            }
+            Msg::GetMember => {
+                inscrire
             }
             Msg::GetProducts => {
                 products
             }
             Msg::GetCommande => {
                 commande
-            }
-            Msg::GetSubscribe => {
-                inscrire
-            }
-            Msg::GetSubscribeEnd => {
-                inscrireFin
             }
             Msg::GetProductFrom => {
                 product_form
