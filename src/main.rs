@@ -14,9 +14,8 @@ use std::collections::HashMap;
 
 
 // Define the possible messages which can be sent to the component
-//Test Push
-#[derive(Clone, PartialEq, Deserialize)]
-pub struct Video {
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
+pub struct Member {
     nom: String,
     prenom: String,
     date_naissance: String,
@@ -51,8 +50,8 @@ pub enum Msg {
     GetMembers,
     GetProducts,
     GetCommande,
-    GetSubscribe,
-    GetSubscribeEnd,
+    GetMember,
+    GetMemberEnd,
     GetHome,
     GetAnnonce,
     GetFAQ,
@@ -60,7 +59,7 @@ pub enum Msg {
     GetLaCarte,
     GetContact,
     GetCompte,
-    UpdateMemberList(Vec<Video>),
+    UpdateMemberList(Vec<Member>),
     UpdateCmdList(Vec<Commande>),
     UpdateProdList(Vec<Produit>),
     Home,
@@ -75,17 +74,28 @@ pub enum Msg {
 
 
 
+    MemberName(String),
+    MemberSurname(String),
+    MemberPassword(String),
+    MemberVerifyPassword(String),
+    MemberAdress(String),
+    MemberMailAdress(String),
+    MemberPhoneNumber(String),
+    MemberBirthday(String),
+    GetRecordMember,
+    GetRecordMemberStatus(String),
 }
 
 pub struct App {
     value: i64,
     // This will store the counter value
-    videos: Vec<Video>,
+    members: Vec<Member>,
     products: Vec<Produit>,
     commande: Vec<Commande>,
     current_request: Msg,
     product: Option<Produit>,
     order:Option<Commande>,
+    member: Option<Member>,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -114,37 +124,34 @@ pub fn set_item(name : &str, value: &str){
 
 impl App {
     fn get_html_member_list(&self, ctx: &Context<Self>) -> Html {
-        let rows = self.videos.iter().map(|video| html! {
-    <tr>
-            <td>{&video.nom}</td>
-            <td>{&video.prenom}</td>
-            <td>{&video.date_naissance}</td>
-            <td>{&video.numero_tel}</td>
-            <td>{&video.adresse_mail}</td>
-            <td>{&video.mot_de_passe}</td>
-            <td>{&video.confirmation_mp}</td>
-            <td>{&video.adresse}</td>
-    </tr>
+        let rows = self.members.iter().map(|members| html! {
+        <tr>
+            <td>{&members.nom}</td>
+            <td>{&members.prenom}</td>
+            <td>{&members.date_naissance}</td>
+            <td>{&members.numero_tel}</td>
+            <td>{&members.adresse_mail}</td>
+            <td>{&members.mot_de_passe}</td>
+            <td>{&members.confirmation_mp}</td>
+            <td>{&members.adresse}</td>
+        </tr>
         }
         ).collect::<Html>();
-        /*{format!("{}: {} {} {} {} {} {} {}", video.nom, video.prenom, video.date_naissance, video.numero_tel,
-                 video.adresse_mail, video.mot_de_passe, video.confirmation_mp, video.adresse)}*/
         html! {
             <section>
-            <div class="member">
-        <table id="admin_member">
+                <div class="member">
+                    <table id="admin_member">
 
-            <tbody>
-                        <div  class="main">
-            <h1> {"affichage member"}</h1>
-            {rows}
-                                    </div>
-
-    </tbody>
-    </table>
-            </div>
+                        <tbody>
+                            <div  class="main">
+                                <h1> {"affichage member"}</h1>
+                                {rows}
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
             </section>
-    }
+        }
     }
 
     fn get_html_product_list(&self, ctx: &Context<Self>) -> Html {
@@ -279,7 +286,7 @@ impl App {
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"Liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Liste des commandes"}</a>
              <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"Liste des produit"}</a>
-            <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetSubscribe)}> {"S'inscrire"}</a>
+            <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetMember)}> {"S'inscrire"}</a>
             <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"Nouveau produit"}</a>
           </ul>
         </div>
@@ -378,8 +385,6 @@ impl App {
             Msg::PriceNumber(prix)
         });
 
-
-
         html! {
         <table id="product">
             <section>
@@ -393,21 +398,10 @@ impl App {
             <input onchange ={on_input_change_ingredient} type="text" name="ingredients" id="ingredients" placeholder="sucre" size="25" maxlength="100"/></p>
             <p><label for="price"> {"prix : "}  </label><br/>
             <input onchange ={on_input_change_price} type="number" name="price" id="price" placeholder="sucre" size="25" maxlength="100"/></p>
-
-
-
-
-
             </div>
             <div>
-
-
             <button id="#admin_prod" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
-
             </div>
-
-
-
             </form>
 
 
@@ -418,7 +412,32 @@ impl App {
             </table>
             }
     }
+
     fn get_html_inscrire(&self, ctx: &Context<Self>) -> Html {
+        let on_input_change_member_name = ctx.link().callback(|e: Event| {
+            Msg::MemberName(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_surname = ctx.link().callback(|e: Event| {
+            Msg::MemberSurname(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_password = ctx.link().callback(|e: Event| {
+            Msg::MemberPassword(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_verifypassword = ctx.link().callback(|e: Event| {
+            Msg::MemberVerifyPassword(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_mailadress = ctx.link().callback(|e: Event| {
+            Msg::MemberMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_adress = ctx.link().callback(|e: Event| {
+            Msg::MemberAdress(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_birthday = ctx.link().callback(|e: Event| {
+            Msg::MemberBirthday(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_phonenumber = ctx.link().callback(|e: Event| {
+            Msg::MemberPhoneNumber(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
         html! {
             <table id="inscription">
                 <section>
@@ -426,54 +445,42 @@ impl App {
             <div class="formulaire">
                 <form id="member_subscription_form" name="member_subscription_form_name" method="post" action="#">
                     <div>
-                    <p><label for="nom"> {"Nom"}</label><br/>
-                        <input type="text" name="nom" id="nom" placeholder="Ex: Antoine" size="25" maxlength="100"/>
+                    <p>
+                        <label for="nom"> {"Nom"}</label><br/>
+                        <input onchange ={on_input_change_member_name} type="text" name="nom" id="nom" placeholder="Ex: Antoine" size="25" maxlength="100"/>
                     </p>
-                    <p><label for="prenom"> {"Prénom"}</label><br/>
-                        <input type="text" name="prenom" id="prenom" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
+                    <p>
+                        <label for="prenom"> {"Prénom"}</label><br/>
+                        <input onchange ={on_input_change_member_surname} type="text" name="prenom" id="prenom" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
                     </p>
-
-                    <p><label for="date-naissance"> {"Date de naissance"} </label><br/>
-                        <input type="date" name="date-naissance" id="date-naissance" placeholder="Ex: 18/12/2000"
-                               size="25" maxlength="100"/></p>
-
-                    <p><label for="tel"> {"Numero de telephone"}  </label><br/>
-                        <input type="tel" name="tel" id="tel" placeholder="01.02.03.04.05" size="25" maxlength="100"/></p>
-
-                        <p><label for="adresse"> {"Adresse"}  </label><br/>
-                            <input type="text" name="adresse" id="adresse" placeholder="9 rue des tuleries" size="25" maxlength="100"/></p>
-
-                        <p><label for="ville"> {"Ville"}  </label><br/>
-                            <input type="text" name="ville" id="ville" placeholder="Oulan-Bator" size="25" maxlength="100"/></p>
-
-                        <p><label for="code-postal"> {"Code postal"} </label><br/>
-                            <input type="text" name="code-postal" id="code-postal" placeholder="16066" size="25" maxlength="100"/></p>
-
-
-
-                        <p><label for="mail"> {"Adresse mail"}  </label> <br/>
-                        <input type="email" name="mail" id="mail" placeholder="Email@email.**" size="25" maxlength="100"/>
+                    <p>
+                        <label for="date_naissance"> {"Date de naissance"} </label><br/>
+                        <input onchange ={on_input_change_member_birthday} type="date" name="date-naissance" id="date-naissance" placeholder="Ex: 18/12/2000" size="25" maxlength="100"/></p>
+                    <p>
+                        <label for="numero_tel"> {"Numero de telephone"}  </label><br/>
+                        <input onchange ={on_input_change_member_phonenumber} type="tel" name="tel" id="tel" placeholder="01.02.03.04.05" size="25" maxlength="100"/>
                     </p>
-
-
-                    <p><label for="pass"> {"Mot de passe"} </label> <br/>
-                        <input type="password" name="pass" id="pass" placeholder="*" size="25" maxlength="100"/> </p>
-
-
-                    <p><label for="pass"> {"Confirmation"}  </label> <br/>
-                        <input type="password" name="conf" id="conf" placeholder="*" size="25" maxlength="100"/></p>
+                    <p>
+                        <label for="adresse"> {"Adresse"}  </label><br/>
+                        <input onchange ={on_input_change_member_adress} type="text" name="adresse" id="adresse" placeholder="9 rue des tuleries" size="25" maxlength="100"/>
+                    </p>
+                    <p>
+                        <label for="adresse_mail"> {"Adresse mail"}  </label> <br/>
+                        <input onchange ={on_input_change_member_mailadress} type="email" name="mail" id="mail" placeholder="Email@email.**" size="25" maxlength="100"/>
+                    </p>
+                    <p>
+                        <label for="mot_de_passe"> {"Mot de passe"} </label> <br/>
+                        <input onchange ={on_input_change_member_password} type="password" name="pass" id="pass" placeholder="*" size="25" maxlength="100"/>
+                    </p>
+                    <p>
+                        <label for="confirmation_mp"> {"Confirmation"}  </label> <br/>
+                        <input onchange ={on_input_change_member_verifypassword} type="password" name="conf" id="conf" placeholder="*" size="25" maxlength="100"/>
+                    </p>
                     </div>
                     <div>
-
-                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetSubscribeEnd)}>{"Valider"}   </button>
-                        <button id="test_cmd" type="button" onclick={ctx.link().callback(|_| Msg::GetProducts)}>{"Test Commande"}  </button>
+                        <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordMember)}>{"Valider"}   </button>
                     </div>
-
-
-
                 </form>
-
-
             </div>
         </div>
     </section>
@@ -481,7 +488,7 @@ impl App {
             </table>
             }
     }
-    fn get_html_inscrireFin(&self, ctx: &Context<Self>) -> Html {
+    fn get_html_inscrire_fin(&self, ctx: &Context<Self>) -> Html {
         html! {
     <header>
         <div class = "nav-img">
@@ -499,7 +506,7 @@ impl App {
     </header>
     }
     }
-    fn get_html_laCarte(&self, ctx: &Context<Self>) -> Html {
+    fn get_html_la_carte(&self, ctx: &Context<Self>) -> Html {
         html! {
             <>
     <header>
@@ -600,7 +607,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, videos: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None, order:None, }
+        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None, order:None}
     }
 
     fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -899,6 +906,166 @@ impl Component for App {
                     _ => {
                         self.product = Some(Produit { produit_id: 0, nom_produit: "".to_string(), ingredients: "".to_string(), prix: price_number  });
                         console::log!(format!("created self.product.prix value:{}", self.product.as_ref().unwrap().prix));
+                    }
+                }
+                true
+            }
+            Msg::GetRecordMember => {
+                self.current_request = Msg::GetRecordMember;
+                set_item("member",serde_json::to_string(self.member.as_ref().unwrap()).unwrap().as_str());
+                console::log!("execution START of update fn / Msg::GetRecordMember...");
+
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/new_member\")...");
+                            let route = format!("/api/new_member");
+                            console::log!("route : {}", route.as_str());
+                            let status = Request::post( route.as_str())
+                                .header("Content-Type","application/json")
+                                .body(
+                                    get_item("member")
+                                )
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/new_member\")...");
+                            status
+
+                        },
+                        _ctx.link().callback(|status| Msg::GetRecordMemberStatus(status)))
+
+                );
+                console::log!("execution END of update fn / Msg::GetRecordMember ");
+                true
+
+            }
+            Msg::GetRecordProductStatus(status) => {
+                self.current_request = Msg::GetRecordProductStatus(status);
+                true
+            }
+            Msg::MemberName(member_name) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.nom = member_name;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().nom));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: member_name, prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().nom));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberSurname(member_att) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.prenom = member_att;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().prenom));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: "".to_string(), prenom: member_att,date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().prenom));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberBirthday(member_att) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.date_naissance = member_att;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().date_naissance));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: member_att,numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().date_naissance));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberPhoneNumber(member_att) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.numero_tel = member_att;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().numero_tel));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: member_att,adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().numero_tel));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberMailAdress(member_att) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.adresse_mail = member_att;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().adresse_mail));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: member_att,mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().adresse_mail));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberPassword(member_att) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.mot_de_passe = member_att;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().mot_de_passe));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: member_att,confirmation_mp: "".to_string(),adresse: "".to_string()});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().mot_de_passe));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberVerifyPassword(member_att) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.confirmation_mp = member_att;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().confirmation_mp));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: member_att,adresse: "".to_string()});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().confirmation_mp));
+                    }
+                }
+                true
+
+            }
+            Msg::MemberAdress(member_att) => {
+                let optional_mem = self.member.as_mut();
+                match optional_mem {
+                    Some(pdt) => {
+                        pdt.adresse = member_att;
+                        console::log!(format!("updated self.member.nom value:{}", self.member.as_ref().unwrap().adresse));
+                    }
+                    _ => {
+                        self.member = Some(Member { nom: "".to_string(), prenom: "".to_string(),date_naissance: "".to_string(),numero_tel: "".to_string(),adresse_mail: "".to_string(),mot_de_passe: "".to_string(),confirmation_mp: "".to_string(),adresse: member_att});
+                        console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().adresse));
                     }
                 }
                 true
