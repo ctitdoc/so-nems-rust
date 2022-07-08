@@ -6,10 +6,11 @@ use reqwasm::http::{Request, Response};
 use serde::{Serialize,Deserialize};
 use wasm_bindgen_futures::{spawn_local};
 use crate::Msg::GetProducts;
-use web_sys::HtmlInputElement;
+use web_sys::{HtmlInputElement};
 use web_sys::Storage;
 use web_sys::Window;
 use std::fmt;
+use std::collections::HashMap;
 
 
 // Define the possible messages which can be sent to the component
@@ -23,27 +24,25 @@ pub struct Member {
     mot_de_passe: String,
     confirmation_mp: String,
     adresse: String,
+
 }
 
 #[derive(Clone, PartialEq, Serialize,Deserialize)]
 pub struct Produit {
+    produit_id: i32,
     nom_produit: String,
     ingredients: String,
     prix: f64,
+
 }
 
-#[derive(Clone, PartialEq, Deserialize)]
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
 pub struct Commande {
     quantite_cmd: i32,
     member_id: i32,
+    items:  HashMap<i32, i32>
 }
 
-//TODO : Création struct Login
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
-pub struct Login {
-    adresse_mail: String,
-    mot_de_passe: String,
-}
 
 pub enum Msg {
     Increment,
@@ -52,7 +51,6 @@ pub enum Msg {
     GetProducts,
     GetCommande,
     GetMember,
-    GetMemberEnd,
     GetHome,
     GetAnnonce,
     GetFAQ,
@@ -67,8 +65,14 @@ pub enum Msg {
     ProductName(String),
     IngredientName(String),
     PriceNumber(f64),
+    ProductQuantity(i32,i32),
     GetRecordProduct,
     GetRecordProductStatus(String),
+    GetRecordOrder,
+    GetRecordOrderStatus(String),
+
+
+
     MemberName(String),
     MemberSurname(String),
     MemberPassword(String),
@@ -79,8 +83,6 @@ pub enum Msg {
     MemberBirthday(String),
     GetRecordMember,
     GetRecordMemberStatus(String),
-    GetLoginMember,
-    UpdateLoginMember(Vec<Member>),
 }
 
 pub struct App {
@@ -91,6 +93,7 @@ pub struct App {
     commande: Vec<Commande>,
     current_request: Msg,
     product: Option<Produit>,
+    order:Option<Commande>,
     member: Option<Member>,
 }
 
@@ -151,28 +154,63 @@ impl App {
     }
 
     fn get_html_product_list(&self, ctx: &Context<Self>) -> Html {
-        let rows = self.products.iter().map(|produit| html! {
+
+        let rows = self.products.iter().map(
+            |produit| {
+                let on_input_change_order_quantity = ctx.link().callback(|e: Event| {
+                let str = e.target_unchecked_into::<HtmlInputElement>().value();
+                let quantite_cmd: i32 = str.parse::<i32>().unwrap();
+                    let str_pdt_id = e.target_unchecked_into::<HtmlInputElement>().id();
+                    let produit_id: i32 = str_pdt_id.parse::<i32>().unwrap();
+                Msg::ProductQuantity(quantite_cmd,produit_id)
+            });
+                //TODO : add logic to get qty value self.order.....items.get(&produit.produit_id) or
+                // 0 if self.order is None ou get returns None
+                let quantity=0;
+
+                html! {
+
+
            <tr>
                 <td>{&produit.nom_produit}</td>
                 <td>{&produit.ingredients}</td>
                 <td>{&produit.prix}</td>
+                <td> <input onchange ={on_input_change_order_quantity} type="number" name="quantity" id={produit.produit_id.to_string()}
+                     placeholder="22" size="25" maxlength="100"  value={quantity.to_string()} /></td>
+
            </tr>
-    //<p>{format!("{}", produit.nom_produit)}</p>
-}).collect::<Html>();
+
+
+            }
+    }
+        ).collect::<Html>();
+
+
 
         html! {
             <section>
             <div class="member">
         <table id = "admin_prod">
             <div class="main">
+            <h1>{"Affichage products"}</h1>
             <thead>
             <tr>
-            <th> {"Affichage products"}</th>
+
+            <th>{"Nom"}</th>
+
+            <th>{"Ingrédient"}</th>
+
+            <th>{"Prix"}</th>
+
+            <th>{"Quantité"}</th>
             </tr>
             </thead>
+
             <tbody>
     {rows}
+
     </tbody>
+            <button id="#admin_prod" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordOrder)}>{"create order"}  </button>
     </div>
     </table>
 
@@ -204,6 +242,7 @@ impl App {
             </tbody>
             </div>
         </table>
+
             </div>
             </section>
         }
@@ -243,11 +282,11 @@ impl App {
             <a href="#contact" onclick={ctx.link().callback(|_| Msg::GetContact)}> <li class="navbar-item">{"Contact"}</li></a>
             <a href="#compte" onclick={ctx.link().callback(|_| Msg::GetCompte)}> <li class="fifth-link">{"Mon Compte"}</li></a>
             <a href="#FAQ" onclick={ctx.link().callback(|_| Msg::GetFAQ)}> {"FAQ"} </a>
-            <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"liste des membres"}</a>
-             <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Commande"}</a>
-             <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"liste produit"}</a>
+            <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"Liste des membres"}</a>
+             <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Liste des commandes"}</a>
+             <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"Liste des produit"}</a>
             <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetMember)}> {"S'inscrire"}</a>
-            <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"nouveau produit"}</a>
+            <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"Nouveau produit"}</a>
           </ul>
         </div>
       </div>
@@ -360,7 +399,7 @@ impl App {
             <input onchange ={on_input_change_price} type="number" name="price" id="price" placeholder="sucre" size="25" maxlength="100"/></p>
             </div>
             <div>
-            <button id="#" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
+            <button id="#admin_prod" type="button" onclick={ ctx.link().callback(|_| Msg::GetRecordProduct)}>{"create"}  </button>
             </div>
             </form>
 
@@ -469,102 +508,96 @@ impl App {
     fn get_html_la_carte(&self, ctx: &Context<Self>) -> Html {
         html! {
             <>
-                <header>
-                    <div class="banner">
-                        <div class="img-banner"></div>
-                        <div class="titre">
-                            <h1>
-                                <h1> {"Notre carte"}</h1>
-                                <hr color="black"/>
-                                <h2>{"Spécialité asiatique"}</h2>
-                            </h1>
-                        </div>
-                    </div>
-                </header>
-                <main>
-                    <section>
-                        <div class="container">
-                            <div class="intro">
-                                <div class="paragraph">
-                                    <h3>{"La Carte :"}</h3>
-                                    <p><strong>{"Notre carte réalisée et faite maison, conviendra à toute personne aimant de près ou de loin la cuisine asiatique."} </strong></p>
-                                </div>
+    <header>
+    <div class="banner">
+        <div class="img-banner"></div>
+        <div class="titre"><h1><h1> {"Notre carte"}</h1>
+            <hr color="black"/>
+            <h2>{"Spécialité asiatique"}</h2></h1></div>
+    </div>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+            <div class="intro">
+                <div class="paragraph">
+                    <h3>{"La Carte :"}</h3>
+                    <p><strong>{"Notre carte réalisée et faite maison, conviendra à toute personne aimant de près ou de loin la cuisine asiatique."} </strong></p>
+                </div>
 
-                            </div>
-                            <div class="menu-1">
-                                <div class="plat-1">
-                                    <img src="img/nems.jpg"/>
-                                </div>
-                                <div class="desc-plat1">
-                                    <h3>{"Pâté impérial ..............................................0,80 €"}</h3>
-                                    <p>{"**********************************************"}</p>
-                                    <p>{"**********************************************"}</p>
-                                    <p>{"**********************************************"}</p>
-                                    <p>{"**********************************************"}</p>
-                                    <h3>{"Nem .........................................................0,80 €"}</h3>
-                                    <p>{"**********************************************"}</p>
-                                    <p>{"**********************************************"}</p>
-                                    <p>{"**********************************************"}</p>
-                                    <p>{"**********************************************"}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </main>
+            </div>
+            <div class="menu-1">
+                <div class="plat-1">
+                    <img src="img/nems.jpg"/>
+                </div>
+                <div class="desc-plat1">
+                    <h3>{"Pâté impérial ..............................................0,80 €"}</h3>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <h3>{"Nem .........................................................0,80 €"}</h3>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                    <p>{"**********************************************"}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
             </>
-        }
+    }
     }
     fn get_html_contact(&self, ctx: &Context<Self>) -> Html {
-        html! {
-            <main>
-                <section id="contact.html"></section>
-            </main>
-        }
+        html! {<main>
+    <section id="contact.html">
+    </section>
+</main>
+    }
     }
     fn get_html_compte(&self, ctx: &Context<Self>) -> Html {
-        let on_input_change_member_password = ctx.link().callback(|e: Event| {
-            Msg::MemberPassword(e.target_unchecked_into::<HtmlInputElement>().value())
-        });
-        let on_input_change_member_mailadress = ctx.link().callback(|e: Event| {
-            Msg::MemberMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
-        });
         html! {
             //TODO : Modification Css
             <>
-                <div class="subscribe">
-                    <header>
-                        <div class="banner">
-                            <div class="img-banner"></div>
-                            <div class="titre">
-                                <h1>  {"Mon compte"} </h1>
-                            </div>
-                        </div>
-                    </header>
-                    <main>
-                        <section>
-                            <div class="container">
-                                <div class="formulaire">
-                                    <form method="post" action="#">
-                                        <div>
-                                            <p><label for="identifiant"> {"Identifiant"} </label><br/>
-                                                <input onchange ={on_input_change_member_mailadress} type="email" name="mail" id="mail" placeholder="Votre email" size="25" maxlength="100"/>
-                                            </p>
-                                            <p><label for="Mp"> {"Mot de passe"} </label><br/>
-                                                <input onchange ={on_input_change_member_password} type="password" name="pass" id="pass" placeholder="Votre mot de passe" size="25" maxlength="100"/>
-                                            </p>
-                                        </div>
-                                        <div class = "link">
-                                            <a href="#"> {"Mot de passe oublié"}</a>
-                                            <a href="inscription.html"> {"S'inscrire"}</a>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </section>
-                    </main>
-                </div>
+            <div class="subscribe">
+<header>
+    <div class="banner">
+        <div class="img-banner"></div>
+        <div class="titre">
+            <h1>  {"Mon compte"} </h1>
+
+        </div>
+        </div>
+</header>
+<main>
+    <section>
+        <div class="container">
+            <div class="formulaire">
+                <form method="post" action="#">
+                    <div>
+                        <p><label for="identifiant"> {"Identifiant"} </label><br/>
+                            <input type="text" name="identifiant" id="identifiant" placeholder="Ex: Antoine" size="25" maxlength="100"/>
+                        </p>
+                        <p><label for="Mp"> {"Mot de passe"} </label><br/>
+                            <input type="text" name="Mp" id="Mp" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
+                        </p>
+                    </div>
+                    <div class = "link">
+                    <a href="#"> {"Mot de passe oublié"}</a>
+
+                    <a href="inscription.html"> {"S'inscrire"}</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+     </main>
+            </div>
             </>
-        }
+    }
     }
 }
 
@@ -573,7 +606,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None}
+        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None, order:None}
     }
 
     fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -589,8 +622,8 @@ impl Component for App {
                 true
             }
 
-            Msg::UpdateMemberList(mem) => {
-                self.members = mem;
+            Msg::UpdateMemberList(members) => {
+                self.members = members;
                 true
             }
 
@@ -601,7 +634,7 @@ impl Component for App {
                     wrap(
                         async {
                             console::log!("execution START of Request::get(\"/api/member\")...");
-                            let fetched_member = Request::get("/api/member")
+                            let fetched_videos = Request::get("/api/member")
                                 .send()
                                 .await
                                 .unwrap()
@@ -609,9 +642,9 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/member\")...");
-                            fetched_member
+                            fetched_videos
                         },
-                        _ctx.link().callback(|fetched_member| Msg::UpdateMemberList(fetched_member)))
+                        _ctx.link().callback(|fetched_videos| Msg::UpdateMemberList(fetched_videos)))
                 );
 
                 console::log!("execution END of update fn / Msg::GetMembers ");
@@ -674,17 +707,6 @@ impl Component for App {
                 true
             }
 
-            Msg::GetMember => {
-                self.current_request = Msg::GetMember;
-                console::log!("execution of update fn / Msg::GetMember...");
-                true
-            }
-
-            Msg::GetMemberEnd => {
-                self.current_request = Msg::GetMemberEnd;
-                console::log!("execution of update fn / Msg::GetMemberEnd");
-                true
-            }
 
             Msg::GetProductFrom => {
                 self.current_request = Msg::GetProductFrom;
@@ -693,7 +715,7 @@ impl Component for App {
             }
             Msg::GetRecordProduct => {
                 self.current_request = Msg::GetRecordProduct;
-
+                ;
                 set_item("product",serde_json::to_string(self.product.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordProduct...");
 
@@ -728,11 +750,54 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetRecordProduct ");
 
                 true
+
             }
-            Msg::GetRecordMemberStatus(status) => {
-                self.current_request = Msg::GetRecordMemberStatus(status);
+            Msg::GetRecordProductStatus(status) => {
+                self.current_request = Msg::GetRecordProductStatus(status);
                 true
             }
+            Msg::GetRecordOrder => {
+                self.current_request = Msg::GetRecordOrder;
+                ;
+                set_item("order",serde_json::to_string(self.order.as_ref().unwrap()).unwrap().as_str());
+                console::log!("execution START of update fn / Msg::GetRecordOrder...");
+
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/new_order\")...");
+                            let route = format!("/api/new_order");
+                            console::log!("route : {}", route.as_str());
+                            let status = Request::post( route.as_str())
+                                .header("Content-Type","application/json")
+                                .body(
+
+                                    get_item("order")
+                                )
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/new_order\")...");
+                            status
+
+                        },
+                        _ctx.link().callback(|status| Msg::GetRecordOrderStatus(status)))
+
+                );
+                console::log!("execution END of update fn / Msg::GetRecordOrder ");
+
+                true
+
+            }
+            Msg::GetRecordOrderStatus(status) => {
+                self.current_request = Msg::GetRecordOrderStatus(status);
+                self.order = None;
+                true
+            }
+
 
             Msg::GetHome => {
                 self.current_request = Msg::GetHome;
@@ -790,16 +855,13 @@ impl Component for App {
                 match optional_pdt {
                     Some(pdt) => {
                         pdt.nom_produit = product_name;
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
                         console::log!(format!("updated self.product.nom_produit value:{}", self.product.as_ref().unwrap().nom_produit));
                     }
                     _ => {
-                        self.product = Some(Produit { nom_produit: product_name, ingredients: "".to_string(), prix: -1.00 });
+                        self.product = Some(Produit { produit_id : 0, nom_produit: product_name, ingredients: "".to_string(), prix: -1.00 });
                         console::log!(format!("created self.product.nom_produit value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
+
+
                     }
                 }
                     true
@@ -811,16 +873,11 @@ impl Component for App {
                 match optional_pdt {
                     Some(pdt) => {
                         pdt.ingredients = ingredient_name;
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
                         console::log!(format!("updated self.product.ingredients value:{}", self.product.as_ref().unwrap().ingredients));
                     }
                     _ => {
-                        self.product = Some(Produit { nom_produit: "".to_string(), ingredients: ingredient_name, prix: -1.00 });
+                        self.product = Some(Produit { produit_id: 0, nom_produit: "".to_string(), ingredients: ingredient_name, prix: -1.00 });
                         console::log!(format!("created self.product.ingredients value:{}", self.product.as_ref().unwrap().ingredients));
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
                     }
                 }
                 true
@@ -831,20 +888,22 @@ impl Component for App {
                 match optional_pdt {
                     Some(pdt) => {
                         pdt.prix = price_number;
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("updated nom_produit_value:{}", self.product.as_ref().unwrap().nom_produit));
-                        //console::log!(format!("updated nom_produit_value in storage :{}", get_item("nom_produit")));
                         console::log!(format!("updated self.product.prix value:{}", self.product.as_ref().unwrap().prix));
                     }
                     _ => {
-                        self.product = Some(Produit { nom_produit: "".to_string(), ingredients: "".to_string(), prix: price_number });
+                        self.product = Some(Produit { produit_id: 0, nom_produit: "".to_string(), ingredients: "".to_string(), prix: price_number  });
                         console::log!(format!("created self.product.prix value:{}", self.product.as_ref().unwrap().prix));
-                        //set_item("nom_produit",product_name.as_str());
-                        //console::log!(format!("created product with nom_produit_value:{}", get_item("nom_produit")));
                     }
                 }
                 true
             }
+
+            Msg::GetMember => {
+                self.current_request = Msg::GetMember;
+                console::log!("execution of update fn / Msg::GetMember...");
+                true
+            }
+
             Msg::GetRecordMember => {
                 self.current_request = Msg::GetRecordMember;
                 set_item("member",serde_json::to_string(self.member.as_ref().unwrap()).unwrap().as_str());
@@ -877,10 +936,6 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetRecordMember ");
                 true
 
-            }
-            Msg::GetRecordProductStatus(status) => {
-                self.current_request = Msg::GetRecordProductStatus(status);
-                true
             }
             Msg::MemberName(member_name) => {
                 let optional_mem = self.member.as_mut();
@@ -1005,32 +1060,23 @@ impl Component for App {
                 }
                 true
             }
-            Msg::UpdateLoginMember(mem) => {
-                self.members = mem;
-                true
-            }
-
-            Msg::GetLoginMember => {
-                self.current_request = Msg::GetLoginMember;
-                console::log!("execution START of update fn / Msg::GetLoginMember...");
-                spawn_local(
-                    wrap(
-                        async {
-                            console::log!("execution START of Request::get(\"/api/login_member\")...");
-                            let fetched_login_member = Request::get("/api/login_member")
-                                .send()
-                                .await
-                                .unwrap()
-                                .json()
-                                .await
-                                .unwrap();
-                            console::log!("execution END of Request::get(\"/api/login_member\")...");
-                            fetched_login_member
-                        },
-                        _ctx.link().callback(|fetched_login_member| Msg::UpdateLoginMember(fetched_login_member)))
-                );
-
-                console::log!("execution END of update fn / Msg::GetLoginMember ");
+            Msg::ProductQuantity(qte, product_id) => {
+                console::log!(format!("msg parameters : {}, {}", qte, product_id));
+                    let optional_cmd = self.order.as_mut();
+                match optional_cmd{
+                    Some(cmd) => {
+                        cmd.items.insert(product_id,qte);
+                    }
+                    _ => {
+                        self.order = Some(Commande {member_id : 1, quantite_cmd : 0, items: HashMap::new() });
+                        let cmd = self.order.as_mut().unwrap();
+                        cmd.items.insert(product_id,qte);
+                      }
+                };
+                let cmd = self.order.as_ref().unwrap();
+                for (key, value) in cmd.items.iter() {
+                    console::log!(format!("memorized order item : {}, {}", key, value));
+                };
                 true
             }
             _ => { true }
@@ -1039,34 +1085,30 @@ impl Component for App {
 
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let videos = self.get_html_member_list(ctx);
+        let members = self.get_html_member_list(ctx);
         let products = self.get_html_product_list(ctx);
         let commande = self.get_html_cmd_list(ctx);
         let compte = self.get_html_compte(ctx);
-        let la_carte = self.get_html_la_carte(ctx);
+        let laCarte = self.get_html_la_carte(ctx);
         let contact = self.get_html_contact(ctx);
         let accueil = self.get_html_accueil(ctx);
         let navbar = self.get_html_nav(ctx);
         let faq = self.get_html_faq(ctx);
         let footer = self.get_html_footer(ctx);
         let inscrire = self.get_html_inscrire(ctx);
-        let inscrire_fin = self.get_html_inscrire_fin(ctx);
         let product_form = self.get_html_product_form(ctx);
         let main_view_content = match self.current_request {
             Msg::GetMembers => {
-                videos
+                members
+            }
+            Msg::GetMember => {
+                inscrire
             }
             Msg::GetProducts => {
                 products
             }
             Msg::GetCommande => {
                 commande
-            }
-            Msg::GetMember => {
-                inscrire
-            }
-            Msg::GetMemberEnd => {
-                inscrire_fin
             }
             Msg::GetProductFrom => {
                 product_form
@@ -1084,7 +1126,7 @@ impl Component for App {
                 compte
             }
             Msg::GetLaCarte => {
-                la_carte
+                laCarte
             }
             Msg::GetContact => {
                 accueil
@@ -1094,14 +1136,30 @@ impl Component for App {
 
         html! {
             <>
-                {navbar}
-                <main>
-                    {main_view_content}
-                </main>
-                {footer}
-            </>
-            }
-        }
+
+
+
+
+
+{navbar}
+<main>
+{main_view_content}
+</main>
+{footer}
+</>
+/*<main>
+  <section class= "Accueil" id="Acceuil">
+    <div class = "admin-aff">
+            {main_view_content}
+    </div>
+            {footer}
+    </section>
+
+</main>
+</>*/
+
+    }
+    }
 }
 
 
