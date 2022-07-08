@@ -9,7 +9,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Commit pour régler des problemes de VM">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
@@ -263,7 +263,14 @@
       <workItem from="1655890661320" duration="582000" />
       <workItem from="1655891404782" duration="1325000" />
       <workItem from="1655900438357" duration="387000" />
-      <workItem from="1656588744363" duration="3538000" />
+      <workItem from="1656588744363" duration="3934000" />
+      <workItem from="1656930296070" duration="4000" />
+      <workItem from="1657002611421" duration="4004000" />
+      <workItem from="1657099588068" duration="6000" />
+      <workItem from="1657177415813" duration="6000" />
+      <workItem from="1657184810905" duration="4580000" />
+      <workItem from="1657195095026" duration="1000" />
+      <workItem from="1657267892975" duration="775000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -552,7 +559,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655891787136</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Correction probleme affichage liste member.&#10;Restructuration du code :&#10;- Subscribe devient Members&#10;Et&#10;- Video devient Member">
+      <created>1656612033860</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1656612033860</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription">
+      <created>1657003038039</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1657003038039</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -580,6 +601,22 @@
     </option>
     <option name="RECENT_FILTERS">
       <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
         <entry key="User">
           <value>
             <list>
@@ -596,8 +633,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removes .idea/workspace.xml as it is buggy for the github push/pull process" />
-    <MESSAGE value="test html change after a rust change" />
     <MESSAGE value="test html change after a rust change : insertion de &quot;inscription&quot; wip" />
     <MESSAGE value="add &quot;adresse&quot; part" />
     <MESSAGE value="add &quot;modofication&quot;" />
@@ -621,6 +656,8 @@
     <MESSAGE value="enlevage de async passage a la methode avec storage création de get_item et set_item pour pouvoir créer des produits dans le formulaire et les envoyés dans la BD (doc storage: https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Storage.html#method.set_item)" />
     <MESSAGE value="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;" />
     <MESSAGE value="Commit pour régler des problemes de VM" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit pour régler des problemes de VM" />
+    <MESSAGE value="Correction probleme affichage liste member.&#10;Restructuration du code :&#10;- Subscribe devient Members&#10;Et&#10;- Video devient Member" />
+    <MESSAGE value="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription" />
   </component>
 </project>

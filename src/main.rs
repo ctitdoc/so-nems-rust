@@ -23,7 +23,6 @@ pub struct Member {
     mot_de_passe: String,
     confirmation_mp: String,
     adresse: String,
-
 }
 
 #[derive(Clone, PartialEq, Serialize,Deserialize)]
@@ -39,6 +38,12 @@ pub struct Commande {
     member_id: i32,
 }
 
+//TODO : Création struct Login
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
+pub struct Login {
+    adresse_mail: String,
+    mot_de_passe: String,
+}
 
 pub enum Msg {
     Increment,
@@ -74,6 +79,8 @@ pub enum Msg {
     MemberBirthday(String),
     GetRecordMember,
     GetRecordMemberStatus(String),
+    GetLoginMember,
+    UpdateLoginMember(Vec<Member>),
 }
 
 pub struct App {
@@ -462,96 +469,102 @@ impl App {
     fn get_html_la_carte(&self, ctx: &Context<Self>) -> Html {
         html! {
             <>
-    <header>
-    <div class="banner">
-        <div class="img-banner"></div>
-        <div class="titre"><h1><h1> {"Notre carte"}</h1>
-            <hr color="black"/>
-            <h2>{"Spécialité asiatique"}</h2></h1></div>
-    </div>
-    </header>
-    <main>
-        <section>
-            <div class="container">
-            <div class="intro">
-                <div class="paragraph">
-                    <h3>{"La Carte :"}</h3>
-                    <p><strong>{"Notre carte réalisée et faite maison, conviendra à toute personne aimant de près ou de loin la cuisine asiatique."} </strong></p>
-                </div>
+                <header>
+                    <div class="banner">
+                        <div class="img-banner"></div>
+                        <div class="titre">
+                            <h1>
+                                <h1> {"Notre carte"}</h1>
+                                <hr color="black"/>
+                                <h2>{"Spécialité asiatique"}</h2>
+                            </h1>
+                        </div>
+                    </div>
+                </header>
+                <main>
+                    <section>
+                        <div class="container">
+                            <div class="intro">
+                                <div class="paragraph">
+                                    <h3>{"La Carte :"}</h3>
+                                    <p><strong>{"Notre carte réalisée et faite maison, conviendra à toute personne aimant de près ou de loin la cuisine asiatique."} </strong></p>
+                                </div>
 
-            </div>
-            <div class="menu-1">
-                <div class="plat-1">
-                    <img src="img/nems.jpg"/>
-                </div>
-                <div class="desc-plat1">
-                    <h3>{"Pâté impérial ..............................................0,80 €"}</h3>
-                    <p>{"**********************************************"}</p>
-                    <p>{"**********************************************"}</p>
-                    <p>{"**********************************************"}</p>
-                    <p>{"**********************************************"}</p>
-                    <h3>{"Nem .........................................................0,80 €"}</h3>
-                    <p>{"**********************************************"}</p>
-                    <p>{"**********************************************"}</p>
-                    <p>{"**********************************************"}</p>
-                    <p>{"**********************************************"}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    </main>
+                            </div>
+                            <div class="menu-1">
+                                <div class="plat-1">
+                                    <img src="img/nems.jpg"/>
+                                </div>
+                                <div class="desc-plat1">
+                                    <h3>{"Pâté impérial ..............................................0,80 €"}</h3>
+                                    <p>{"**********************************************"}</p>
+                                    <p>{"**********************************************"}</p>
+                                    <p>{"**********************************************"}</p>
+                                    <p>{"**********************************************"}</p>
+                                    <h3>{"Nem .........................................................0,80 €"}</h3>
+                                    <p>{"**********************************************"}</p>
+                                    <p>{"**********************************************"}</p>
+                                    <p>{"**********************************************"}</p>
+                                    <p>{"**********************************************"}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
             </>
-    }
+        }
     }
     fn get_html_contact(&self, ctx: &Context<Self>) -> Html {
-        html! {<main>
-    <section id="contact.html">
-    </section>
-</main>
-    }
+        html! {
+            <main>
+                <section id="contact.html"></section>
+            </main>
+        }
     }
     fn get_html_compte(&self, ctx: &Context<Self>) -> Html {
+        let on_input_change_member_password = ctx.link().callback(|e: Event| {
+            Msg::MemberPassword(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_mailadress = ctx.link().callback(|e: Event| {
+            Msg::MemberMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
         html! {
             //TODO : Modification Css
             <>
-            <div class="subscribe">
-<header>
-    <div class="banner">
-        <div class="img-banner"></div>
-        <div class="titre">
-            <h1>  {"Mon compte"} </h1>
-
-        </div>
-        </div>
-</header>
-<main>
-    <section>
-        <div class="container">
-            <div class="formulaire">
-                <form method="post" action="#">
-                    <div>
-                        <p><label for="identifiant"> {"Identifiant"} </label><br/>
-                            <input type="text" name="identifiant" id="identifiant" placeholder="Ex: Antoine" size="25" maxlength="100"/>
-                        </p>
-                        <p><label for="Mp"> {"Mot de passe"} </label><br/>
-                            <input type="text" name="Mp" id="Mp" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
-                        </p>
-                    </div>
-                    <div class = "link">
-                    <a href="#"> {"Mot de passe oublié"}</a>
-
-                    <a href="inscription.html"> {"S'inscrire"}</a>
-                    </div>
-
-
-                </form>
-            </div>
-        </div>
-    </section>
-     </main>
-            </div>
+                <div class="subscribe">
+                    <header>
+                        <div class="banner">
+                            <div class="img-banner"></div>
+                            <div class="titre">
+                                <h1>  {"Mon compte"} </h1>
+                            </div>
+                        </div>
+                    </header>
+                    <main>
+                        <section>
+                            <div class="container">
+                                <div class="formulaire">
+                                    <form method="post" action="#">
+                                        <div>
+                                            <p><label for="identifiant"> {"Identifiant"} </label><br/>
+                                                <input onchange ={on_input_change_member_mailadress} type="email" name="mail" id="mail" placeholder="Votre email" size="25" maxlength="100"/>
+                                            </p>
+                                            <p><label for="Mp"> {"Mot de passe"} </label><br/>
+                                                <input onchange ={on_input_change_member_password} type="password" name="pass" id="pass" placeholder="Votre mot de passe" size="25" maxlength="100"/>
+                                            </p>
+                                        </div>
+                                        <div class = "link">
+                                            <a href="#"> {"Mot de passe oublié"}</a>
+                                            <a href="inscription.html"> {"S'inscrire"}</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                </div>
             </>
-    }
+        }
     }
 }
 
@@ -629,7 +642,7 @@ impl Component for App {
                         _ctx.link().callback(|fetched_videos| Msg::UpdateProdList(fetched_videos)))
                 );
 
-                console::log!("execution END of update fn / Msg::GetPoducts ");
+                console::log!("execution END of update fn / Msg::GetProducts ");
                 true
             }
 
@@ -990,6 +1003,34 @@ impl Component for App {
                         console::log!(format!("created self.member.nom value:{}", self.member.as_ref().unwrap().adresse));
                     }
                 }
+                true
+            }
+            Msg::UpdateLoginMember(mem) => {
+                self.members = mem;
+                true
+            }
+
+            Msg::GetLoginMember => {
+                self.current_request = Msg::GetLoginMember;
+                console::log!("execution START of update fn / Msg::GetLoginMember...");
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/login_member\")...");
+                            let fetched_login_member = Request::get("/api/login_member")
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/login_member\")...");
+                            fetched_login_member
+                        },
+                        _ctx.link().callback(|fetched_login_member| Msg::UpdateLoginMember(fetched_login_member)))
+                );
+
+                console::log!("execution END of update fn / Msg::GetLoginMember ");
                 true
             }
             _ => { true }
