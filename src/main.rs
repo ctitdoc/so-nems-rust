@@ -43,6 +43,11 @@ pub struct Commande {
     items:  HashMap<i32, i32>
 }
 
+#[derive(Clone, PartialEq, Serialize, Deserialize)]
+pub struct Login {
+    adresse_mail: String,
+    mot_de_passe: String,
+}
 
 pub enum Msg {
     Increment,
@@ -83,6 +88,12 @@ pub enum Msg {
     MemberBirthday(String),
     GetRecordMember,
     GetRecordMemberStatus(String),
+
+    GetLogin,
+    LoginMail(String),
+    LoginPassword(String),
+    GetRecordLogin,
+    GetRecordLoginStatus(String),
 }
 
 pub struct App {
@@ -95,6 +106,7 @@ pub struct App {
     product: Option<Produit>,
     order:Option<Commande>,
     member: Option<Member>,
+    login: Option<Login>,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -557,47 +569,50 @@ impl App {
     }
     }
     fn get_html_compte(&self, ctx: &Context<Self>) -> Html {
+        let on_input_change_member_password = ctx.link().callback(|e: Event| {
+            Msg::MemberPassword(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
+        let on_input_change_member_mailadress = ctx.link().callback(|e: Event| {
+            Msg::MemberMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
+        });
         html! {
             //TODO : Modification Css
             <>
-            <div class="subscribe">
-<header>
-    <div class="banner">
-        <div class="img-banner"></div>
-        <div class="titre">
-            <h1>  {"Mon compte"} </h1>
-
-        </div>
-        </div>
-</header>
-<main>
-    <section>
-        <div class="container">
-            <div class="formulaire">
-                <form method="post" action="#">
-                    <div>
-                        <p><label for="identifiant"> {"Identifiant"} </label><br/>
-                            <input type="text" name="identifiant" id="identifiant" placeholder="Ex: Antoine" size="25" maxlength="100"/>
-                        </p>
-                        <p><label for="Mp"> {"Mot de passe"} </label><br/>
-                            <input type="text" name="Mp" id="Mp" placeholder="Ex: Dubuisson" size="25" maxlength="100"/>
-                        </p>
-                    </div>
-                    <div class = "link">
-                    <a href="#"> {"Mot de passe oublié"}</a>
-
-                    <a href="inscription.html"> {"S'inscrire"}</a>
-                    </div>
-
-
-                </form>
-            </div>
-        </div>
-    </section>
-     </main>
-            </div>
+                <div class="subscribe">
+                    <header>
+                        <div class="banner">
+                            <div class="img-banner"></div>
+                                <div class="titre">
+                                    <h1>  {"Mon compte"} </h1>
+                                </div>
+                            </div>
+                    </header>
+                    <main>
+                        <section>
+                            <div class="container">
+                                <div class="formulaire">
+                                    <form method="post" action="#">
+                                        <div>
+                                            <p><label for="identifiant"> {"Identifiant"} </label><br/>
+                                                <input onchange ={on_input_change_member_mailadress} type="email" name="mail" id="mail" placeholder="Email@email.**" size="25" maxlength="100"/>
+                                            </p>
+                                            <p><label for="Mp"> {"Mot de passe"} </label><br/>
+                                                <input onchange ={on_input_change_member_password} type="password" name="pass" id="pass" placeholder="*" size="25" maxlength="100"/>
+                                            </p>
+                                        </div>
+                                        <div class = "link">
+                                            <a href="#"> {"Mot de passe oublié"}</a>
+                                            <a href="inscription.html"> {"S'inscrire"}</a>
+                                            <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordLogin)}>{"Valider"}   </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                </div>
             </>
-    }
+        }
     }
 }
 
@@ -606,7 +621,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None, order:None}
+        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None, login:None, order:None}
     }
 
     fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -1079,6 +1094,42 @@ impl Component for App {
                 };
                 true
             }
+
+            Msg::GetLogin => {
+                self.current_request = Msg::GetLogin;
+                console::log!("execution of update fn / Msg::GetLogin...");
+                true
+            }
+
+            Msg::GetRecordLogin => {
+                self.current_request = Msg::GetRecordLogin;
+                set_item("login",serde_json::to_string(self.login.as_ref().unwrap()).unwrap().as_str());
+                console::log!("execution START of update fn / Msg::GetRecordLogin...");
+                spawn_local(
+                    wrap(
+                        async {
+                            console::log!("execution START of Request::get(\"/api/login_member\")...");
+                            let route = format!("/api/login_member");
+                            console::log!("route : {}", route.as_str());
+                            let status = Request::post( route.as_str())
+                                .header("Content-Type","application/json")
+                                .body(
+                                    get_item("login")
+                                )
+                                .send()
+                                .await
+                                .unwrap()
+                                .json()
+                                .await
+                                .unwrap();
+                            console::log!("execution END of Request::get(\"/api/login_member\")...");
+                            status
+                        },
+                        _ctx.link().callback(|status| Msg::GetRecordLoginStatus(status)))
+                );
+                console::log!("execution END of update fn / Msg::GetRecordLogin ");
+                true
+            }
             _ => { true }
         }
     }
@@ -1136,29 +1187,13 @@ impl Component for App {
 
         html! {
             <>
-
-
-
-
-
-{navbar}
-<main>
-{main_view_content}
-</main>
-{footer}
-</>
-/*<main>
-  <section class= "Accueil" id="Acceuil">
-    <div class = "admin-aff">
-            {main_view_content}
-    </div>
-            {footer}
-    </section>
-
-</main>
-</>*/
-
-    }
+                {navbar}
+                    <main>
+                        {main_view_content}
+                    </main>
+                {footer}
+            </>
+        }
     }
 }
 

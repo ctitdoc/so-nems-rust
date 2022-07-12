@@ -10,8 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -271,6 +271,9 @@
       <workItem from="1657184810905" duration="4580000" />
       <workItem from="1657195095026" duration="1000" />
       <workItem from="1657267892975" duration="775000" />
+      <workItem from="1657529392113" duration="3451000" />
+      <workItem from="1657548743621" duration="4000" />
+      <workItem from="1657617837556" duration="1328000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
