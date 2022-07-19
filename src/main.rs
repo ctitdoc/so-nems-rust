@@ -1130,6 +1130,10 @@ impl Component for App {
                 console::log!("execution END of update fn / Msg::GetRecordLogin ");
                 true
             }
+            Msg::GetRecordLoginStatus(status) => {
+                self.current_request = Msg::GetRecordLoginStatus(status);
+                true
+            }
             _ => { true }
         }
     }

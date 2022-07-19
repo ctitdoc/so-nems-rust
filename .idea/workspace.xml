@@ -9,10 +9,11 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" afterDir="false" />
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Ajout fonction pour l'inscription">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +274,9 @@
       <workItem from="1657267892975" duration="775000" />
       <workItem from="1657529392113" duration="3451000" />
       <workItem from="1657548743621" duration="4000" />
-      <workItem from="1657617837556" duration="1328000" />
+      <workItem from="1657617837556" duration="1602000" />
+      <workItem from="1658131372982" duration="1392000" />
+      <workItem from="1658222405032" duration="3164000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -576,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657003038039</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Ajout fonction pour l'inscription">
+      <created>1657619370572</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1657619370572</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,7 +646,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test html change after a rust change : insertion de &quot;inscription&quot; wip" />
     <MESSAGE value="add &quot;adresse&quot; part" />
     <MESSAGE value="add &quot;modofication&quot;" />
     <MESSAGE value="modification Cargo.TOML, index.js, inscription.html, lib.rs et www" />
@@ -661,6 +670,7 @@
     <MESSAGE value="Commit pour régler des problemes de VM" />
     <MESSAGE value="Correction probleme affichage liste member.&#10;Restructuration du code :&#10;- Subscribe devient Members&#10;Et&#10;- Video devient Member" />
     <MESSAGE value="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification bouton Valider pour le formulaire d'inscription.&#10;Il n'y a maintenant qu'un seul et unique bouton qui permet de valider son inscription" />
+    <MESSAGE value="Ajout fonction pour l'inscription" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout fonction pour l'inscription" />
   </component>
 </project>
