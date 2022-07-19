@@ -719,38 +719,28 @@ impl Component for App {
                 set_item("product",serde_json::to_string(self.product.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordProduct...");
 
-                spawn_local(
-                    wrap(
-                        async {
-                            console::log!("execution START of Request::get(\"/api/new_produit\")...");
-                            let route = format!("/api/new_produit");
-                            console::log!("route : {}", route.as_str());
-                            let status = Request::post( route.as_str())
-                                .header("Content-Type","application/json")
-                                .body(
-                                    /*format!(
-                                        "{{\"nom_produit\":\"{}\", \"ingredients\":\"{}\", \"prix\":{}}}",
-                                        get_item("nom_produit"),get_item("ingredients"), get_item("prix")
-                                    )*/
-                                    get_item("product")
-                                )
-                                .send()
-                                .await
-                                .unwrap()
-                                .json()
-                                .await
-                                .unwrap();
-                            console::log!("execution END of Request::get(\"/api/new_produit\")...");
-                            status
-
-                        },
-                        _ctx.link().callback(|status| Msg::GetRecordProductStatus(status)))
-
+                _ctx.link().send_future(
+                    async {
+                        console::log!("execution START of Request::get(\"/api/new_produit\")...");
+                        let route = format!("/api/new_produit");
+                        console::log!("route : {}", route.as_str());
+                        let status = Request::post(route.as_str())
+                            .header("Content-Type", "application/json")
+                            .body(
+                                get_item("product")
+                            )
+                            .send()
+                            .await
+                            .unwrap()
+                            .json()
+                            .await
+                            .unwrap();
+                        console::log!("execution END of Request::get(\"/api/new_produit\")...");
+                        Msg::GetRecordProductStatus(status)
+                    }
                 );
-                console::log!("execution END of update fn / Msg::GetRecordProduct ");
-
-                true
-
+                console::log!("processing of message Msg::GetRecordProduct by service end point in progress...");
+                false
             }
             Msg::GetRecordProductStatus(status) => {
                 self.current_request = Msg::GetRecordProductStatus(status);
