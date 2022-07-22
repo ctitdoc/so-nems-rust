@@ -227,16 +227,41 @@ impl App {
     }
     }
     fn get_html_cmd_list(&self, ctx: &Context<Self>) -> Html {
+        let rows = self.commande.iter().map(
+            |commande| {
+                let item_rows =
+                    commande.items.iter().map(|item| html! {
+                        <tr>
+                        //TODO: faire le html comme vue dans templates/commande.html
+                        <td colspan="2">
+                            <table width="100%">
+                                <tbody>
+                                <tr>
+                                        <td>{&item.0}</td>
+                                        <td>{&item.1}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        </tr>
 
-        let rows = self.commande.iter().map(|commande| html! {
+                        }).collect::<Html>()
+                    ;
+
+                html! {
+                    <>
            <tr>
-            //<td>{&commande.quantity}</td>
             <td>{&commande.member_id}</td>
             <td>{&commande.quantite_cmd}</td>
-
            </tr>
+            {item_rows}
+                    </>
 
-}).collect::<Html>();
+
+           }
+            }
+        ).collect::<Html>()
+            ;
 
         html! {
             <section>
