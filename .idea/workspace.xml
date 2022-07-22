@@ -9,11 +9,14 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="Commit pour régler des problemes de VM">
+    <list default="true" id="f8e8d206-e7ec-4582-bbcb-d540bff7e972" name="Changes" comment="conflicts resolutions of the last merge of &quot;member subscription scenario&quot; commits with &quot;initial order creation scenario&quot; commits :&#10;- rollbacked removal of a valid code block in previous commit, added other missing code bloc and performed remaining &quot;video&quot; cleaning, and &quot;inscrire fin&quot; obsolete code;&#10;- tested the following three scenarios ok :&#10;- member subscription then checked the new member in the member listing;&#10;- product creation then checked the new product in the product listing;&#10;- new product + another product ordering (changing quantities) and checked the console log and the occurence of the new order in the order listing (the order listing does not display the order items yet but the order is created with lame values).">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8fc49dc1-2027-4bed-86de-910cad866978.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/www" beforeDir="false" afterPath="$PROJECT_DIR$/www" afterDir="false" />
     </list>
+    <list id="4a256c0c-cb75-445e-b401-f998cf721ca3" name="Changes by itdoc" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,12 +49,12 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Cargo.toml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main.rs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/macros.rs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/index.html" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/La-carte.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/index.html" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/www/so-nems.css" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main.rs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="1ls46uf5" />
@@ -78,7 +81,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="advanced.settings" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -94,6 +97,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Run" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="run --package so-nems --bin so-nems" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -108,11 +116,6 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -264,6 +267,17 @@
       <workItem from="1655891404782" duration="1325000" />
       <workItem from="1655900438357" duration="387000" />
       <workItem from="1656588744363" duration="3538000" />
+      <workItem from="1657211968095" duration="3900000" />
+      <workItem from="1657301639007" duration="1000" />
+      <workItem from="1657524939791" duration="11566000" />
+      <workItem from="1657613363779" duration="865000" />
+      <workItem from="1657630313687" duration="882000" />
+      <workItem from="1658136359101" duration="5940000" />
+      <workItem from="1658213992015" duration="10093000" />
+      <workItem from="1658305013628" duration="5158000" />
+      <workItem from="1658311766575" duration="57000" />
+      <workItem from="1658323082776" duration="4927000" />
+      <workItem from="1658389160092" duration="5544000" />
     </task>
     <task id="LOCAL-00001" summary="intial commit">
       <created>1632909139382</created>
@@ -552,7 +566,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655891787136</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Ajout d'une version initiale de l'interface de création de commande :&#10;- ajout des champs &quot;quantité&quot; dans le listing produit pour saisir la qté du produit que l'on veut commander et un btn &quot;create order&quot; pour enregistrer la commande;&#10;- ajout des callback et traitement de Msg associés pour mémoriser ces qtés dans une HashMap de couples (produit_id,qté) : voir self.order et self.order.items et le code qui les manipule;&#10;- le traitement du btn &quot;create order&quot; créé actuellement une commande via une request post au sonem server avec le self.order dedans mais le sonem server ne traite pas pour le moment les couples (prduit_id,qté) c'est à dire le champs self.order.items (ni le member_id je crois...);&#10;- la évolutions à faire pour terminer une version alpha de ce scénario de création de commande :&#10;- ré-afficher les qté commandées qui ont été mémorisées : cf commentaire TODO dans fn get_html_product_list : actuellement ce listing produit réaffiche systématiquement 0 lorsque que le listing est rafraichi suite à la saisie d'une qté;&#10;- rajouter le member_id dans la commande créé lorsque le scénario de login sera pushé et mémorisera donc le member qui s'est logué et son member id;&#10;- afficher les produit commandés dans le listing de commande (cf le template de ce listing dans templates/commande.html);&#10;- renseigner automatiquement le champ Commande.quantite_cmd comme la somme des qte de self.order.items (cela est  à faire côté sonem server.">
+      <created>1657211456360</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1657211456360</updated>
+    </task>
+    <task id="LOCAL-00043" summary="conflicts resolutions of the last merge of &quot;member subscription scenario&quot; commits with &quot;initial order creation scenario&quot; commits :&#10;- rollbacked removal of a valid code block in previous commit, added other missing code bloc and performed remaining &quot;video&quot; cleaning, and &quot;inscrire fin&quot; obsolete code;&#10;- tested the following three scenarios ok :&#10;- member subscription then checked the new member in the member listing;&#10;- product creation then checked the new product in the product listing;&#10;- new product + another product ordering (changing quantities) and checked the console log and the occurence of the new order in the order listing (the order listing does not display the order items yet but the order is created with lame values).">
+      <created>1657215874084</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1657215874084</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,8 +624,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removes .idea/workspace.xml as it is buggy for the github push/pull process" />
-    <MESSAGE value="test html change after a rust change" />
     <MESSAGE value="test html change after a rust change : insertion de &quot;inscription&quot; wip" />
     <MESSAGE value="add &quot;adresse&quot; part" />
     <MESSAGE value="add &quot;modofication&quot;" />
@@ -621,6 +647,12 @@
     <MESSAGE value="enlevage de async passage a la methode avec storage création de get_item et set_item pour pouvoir créer des produits dans le formulaire et les envoyés dans la BD (doc storage: https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Storage.html#method.set_item)" />
     <MESSAGE value="cotes enlevé pour rentrer les produits en base et sur le lien &quot;liste produit&quot;" />
     <MESSAGE value="Commit pour régler des problemes de VM" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit pour régler des problemes de VM" />
+    <MESSAGE value=" removes a duplicated code bloc forgotten during conflicts resolutions of the last merge of &quot;member subscription scenario&quot; commits with &quot;initial order creation scenario&quot; commits" />
+    <MESSAGE value="conflicts resolutions of the last merge of &quot;member subscription scenario&quot; commits with &quot;initial order creation scenario&quot; commits :&#10;- rollbacked removal of a valid code block in previous commit, added other missing code bloc and performed remaining &quot;video&quot; cleaning, and &quot;inscrire fin&quot; obsolete code;&#10;- tested the following three scenarios ok :&#10;- member subscription then checked the new member in the member listing;&#10;- product creation then checked the new product in the product listing;&#10;- new product + another product ordering (changing quantities) and checked the console log and the occurence of the new order in the order listing (the order listing does not display the order items yet but the order is created with lame values)." />
+    <option name="LAST_COMMIT_MESSAGE" value="conflicts resolutions of the last merge of &quot;member subscription scenario&quot; commits with &quot;initial order creation scenario&quot; commits :&#10;- rollbacked removal of a valid code block in previous commit, added other missing code bloc and performed remaining &quot;video&quot; cleaning, and &quot;inscrire fin&quot; obsolete code;&#10;- tested the following three scenarios ok :&#10;- member subscription then checked the new member in the member listing;&#10;- product creation then checked the new product in the product listing;&#10;- new product + another product ordering (changing quantities) and checked the console log and the occurence of the new order in the order listing (the order listing does not display the order items yet but the order is created with lame values)." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -38,6 +38,7 @@ pub struct Produit {
 
 #[derive(Clone, PartialEq, Serialize, Deserialize)]
 pub struct Commande {
+    commande_id: i32,
     quantite_cmd: i32,
     member_id: i32,
     items:  HashMap<i32, i32>
@@ -164,14 +165,21 @@ impl App {
                     let produit_id: i32 = str_pdt_id.parse::<i32>().unwrap();
                 Msg::ProductQuantity(quantite_cmd,produit_id)
             });
-                //TODO : add logic to get qty value self.order.....items.get(&produit.produit_id) or
-                // 0 if self.order is None ou get returns None
-                let quantity=0;
+
+                let quantity = match self.order {
+                    None => 0,
+                    _ => if self.order.as_ref().unwrap().items.get(&produit.produit_id) != None {
+                        *self.order.as_ref().unwrap().items.get(&produit.produit_id).unwrap()
+                    } else {
+                        0
+                    }
+                };
 
                 html! {
 
 
            <tr>
+
                 <td>{&produit.nom_produit}</td>
                 <td>{&produit.ingredients}</td>
                 <td>{&produit.prix}</td>
@@ -219,12 +227,15 @@ impl App {
     }
     }
     fn get_html_cmd_list(&self, ctx: &Context<Self>) -> Html {
+
         let rows = self.commande.iter().map(|commande| html! {
            <tr>
-           <td><p>{"quantité commandé :"}</p>{&commande.quantite_cmd}</td>
-            <td><p>{"id:"}</p>{&commande.member_id}</td>
+            //<td>{&commande.quantity}</td>
+            <td>{&commande.member_id}</td>
+            <td>{&commande.quantite_cmd}</td>
+
            </tr>
-    //commande.quantite_cmd, commande.member_id
+
 }).collect::<Html>();
 
         html! {
@@ -284,7 +295,7 @@ impl App {
             <a href="#FAQ" onclick={ctx.link().callback(|_| Msg::GetFAQ)}> {"FAQ"} </a>
             <a href = "#admin_member" onclick={ctx.link().callback(|_| Msg::GetMembers)}> {"Liste des membres"}</a>
              <a href = "#admin_cmd" onclick={ctx.link().callback(|_| Msg::GetCommande)}> {"Liste des commandes"}</a>
-             <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"Liste des produit"}</a>
+             <a href = "#admin_prod" onclick={ctx.link().callback(|_| Msg::GetProducts)}> {"Liste des produits"}</a>
             <a href = "#inscription" onclick={ctx.link().callback(|_| Msg::GetMember)}> {"S'inscrire"}</a>
             <a href = "#product" onclick={ctx.link().callback(|_| Msg::GetProductFrom)}> {"Nouveau produit"}</a>
           </ul>
@@ -1068,7 +1079,7 @@ impl Component for App {
                         cmd.items.insert(product_id,qte);
                     }
                     _ => {
-                        self.order = Some(Commande {member_id : 1, quantite_cmd : 0, items: HashMap::new() });
+                        self.order = Some(Commande {member_id : 1, quantite_cmd : 0, items: HashMap::new(), commande_id:0 });
                         let cmd = self.order.as_mut().unwrap();
                         cmd.items.insert(product_id,qte);
                       }
