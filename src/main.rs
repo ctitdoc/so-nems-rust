@@ -243,11 +243,16 @@ impl App {
             |commande| {
                 let item_rows =
                     commande.items.iter().map(|item| html! {
+
                         <tr>
                         //TODO: faire le html comme vue dans templates/commande.html
-                        <td colspan="2">
+                        <td colspan="4">
                             <table width="100%">
                                 <tbody>
+                                <tr>
+                                        <td>{"Référence produit"}</td>
+                                        <td>{"Quantité commandée"}</td>
+                                </tr>
                                 <tr>
                                         <td>{&item.0}</td>
                                         <td>{&item.1}</td>
@@ -262,11 +267,35 @@ impl App {
 
                 html! {
                     <>
-           <tr>
-            <td>{&commande.member_id}</td>
-            <td>{&commande.quantite_cmd}</td>
-           </tr>
-            {item_rows}
+                    <table border="1">
+                    <thead>
+                        <tr>
+                            <th>
+                            {"Référence Commande"}
+                            </th>
+                            <th>
+                           {"Référence membre"}
+                            </th>
+                            <th>
+                            {"Total des quantités"}
+                            </th>
+                            <th>
+                            {"Détail"}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+                        <td>{item_rows}</td>
+                        <td>{&commande.member_id}</td>
+                        <td>{&commande.quantite_cmd}</td>
+                        <td>
+                            <a href="#">{"Masquer le détails"}</a>
+                        </td>
+                       </tr>
+
+                    </tbody>
+                    </table>
                     </>
 
 
