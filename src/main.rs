@@ -91,10 +91,10 @@ pub enum Msg {
     GetRecordMemberStatus(String),
 
     GetLogin,
-    LoginMail(String),
-    LoginPassword(String),
     GetRecordLogin,
-    GetRecordLoginStatus(String),
+    GetRecordLoginStatus(Vec<Member>),
+    LoginMailAdress(String),
+    LoginPassword(String),
 }
 
 pub struct App {
@@ -606,10 +606,10 @@ impl App {
     }
     fn get_html_compte(&self, ctx: &Context<Self>) -> Html {
         let on_input_change_member_password = ctx.link().callback(|e: Event| {
-            Msg::MemberPassword(e.target_unchecked_into::<HtmlInputElement>().value())
+            Msg::LoginPassword(e.target_unchecked_into::<HtmlInputElement>().value())
         });
         let on_input_change_member_mailadress = ctx.link().callback(|e: Event| {
-            Msg::MemberMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
+            Msg::LoginMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
         });
         html! {
             //TODO : Modification Css
@@ -1137,7 +1137,7 @@ impl Component for App {
                             console::log!("execution START of Request::get(\"/api/login_member\")...");
                             let route = format!("/api/login_member");
                             console::log!("route : {}", route.as_str());
-                            let status = Request::post( route.as_str())
+                            let status: Vec<Member> = Request::post( route.as_str())
                                 .header("Content-Type","application/json")
                                 .body(
                                     get_item("login")
@@ -1151,14 +1151,42 @@ impl Component for App {
                             console::log!("execution END of Request::get(\"/api/login_member\")...");
                             status
                         },
+                        //TODO : Faire un if en fonction de ce que l'on a dans le status
                         _ctx.link().callback(|status| Msg::GetRecordLoginStatus(status)))
                 );
                 console::log!("execution END of update fn / Msg::GetRecordLogin ");
                 true
             }
-            Msg::GetRecordLoginStatus(status) => {
-                self.current_request = Msg::GetRecordLoginStatus(status);
+
+            Msg::LoginMailAdress(login_att) => {
+                let optional_log = self.login.as_mut();
+                match optional_log {
+                    Some(pdt) => {
+                        pdt.adresse_mail = login_att;
+                        console::log!(format!("updated self.login.adresse_mail value:{}", self.login.as_ref().unwrap().adresse_mail));
+                    }
+                    _ => {
+                        self.login = Some(Login { adresse_mail: login_att,mot_de_passe: "".to_string()});
+                        console::log!(format!("created self.login.adresse_mail value:{}", self.login.as_ref().unwrap().adresse_mail));
+                    }
+                }
                 true
+
+            }
+            Msg::LoginPassword(login_att) => {
+                let optional_log = self.login.as_mut();
+                match optional_log {
+                    Some(pdt) => {
+                        pdt.mot_de_passe = login_att;
+                        console::log!(format!("updated self.login.mot_de_passe value:{}", self.login.as_ref().unwrap().mot_de_passe));
+                    }
+                    _ => {
+                        self.login = Some(Login { adresse_mail: "".to_string(),mot_de_passe: login_att });
+                        console::log!(format!("created self.login.mot_de_passe value:{}", self.login.as_ref().unwrap().mot_de_passe));
+                    }
+                }
+                true
+
             }
             _ => { true }
         }
