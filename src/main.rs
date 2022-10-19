@@ -11,10 +11,11 @@ use web_sys::Storage;
 use web_sys::Window;
 use std::fmt;
 use std::collections::HashMap;
+use gloo_console::externs::error;
 
 
 // Define the possible messages which can be sent to the component
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug,Clone, PartialEq, Serialize, Deserialize)]
 pub struct Member {
     nom: String,
     prenom: String,
@@ -95,6 +96,7 @@ pub enum Msg {
     GetRecordLoginStatus(Vec<Member>),
     LoginMailAdress(String),
     LoginPassword(String),
+
 }
 
 pub struct App {
@@ -108,6 +110,7 @@ pub struct App {
     order:Option<Commande>,
     member: Option<Member>,
     login: Option<Login>,
+    login_msg: Option<String>,
 }
 
 async fn wrap<F: std::future::Future>(f: F, the_callback: yew::Callback<F::Output>) {
@@ -244,23 +247,17 @@ impl App {
                 let item_rows =
                     commande.items.iter().map(|item| html! {
 
-                        <tr>
-                        //TODO: faire le html comme vue dans templates/commande.html
-                        <td colspan="4">
-                            <table width="100%">
-                                <tbody>
-                                <tr>
-                                        <td>{"Référence produit"}</td>
-                                        <td>{"Quantité commandée"}</td>
-                                </tr>
+
+                              <tbody>
+
+
+
                                 <tr>
                                         <td>{&item.0}</td>
                                         <td>{&item.1}</td>
                                 </tr>
                                 </tbody>
-                            </table>
-                        </td>
-                        </tr>
+
 
                         }).collect::<Html>()
                     ;
@@ -286,7 +283,7 @@ impl App {
                     </thead>
                     <tbody>
                        <tr>
-                        <td>{item_rows}</td>
+                        <td>{&commande.commande_id}</td>
                         <td>{&commande.member_id}</td>
                         <td>{&commande.quantite_cmd}</td>
                         <td>
@@ -295,7 +292,20 @@ impl App {
                        </tr>
 
                     </tbody>
+                    <tr>
+                        //TODO: faire le html comme vue dans templates/commande.html
+                        <td colspan="4">
+                            <table width="100%">
+                     <tr>
+                                        <td>{"Référence produit"}</td>
+                                        <td>{"Quantité commandée"}</td>
+                                </tr>
+                    {item_rows}
                     </table>
+                        </td>
+                        </tr>
+                    </table>
+
                     </>
 
 
@@ -640,6 +650,18 @@ impl App {
         let on_input_change_member_mailadress = ctx.link().callback(|e: Event| {
             Msg::LoginMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
         });
+
+
+        let error_msg = match &self.login_msg {
+            Some(error_val) => {
+                error_val
+            }
+            _ => {""}
+        } ;
+
+
+
+
         html! {
             //TODO : Modification Css
             <>
@@ -656,6 +678,7 @@ impl App {
                         <section>
                             <div class="container">
                                 <div class="formulaire">
+                                        <p>{error_msg}</p>
                                     <form method="post" action="#">
                                         <div>
                                             <p><label for="identifiant"> {"Identifiant"} </label><br/>
@@ -668,7 +691,8 @@ impl App {
                                         <div class = "link">
                                             <a href="#"> {"Mot de passe oublié"}</a>
                                             <a href="inscription.html"> {"S'inscrire"}</a>
-                                            <button id="TpTest" type="button" onclick={ctx.link().callback(|_| Msg::GetRecordLogin)}>{"Valider"}   </button>
+                                            <button id="TpTest" type="button" onclick = {ctx.link().callback( |_| Msg::GetRecordLogin)} > {"Valider"} </button>
+
                                         </div>
                                     </form>
                                 </div>
@@ -686,7 +710,7 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None, login:None, order:None}
+        Self { value: 0, members: Vec::new(), products: Vec::new(), commande: Vec::new(), current_request: Msg::Home, product:None , member:None, login:None, order:None, login_msg:None}
     }
 
     fn  update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -1158,6 +1182,8 @@ impl Component for App {
 
             Msg::GetRecordLogin => {
                 self.current_request = Msg::GetRecordLogin;
+
+
                 set_item("login",serde_json::to_string(self.login.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordLogin...");
                 spawn_local(
@@ -1181,11 +1207,58 @@ impl Component for App {
                             status
                         },
                         //TODO : Faire un if en fonction de ce que l'on a dans le status
+
+
+
                         _ctx.link().callback(|status| Msg::GetRecordLoginStatus(status)))
                 );
+                /*match &self.error {
+                    Some( mut error_sys) => {
+                        &error_sys = &self.error.as_ref().unwrap().to_string();
+                    }
+                    None => {
+                        &self.error;
+                    }*/
+
                 console::log!("execution END of update fn / Msg::GetRecordLogin ");
                 true
             }
+           Msg::GetRecordLoginStatus(status) => {
+               self.current_request = Msg::GetRecordLoginStatus(status.clone());
+               self.login_msg = None;
+               console::log!(format!("{:?}",status));
+               match status.len() {
+                   0 => {
+                            let auth_failed_msg = "authentification failed";
+                            console::log!(format!("{}",auth_failed_msg));
+                            self.login_msg = Some(auth_failed_msg.to_string());
+
+                   }
+                   1 => {   let auth_success = "authentification success";
+                            console::log!(format!("{:?}",status));
+                            self.login_msg = Some(auth_success.to_string());
+                   }
+                   _ => {
+                           let tech_error_msg = "Sorry technical error ocurred, please contact support";
+                           console::log!(format!("{}",tech_error_msg));
+                           self.login_msg = Some(tech_error_msg.to_string());
+
+                   }
+               }
+
+               /*if self.members.len()==0{
+                   console::log!("Authentication failed");
+               }
+               else if self.members.len()==1{
+                       console::log!("item");
+                   }
+               else {
+                   console::log!("An error was detected on your account, please contact support")
+
+               }*/
+
+                true
+           }
 
             Msg::LoginMailAdress(login_att) => {
                 let optional_log = self.login.as_mut();
