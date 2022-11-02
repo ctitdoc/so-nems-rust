@@ -335,8 +335,19 @@ impl App {
         }
     }
     fn get_html_accueil(&self, ctx: &Context<Self>) -> Html {
+        let error_msg = match &self.login_msg {
+            Some(error_val) => {
+                error_val
+            }
+            _ => {
+                ctx.link().callback(|e: Event| {
+                    Msg::GetCompte
+                });
+                ""}
+        } ;
         html! {
     <header>
+
         <div class = "nav-img">
             <div class = "img-pres" >
         </div>
@@ -344,6 +355,7 @@ impl App {
             <h1>{"Sô Nems"}</h1>
             <hr color = "black"/>
             <h2>{"spécialité maison"}</h2>
+            {error_msg}
         </div>
             <div class = "construction">
             <h1>{"Site en construction"}</h1>
@@ -651,13 +663,16 @@ impl App {
             Msg::LoginMailAdress(e.target_unchecked_into::<HtmlInputElement>().value())
         });
 
-
         let error_msg = match &self.login_msg {
             Some(error_val) => {
                 error_val
             }
-            _ => {""}
+            _ => {
+                ctx.link().callback(|e: Event| Msg::GetCompte);
+                ""}
         } ;
+
+
 
 
 
@@ -691,7 +706,7 @@ impl App {
                                         <div class = "link">
                                             <a href="#"> {"Mot de passe oublié"}</a>
                                             <a href="inscription.html"> {"S'inscrire"}</a>
-                                            <button id="TpTest" type="button" onclick = {ctx.link().callback( |_| Msg::GetRecordLogin)} > {"Valider"} </button>
+                                            <button type="button" onclick = {ctx.link().callback( |_| Msg::GetRecordLogin)} > {"Valider"} </button>
 
                                         </div>
                                     </form>
@@ -932,11 +947,6 @@ impl Component for App {
             Msg::GetContact => {
                 self.current_request = Msg::GetContact;
                 console::log!("execution of update fn / Msg::GetContact");
-                true
-            }
-            Msg::GetCompte => {
-                self.current_request = Msg::GetCompte;
-                console::log!("execution of update fn / Msg::GetCompte");
                 true
             }
             Msg::GetAnnonce => {
@@ -1212,13 +1222,6 @@ impl Component for App {
 
                         _ctx.link().callback(|status| Msg::GetRecordLoginStatus(status)))
                 );
-                /*match &self.error {
-                    Some( mut error_sys) => {
-                        &error_sys = &self.error.as_ref().unwrap().to_string();
-                    }
-                    None => {
-                        &self.error;
-                    }*/
 
                 console::log!("execution END of update fn / Msg::GetRecordLogin ");
                 true
@@ -1233,31 +1236,27 @@ impl Component for App {
                             console::log!(format!("{}",auth_failed_msg));
                             self.login_msg = Some(auth_failed_msg.to_string());
 
+                            self.current_request = Msg::GetCompte;
+
+
                    }
                    1 => {   let auth_success = "authentification success";
                             console::log!(format!("{:?}",status));
                             self.login_msg = Some(auth_success.to_string());
                    }
                    _ => {
-                           let tech_error_msg = "Sorry technical error ocurred, please contact support";
-                           console::log!(format!("{}",tech_error_msg));
-                           self.login_msg = Some(tech_error_msg.to_string());
+
+                            let tech_error_msg = "Sorry technical error ocurred, please contact support";
+                            console::log!(format!("{}",tech_error_msg));
+                            self.login_msg = Some(tech_error_msg.to_string());
+                            self.current_request = Msg::GetCompte;
+
 
                    }
+
+
                }
-
-               /*if self.members.len()==0{
-                   console::log!("Authentication failed");
-               }
-               else if self.members.len()==1{
-                       console::log!("item");
-                   }
-               else {
-                   console::log!("An error was detected on your account, please contact support")
-
-               }*/
-
-                true
+               true
            }
 
             Msg::LoginMailAdress(login_att) => {
