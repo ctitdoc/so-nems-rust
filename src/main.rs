@@ -749,8 +749,7 @@ impl Component for App {
             Msg::GetMembers => {
                 self.current_request = Msg::GetMembers;
                 console::log!("execution START of update fn / Msg::GetMembers...");
-                spawn_local(
-                    wrap(
+                _ctx.link().send_future(
                         async {
                             console::log!("execution START of Request::get(\"/api/member\")...");
                             let fetched_videos = Request::get("/api/member")
@@ -761,9 +760,9 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/member\")...");
-                            fetched_videos
-                        },
-                        _ctx.link().callback(|fetched_videos| Msg::UpdateMemberList(fetched_videos)))
+                            Msg::UpdateMemberList(fetched_videos)
+                        }
+
                 );
 
                 console::log!("execution END of update fn / Msg::GetMembers ");
@@ -777,8 +776,7 @@ impl Component for App {
             Msg::GetProducts => {
                 self.current_request = Msg::GetProducts;
                 console::log!("execution START of update fn / Msg::GetProducts...");
-                spawn_local(
-                    wrap(
+                _ctx.link().send_future(
                         async {
                             console::log!("execution START of Request::get(\"/api/produit\")...");
                             let fetched_videos = Request::get("/api/produit")
@@ -789,9 +787,9 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/produit\")...");
-                            fetched_videos
+                            Msg::UpdateProdList(fetched_videos)
                         },
-                        _ctx.link().callback(|fetched_videos| Msg::UpdateProdList(fetched_videos)))
+
                 );
 
                 console::log!("execution END of update fn / Msg::GetProducts ");
@@ -805,8 +803,7 @@ impl Component for App {
             Msg::GetCommande => {
                 self.current_request = Msg::GetCommande;
                 console::log!("execution START of update fn / Msg::GetCommande...");
-                spawn_local(
-                    wrap(
+                _ctx.link().send_future(
                         async {
                             console::log!("execution START of Request::get(\"/api/commande\")...");
                             let fetched_videos = Request::get("/api/commande")
@@ -817,9 +814,9 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/commande\")...");
-                            fetched_videos
-                        },
-                        _ctx.link().callback(|fetched_videos| Msg::UpdateCmdList(fetched_videos)))
+                            Msg::UpdateCmdList(fetched_videos)
+                        }
+
                 );
 
                 console::log!("execution END of update fn / Msg::GetCommande ");
@@ -871,8 +868,7 @@ impl Component for App {
                 set_item("order",serde_json::to_string(self.order.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordOrder...");
 
-                spawn_local(
-                    wrap(
+                _ctx.link().send_future(
                         async {
                             console::log!("execution START of Request::get(\"/api/new_order\")...");
                             let route = format!("/api/new_order");
@@ -890,10 +886,10 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/new_order\")...");
-                            status
+                            Msg::GetRecordOrderStatus(status)
 
-                        },
-                        _ctx.link().callback(|status| Msg::GetRecordOrderStatus(status)))
+                        }
+
 
                 );
                 console::log!("execution END of update fn / Msg::GetRecordOrder ");
@@ -1013,8 +1009,7 @@ impl Component for App {
                 set_item("member",serde_json::to_string(self.member.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordMember...");
 
-                spawn_local(
-                    wrap(
+                _ctx.link().send_future(
                         async {
                             console::log!("execution START of Request::get(\"/api/new_member\")...");
                             let route = format!("/api/new_member");
@@ -1031,10 +1026,10 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/new_member\")...");
-                            status
+                            Msg::GetRecordMemberStatus(status)
 
                         },
-                        _ctx.link().callback(|status| Msg::GetRecordMemberStatus(status)))
+
 
                 );
                 console::log!("execution END of update fn / Msg::GetRecordMember ");
@@ -1196,8 +1191,7 @@ impl Component for App {
 
                 set_item("login",serde_json::to_string(self.login.as_ref().unwrap()).unwrap().as_str());
                 console::log!("execution START of update fn / Msg::GetRecordLogin...");
-                spawn_local(
-                    wrap(
+                _ctx.link().send_future(
                         async {
                             console::log!("execution START of Request::get(\"/api/login_member\")...");
                             let route = format!("/api/login_member");
@@ -1214,13 +1208,13 @@ impl Component for App {
                                 .await
                                 .unwrap();
                             console::log!("execution END of Request::get(\"/api/login_member\")...");
-                            status
+                            Msg::GetRecordLoginStatus(status)
                         },
                         //TODO : Faire un if en fonction de ce que l'on a dans le status
 
 
 
-                        _ctx.link().callback(|status| Msg::GetRecordLoginStatus(status)))
+
                 );
 
                 console::log!("execution END of update fn / Msg::GetRecordLogin ");
